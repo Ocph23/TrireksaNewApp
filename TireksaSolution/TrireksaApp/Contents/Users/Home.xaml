@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="TrireksaApp.Contents.Users.Home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TrireksaApp.Contents.Users"
+             mc:Ignorable="d" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Style="{StaticResource ContentRoot}" >
+        <mui:ModernTab SelectedSource="/Contents/Users/ChangeProfile.xaml" Layout="Tab" >
+            <mui:ModernTab.Links>
+                <mui:Link DisplayName="My Profile" Source="/Contents/Users/ChangeProfile.xaml" />
+                <mui:Link DisplayName="Set Roles" Source="/Contents/Users/ManageUser.xaml" />
+            </mui:ModernTab.Links>
+        </mui:ModernTab>
+    </Grid>
+</UserControl>

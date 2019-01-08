@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="TrireksaApp.Contents.Invoice.Create"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TrireksaApp.Contents.Invoice"
+              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" xmlns:mi="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="{x:Type TextBlock}" x:Key="RightNumber">
+                <Setter Property="TextAlignment" Value="Right"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel  Grid.Row="0">
+            <TextBlock Text="Create New Invoice" Style="{StaticResource Heading2}"  />
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" BorderThickness="0,0,0,1">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Opacity="0.6"></SolidColorBrush>
+                </Border.BorderBrush>
+                <StackPanel >
+                    <StackPanel Style="{StaticResource OPanel}" >
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="#FFE28AE6" Opacity="0"/>
+                        </StackPanel.Background>
+                        <mi:PackIcon Kind="Coin"/>
+                        <Label Content="Number"/>
+                        <TextBlock Text="{Binding NumberView}"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource OPanel}" >
+                        <mi:PackIcon Kind="Account"/>
+                        <Label Content="Customer"/>
+                        <ComboBox Text="{Binding SearchText}" IsEditable="True" ItemsSource="{Binding  MainVM.CustomerCollection.SourceView}" 
+                              SelectedItem="{Binding CustomerSelectedItem}" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding CustomerId}"/>
+                      
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource OPanel}">
+                        <mi:PackIcon Kind="Calendar"/>
+                        <Label Content="Dead Line"/>
+                        <DatePicker Margin="2"  SelectedDate="{Binding DeadLine}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+           
+            <DataGrid Grid.Row="1"   AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" 
+                      ItemsSource="{Binding SourceView}">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn  Binding="{Binding IsSelected}"/>
+                    <DataGridTextColumn MinWidth="75" IsReadOnly="True" Header="STT" Binding="{Binding STT,StringFormat='D5'}"/>
+                    <DataGridTextColumn Width="*"  IsReadOnly="True" Header="Shiper" Binding="{Binding Shiper}"/>
+                    <DataGridTextColumn Width="*"  IsReadOnly="True" Header="Reciver" Binding="{Binding Reciver}"/>
+                    <DataGridTextColumn MinWidth="50" IsReadOnly="True" Header="Pcs" ElementStyle="{StaticResource RightNumber}" Binding="{Binding Pcs}"/>
+                    <DataGridTextColumn MinWidth="75" IsReadOnly="True" ElementStyle="{StaticResource RightNumber}" Header="Weight"  Binding="{Binding Weight,StringFormat='{}{0:N2}'}"/>
+                    <DataGridTextColumn MinWidth="75" IsReadOnly="True" ElementStyle="{StaticResource RightNumber}" Header="Price" Binding="{Binding Price,StringFormat='{}{0:N2}'}"/>
+                    <DataGridTextColumn MinWidth="75" IsReadOnly="True" ElementStyle="{StaticResource RightNumber}" Header="Packing" Binding="{Binding PackingCosts,StringFormat='{}{0:N2}'}"/>
+                    <DataGridTextColumn MinWidth="50" IsReadOnly="True" ElementStyle="{StaticResource RightNumber}" Header="Lain2" Binding="{Binding Etc,StringFormat='{}{0:N2}'}"/>
+                    <DataGridTextColumn MinWidth="50" IsReadOnly="True" ElementStyle="{StaticResource RightNumber}" Header="Tax" Binding="{Binding Tax,StringFormat='{}{0:N2} %'}"/>
+                    <DataGridTextColumn MinWidth="125" IsReadOnly="True" ElementStyle="{StaticResource RightNumber}" Header="Total" Binding="{Binding Total,StringFormat='{}{0:N2}'}"/>
+                    <DataGridTextColumn IsReadOnly="True" Width="auto" MinWidth="1"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Border Grid.Row="2" BorderThickness="0,1,0,1">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Opacity="0.6"></SolidColorBrush>
+                </Border.BorderBrush>
+                <StackPanel >
+                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{StaticResource OPanel}">
+                    <Label Width="auto" Content="Grand Total" FontSize="18"/>
+                    <TextBlock Text="{Binding GrandTotal,StringFormat='{}{0:N0}',UpdateSourceTrigger=PropertyChanged}" FontSize="18"/>
+                </StackPanel>
+            </StackPanel>
+                </Border>
+
+        </Grid>
+        <StackPanel Margin="3" Orientation="Horizontal" Grid.Row="2" VerticalAlignment="Center" Height="40"  HorizontalAlignment="Right">
+            <Button HorizontalAlignment="Right" Command="{Binding Save}" Content="Create"/>
+            <Button HorizontalAlignment="Right" Command="{Binding SaveAndPrint}"  Content="Create And Print"/>
+            <Button HorizontalAlignment="Right" Command="{Binding PreviewManifest}" Content="Preview"/>
+            <Button Content="Cancel" Command="NavigationCommands.Refresh"/>
+        </StackPanel>
+        <mui:ModernProgressRing IsActive="{Binding ProgressIsActive}" Width="80" Height="20"  />
+    </Grid>
+</UserControl>

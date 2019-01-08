@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="TrireksaApp.Pages.Settings.About"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="1000">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55*"/>
+                <RowDefinition Height="337*"/>
+                <RowDefinition Height="108*"/>
+            </Grid.RowDefinitions>
+            <StackPanel MinWidth="200" Grid.RowSpan="3">
+                <TextBlock Text="ABOUT" Style="{StaticResource Heading2}" />
+                <Label Width="auto" Margin="0,50" HorizontalAlignment="Center" Content="APLIKASI PENJUALAN CARGO" FontSize="48" FontWeight="Bold">
+                    <Label.Foreground>
+                        <RadialGradientBrush>
+                            <GradientStop Color="#FFEF9C00" Offset="0"/>
+                            <GradientStop Color="#FF1B3B4E" Offset="0.619"/>
+                            <GradientStop Color="#FF1BEB16" Offset="0.019"/>
+                        </RadialGradientBrush>
+                    </Label.Foreground>
+                </Label>
+
+            </StackPanel>
+            <StackPanel Margin="10" Grid.Row="2">
+                <Image  Source="../../Assets/Trireksa.png" Stretch="Fill" Height="61" Width="200" />
+                <Label HorizontalAlignment="Center" Width="auto" Content="@Ocph23  2016 - 2018"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

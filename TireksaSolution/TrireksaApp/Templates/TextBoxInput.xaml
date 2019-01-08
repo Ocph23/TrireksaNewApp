@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="TrireksaApp.Templates.TextBoxInput"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TrireksaApp.Templates"
+             mc:Ignorable="d" Height="40" Width="297" Margin="1">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="lb"  Content="APA"/>
+        <TextBox x:Name="tx"  Grid.Column="1"></TextBox>
+    </Grid>
+</UserControl>

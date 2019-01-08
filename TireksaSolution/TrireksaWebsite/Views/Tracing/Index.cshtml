@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<script src="~/Scripts/angular.js"></script>
+<div id="item" ng-app="tracingApp" ng-controller="tracingController" ng-init="Init()">
+    <div class="container" style="margin:10px">
+        <div >
+            <h2>Tracing</h2>
+
+            <div class="form-group">
+                <div class="col-md-4 input-group">
+                    <input ng-model="STT" type="text" class="form-control" />
+                    <span class="input-group-addon" style="padding:0px">
+                        <button ng-click="Search()" style="margin:0px;padding:0px ;width:40px;height:40px; border:0px"><span class="fa fa-search"></span></button>
+                    </span>
+
+                </div>
+            </div>
+
+            <div class="col-md-12" ng-switch on="Result">
+                <div ng-switch-when="Empty">
+                    <div class="col-md-12">
+                    </div>
+                </div>
+                <div ng-switch-when="Found">
+                    <div>
+                        <h3>Result</h3>
+
+                        <h4>Shipment Information</h4>
+                        <table class="table">
+                            <caption></caption>
+                            <thead>
+                                <tr>
+                                    <th>Shiper</th>
+                                    <th>Reciver</th>
+                                    <th>Pcs</th>
+                                    <th>Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{Model.ShiperName}}</td>
+                                    <td>{{Model.ReciverName}}</td>
+                                    <td>{{Model.Pcs}}</td>
+                                    <td>{{Model.Weight}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <h4>Shipment</h4>
+                        <table class="table">
+                            <caption></caption>
+                            <thead>
+                                <tr>
+                                    <th>Created</th>
+                                    <th>Origin</th>
+                                    <th>Destination</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{Model.ChangeDate}}</td>
+                                    <td>{{Model.PortOriginName}}</br>{{Model.PortOriginCode}}</td>
+                                    <td>{{Model.PortDestinationName}}</br>{{Model.PortDestionationCode}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+
+                        <h4>On Manifest</h4>
+                        <div class="col-md-12" ng-repeat="item in Model.Manifests">
+                            <div class="col-md-12">
+                                <h5>  Manifest Code : {{item.ManifestCode}}</h5>
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <caption></caption>
+                                    <thead>
+                                        <tr>
+                                            <th>On Origin Port</th>
+                                            <th>On Destination</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{item.OnOriginPort}}</td>
+                                            <td>{{item.OnDestinationPort}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+
+                        <h4>Recive Information</h4>
+                        <table class="table">
+                            <caption></caption>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Recive By</th>
+                                    <th>Phone</th>
+                                    <th>Courier</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{Model.ReciveDate}}</td>
+                                    <td>{{Model.ReciveName}}</td>
+                                    <td>{{Model.Phone}}</td>
+                                    <td>{{Model.Courier}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+                <div ng-switch-when="NotFound">
+                    <div class="col-md-12">
+                        <h3>Not Result</h3>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+
+    var app = angular.module("tracingApp", []).controller("tracingController", function ($scope, $http) {
+
+        $scope.Init=function()
+        {
+            $scope.Result = 'Empyt';
+        }
+
+        $scope.Search = function () {
+            var url = '/api/tracing/GetPenjualan?Stt=' + $scope.STT;
+
+            $http.get(url)
+             .success(function (response, result) {
+                 $scope.Model = response;
+                 $scope.Result = 'Found';
+             })
+            .error(function (response) {
+                $scope.Result = 'NotFound';
+            })
+            ;
+
+        }
+
+
+
+    });
+
+    
+
+</script>
+
+       
+
+
+
+

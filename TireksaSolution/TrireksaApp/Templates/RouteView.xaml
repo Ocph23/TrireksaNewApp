@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="TrireksaApp.Templates.RouteView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TrireksaApp.Templates"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="150">
+    <Grid>
+        <StackPanel Width="150" Margin="0,0,0,52">
+            <Canvas HorizontalAlignment="Center" VerticalAlignment="Center"  >
+                <Line X1="150"  VerticalAlignment="Center" Fill="#FFD8E45F"  StrokeThickness="10" Canvas.Left="-75" Canvas.Top="18" Opacity="0.92" Height="9">
+                    <Line.Stroke>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2C3A3E" Offset="0"/>
+                            <GradientStop Color="#FF19809E" Offset="1"/>
+                            <GradientStop Color="#FF1F697E" Offset="0.788"/>
+                            <GradientStop Color="#FF1C748D" Offset="0.292"/>
+                        </LinearGradientBrush>
+                    </Line.Stroke>
+                </Line>
+                <Ellipse HorizontalAlignment="Center" Height="32"  Width="34" Canvas.Left="-18" Canvas.Top="3" RenderTransformOrigin="0.5,0.5" StrokeThickness="3" >
+                    <Ellipse.Stroke>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFEAD71A" Offset="0.535"/>
+                            <GradientStop Color="#FF37D2E2" Offset="0.976"/>
+                            <GradientStop Color="#FF6AD1B6"/>
+                        </LinearGradientBrush>
+                    </Ellipse.Stroke>
+                    <Ellipse.Fill>
+                        <RadialGradientBrush GradientOrigin="0.5,0.5" SpreadMethod="Reflect">
+                            <RadialGradientBrush.Transform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="105" Y="-42"/>
+                                </TransformGroup>
+                            </RadialGradientBrush.Transform>
+                            <GradientStop Color="#FF6C852A" Offset="1"/>
+                            <GradientStop Color="#FFCBF50D" Offset="0.306"/>
+                            <GradientStop Color="#FFCBF50D" Offset="0.781"/>
+                            <GradientStop Color="#FFF5AB0D" Offset="0.514"/>
+                        </RadialGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+
+            </Canvas>
+            <Label x:Name="LabelName" HorizontalAlignment="Center" FontSize="12" Margin="0,37" ></Label>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

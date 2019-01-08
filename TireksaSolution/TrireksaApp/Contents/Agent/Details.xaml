@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="TrireksaApp.Contents.Agent.Details"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TrireksaApp.Contents.Agent"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" xmlns:mi="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="340" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="Blue"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <StackPanel Style="{StaticResource OPanel}">
+                <mi:PackIcon Kind="Office"/>
+                <Label Content="Name"></Label>
+                <TextBlock Text="{Binding Name}"></TextBlock>
+            </StackPanel>
+            <StackPanel Style="{StaticResource OPanel}">
+                <mi:PackIcon Kind="NoteText"/>
+                <Label Content="NPWP"></Label>
+                <TextBlock Text="{Binding NPWP}"></TextBlock>
+            </StackPanel>
+            <StackPanel Style="{StaticResource OPanel}">
+                <mi:PackIcon Kind="AccountPlus"/>
+                <Label Content="Contact Name"></Label>
+                <TextBlock Text="{Binding ContactName}"></TextBlock>
+            </StackPanel>
+            <StackPanel Style="{StaticResource OPanel}">
+                <mi:PackIcon Kind="Phone"/>
+                <Label Content="Phone"></Label>
+                <TextBlock Text="{Binding Phone}"></TextBlock>
+            </StackPanel>
+            <StackPanel Style="{StaticResource OPanel}">
+                <mi:PackIcon Kind="CellphoneIphone"/>
+                <Label Content="Handphone"></Label>
+                <TextBlock Text="{Binding Handphone}"></TextBlock>
+            </StackPanel>
+            <StackPanel Style="{StaticResource OPanel}">
+                <mi:PackIcon Kind="EmailOutline"/>
+                <Label Content="Email"></Label>
+                <TextBlock Text="{Binding Email}"></TextBlock>
+            </StackPanel>
+            <StackPanel Style="{StaticResource OPanel}">
+                <mi:PackIcon Kind="BookOpen"/>
+                <Label  Content="Address"></Label>
+                <TextBlock Text="{Binding Address}"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

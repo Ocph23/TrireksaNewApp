@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "UploadPhoto";
+}
+
+
+<script src="~/Scripts/angular.js"></script>
+
+
+<div class="container" ng-app="UpdatePhoto" ng-controller="UpdatePhotoController">
+
+    <h2>UploadPhoto</h2>
+
+
+    <img style="margin:10px;width:100%;height:50%" id="view" />
+
+
+    <form ng-submit="UploadPhoto(data)">
+        <div class="form-group">
+            @Html.Label("STT", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input ng-model="data.STT" required class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Pilih Foto", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" required id="file" name="file" onchange="OnImageChange(this)" class="form-control" />
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Simpan" class="btn btn-default" />
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<script type="text/javascript">
+    document.getElementById('file').onchange = function (evt) {
+        var tgt = evt.target || window.event.srcElement,
+            files = tgt.files;
+
+        // FileReader support
+        if (FileReader && files && files.length) {
+            var fr = new FileReader();
+            fr.onload = function () {
+                document.getElementById("view").src = fr.result;
+            }
+            fr.readAsDataURL(files[0]);
+        }
+
+        // Not supported
+        else {
+            // fallback -- perhaps submit the input to an iframe and temporarily store
+            // them on the server until the user's session ends.
+        }
+    }
+
+
+    var app = angular.module("UpdatePhoto", []).controller("UpdatePhotoController", function ($scope, $http) {
+
+        $scope.model = {};
+        $scope.Init = function () {
+            $scope.Result = 'Empyt';
+        }
+    
+        $scope.UploadPhoto = function(data)
+        {
+            var file = document.getElementById("file").files[0];
+            var ext = file.name.split('.')[1];
+            var source = document.getElementById("view").src;
+            var form = {};
+            form.Ext = ext;
+            form.Picture = source.split(',')[1];
+            form.STT = data.STT;
+            form.File = file.name.split('.')[0];
+
+            $http({
+                "url": "/api/Photos/AddNewPhoto",
+                "method": "POST",
+                "data": form
+            })
+                .success(function (response, result) {
+                    alert("Berhasil Disimpan");
+                    $scope.model = {};
+                })
+                .error(function (err, response) {
+                    if (response != undefined)
+                        alert(err.Message);
+                    else
+                        alert(err);
+                })
+                ;
+        }
+    });
+
+
+
+</script>

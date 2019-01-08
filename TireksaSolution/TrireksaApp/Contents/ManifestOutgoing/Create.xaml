@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="TrireksaApp.Contents.ManifestOutgoing.Create"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TrireksaApp.Contents.ManifestOutgoing"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="37*"/>
+            <ColumnDefinition Width="38*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel  Grid.ColumnSpan="2" Grid.Row="0">
+            <TextBlock Text="Create New Manifest Outgoing" Style="{StaticResource Heading2}" Height="22"  />
+        </StackPanel>
+        <StackPanel  Margin="5" Grid.Row="1" Grid.ColumnSpan="2">
+            <Border BorderThickness="0,0,0,1">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="{DynamicResource AccentColor}"/>
+                </Border.BorderBrush>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" >
+                        <StackPanel Style="{StaticResource OPanel}">
+                            <Label Content="Number" Margin="5,12"/>
+                            <Label Width="200"  Content="{Binding ManifestCode}" />
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource OPanel}">
+                            <Label Content="Agent"></Label>
+                            <ComboBox ItemsSource="{Binding AgentCollection.SourceView}"
+                                          SelectedItem="{Binding Agent}"  DisplayMemberPath="Name" SelectedValuePath="Id" 
+                          SelectedValue="{Binding AgentId,Mode=TwoWay,ValidatesOnDataErrors=True}" SelectionChanged="AgentSelectionChange"></ComboBox>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource OPanel}">
+                            <Label Content="Port Type"></Label>
+                            <ComboBox ItemsSource="{Binding PortTypes}" SelectedItem="{Binding PortSelected}"  SelectedValue="{Binding PortType,Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged"  ></ComboBox>
+                        </StackPanel>
+
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <StackPanel Style="{StaticResource OPanel}"/>
+                        <StackPanel Style="{StaticResource OPanel}">
+                            <Label Content="Origin"></Label>
+                            <ComboBox ItemsSource="{Binding OriginView,NotifyOnValidationError=True}" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding Origin,ValidatesOnDataErrors=True}" ></ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Style="{StaticResource OPanel}">
+                            <Label Content="Destination"></Label>
+                            <ComboBox ItemsSource="{Binding DestinationView,NotifyOnValidationError=True}" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding Destination,ValidatesOnDataErrors=True}" ></ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2"  Grid.ColumnSpan="2" Margin="5">
+            <StackPanel >
+                <DataGrid ItemsSource="{Binding PenjualanTemporaryView}" SelectedItem="{Binding STTSelectedItem}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="STT/AWB" Binding="{Binding STT,StringFormat='D5'}"/>
+                        <DataGridTextColumn Width="200" Header="Shiper" Binding="{Binding Shiper.Name}"/>
+                        <DataGridTextColumn Width="200" Header="Reciver" Binding="{Binding Reciver.Name}"/>
+                        <DataGridTextColumn Header="Pcs" Binding="{Binding Pcs}"/>
+                        <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Add STT/AWB" Command="{Binding BrowseManifestCommand}"/>
+                            <MenuItem Header="Delete STT/AWB" Command="{Binding DeleteSTTFromList}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="3">
+            <WrapPanel HorizontalAlignment="Right">
+                <Button Command="{Binding Save}" HorizontalAlignment="Right" Content="Save"></Button>
+                <Button Command="{Binding Preview}" HorizontalAlignment="Right" Content="Preview"></Button>
+                <Button Command="{Binding Cancel}" HorizontalAlignment="Right" Content="Cancel"></Button>
+            </WrapPanel>
+
+        </StackPanel>
+
+    </Grid>
+
+
+
+</UserControl>

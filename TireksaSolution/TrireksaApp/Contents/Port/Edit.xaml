@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="TrireksaApp.Contents.Port.Edit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TrireksaApp.Contents.Port"
+             mc:Ignorable="d" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <StackPanel MinWidth="200">
+            <TextBlock Text="Edit Port" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
+            <!-- actual form starts here -->
+            <StackPanel x:Name="Form" Orientation="Vertical">
+                <StackPanel Style="{StaticResource OPanel}">
+                    <Label Content="Port Type" />
+                    <ComboBox Width="150" ItemsSource="{Binding PortTypes}" SelectedItem="{Binding PortType, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                </StackPanel>
+                <StackPanel Style="{StaticResource OPanel}">
+                    <Label Content="Port Name"/>
+                    <TextBox  Width="150" Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+                </StackPanel>
+
+
+                <StackPanel Style="{StaticResource OPanel}">
+                    <Label Content="City" />
+                    <ComboBox ItemsSource="{Binding Cities}" DisplayMemberPath="CityName" SelectedValuePath="Id" SelectedValue="{Binding CityID,Mode=TwoWay,ValidatesOnDataErrors=True}" Width="150" />
+                </StackPanel>
+                <StackPanel Style="{StaticResource OPanel}">
+                    <Label Content="Port Code" />
+                    <TextBox  Text="{Binding Code,Mode=TwoWay,ValidatesOnDataErrors=True}" Width="150" />
+                </StackPanel>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

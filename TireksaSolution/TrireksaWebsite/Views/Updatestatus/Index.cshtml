@@ -1,0 +1,119 @@
+﻿
+<script src="~/Scripts/angular.js"></script>
+@{
+    ViewBag.Title = "Index";
+}
+<h4></h4>
+<div ng-app="UpdateStatus" ng-controller="UpdateStatusController">
+    <form ng-submit="UpdateStatus(model)">
+        <div class="form-horizontal">
+            <h2>Update Delivery Status</h2>
+            <hr />
+            <div class="form-group">
+                @Html.Label("STT", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input ng-model="model.STT" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Tanggal Diterima", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="datetime-local" ng-model="model.ReciveDate" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Penerima", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input ng-model="model.ReciveName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Telepon Penerima", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input ng-model="model.Phone" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Ditandatangani", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="checkbox" value="true" ng-model="model.IsSignIn" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Keterangan", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <textarea ng-model="model.Description" class="form-control"></textarea>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Simpan" class="btn btn-default" />
+                    <a class="btn btn-info" href="\updatestatus\uploadphoto">Tambah Foto</a>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+
+
+    @*<form ng-submit="UploadPhoto(data)">
+            <input ng-model="data.PenjualanId" />
+            <input type="file" id="file" name="file" />
+            <button type="submit">Upload</button>
+        </form>*@
+
+
+
+
+
+
+
+</div>
+
+
+<script type="text/javascript">
+
+    var app = angular.module("UpdateStatus", []).controller("UpdateStatusController", function ($scope, $http) {
+
+        $scope.model = {};
+        $scope.Init = function () {
+            $scope.Result = 'Empyt';
+        }
+
+        $scope.UpdateStatus = function (model) {
+            var url = '/api/Penjualans/UpdateDeliveryStatusBySTT/' + model.STT;
+
+            $http({
+                "url": url,
+                "method": "PUT",
+                "data": model
+            })
+                .success(function (response, result) {
+                    alert("Berhasil Disimpan");
+                    $scope.model = {};
+                })
+                .error(function (err, response) {
+                    if (response == 401)
+                        alert(err.Message);
+                    else
+                    alert(err);
+                })
+                ;
+
+        }
+
+        
+
+
+    });
+
+
+
+</script>

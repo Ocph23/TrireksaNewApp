@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>080d1ae5-d476-41c5-af26-8483aaf30e1a</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Models</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BaseNotifyProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dimention.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EnumCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IModelValidate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\agents.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\customers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\details.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\Iagents.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\Icustomers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\Idetails.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\Imanifestsincomming.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\Iphotos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\Ishipinginformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\manifestsincomming.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\photos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Incomming\shipinginformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModelHelpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NotifyPropertyChanged.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Photo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ReportModels\PenjualanReportModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\agent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\city.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\CityAgentCanAccess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\colly.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\customer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\deliverystatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\ICloneable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\IController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\invoice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\invoicedetail.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\Iroles.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\ManifestInformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\manifestoutgoing.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\packinglist.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\PackingListPrintModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\penjualan.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\PenjualanOfMonth.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\PenjualanOfYear.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\photo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\port.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\Prices.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\roles.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\Ship.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\titipankapal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\TracingModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\user.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\userclaims.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\userlogins.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\userprofile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\userrole.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrireksaAppModels\userroles.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)trireksa.mwb" />
+  </ItemGroup>
+</Project>

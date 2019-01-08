@@ -1,0 +1,663 @@
+﻿<UserControl x:Class="TrireksaApp.Contents.Penjualan.PenjualanInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TrireksaApp.Contents.Penjualan"
+             mc:Ignorable="d"  
+             d:DesignHeight="700" d:DesignWidth="600">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush"
+                Value="Transparent"/>
+            <Setter Property="BorderThickness"
+                Value="1"/>
+            <Setter Property="Margin"
+                Value="0"/>
+            <Setter Property="Foreground" Value="{DynamicResource ItemText}"/>
+            <Setter Property="Padding"
+                Value="5,2,5,2"/>
+            <Setter Property="HorizontalContentAlignment"
+                Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment"
+                Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Border Name="Selection" Visibility="Collapsed" />
+                            <!-- This is used when GridView is put inside the ListView -->
+                            <GridViewRowPresenter Grid.RowSpan="2"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+
+                            <!-- This is used for ListView that does not use GridView -->
+                            <ContentPresenter x:Name="contentPresenter"
+                                          Margin="{TemplateBinding Padding}"
+                                      Content="{TemplateBinding ContentControl.Content}"
+                                      Visibility="Collapsed"
+                                      ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                                      ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
+                                      HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
+                                      SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="GridView.ColumnCollection" Value="{x:Null}">
+                                <Setter TargetName="contentPresenter" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Selection" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="Selection" Property="Background" Value="{x:Null}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource ItemTextHover}" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Selection" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="Selection" Property="Background" Value="{x:Null}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource ItemTextSelected}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource ItemTextDisabled}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="FontWeight" Value="Heavy"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Width" Value="Auto"/>
+        </Style>
+        <Style TargetType="{x:Type Expander}" BasedOn="{StaticResource {x:Type Expander}}">
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="{DynamicResource AccentColor}"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="5"/>
+
+
+        </Style>
+        <Style  TargetType="{x:Type Border}">
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" >
+                <Setter.Value>
+                    <SolidColorBrush Color="{DynamicResource AccentColor}"></SolidColorBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="10,2,10,2"/>
+
+        </Style>
+        <Style x:Key="ListBoxStyle1" TargetType="{x:Type ListBox}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="{DynamicResource ItemText}"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="Padding" Value="2"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <WrapPanel x:Name="Bd"  Background="{TemplateBinding Background}"  SnapsToDevicePixels="True">
+                                        <ContentPresenter  ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    </WrapPanel>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource ItemBackgroundHover}"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource ItemTextHover}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource ItemBackgroundSelected}"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource ItemTextSelected}"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource ItemTextDisabled}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate  TargetType="{x:Type ListBox}">
+                        <WrapPanel>
+                            <WrapPanel.Background>
+                                <SolidColorBrush Color="#FF616061" Opacity="0.1"/>
+                            </WrapPanel.Background>
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </WrapPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+    <Grid>
+        <TabControl Grid.Column="0" Grid.Row="0" Background="{x:Null}" BorderBrush="{x:Null}" >
+            <TabItem Header="Data" Style="{DynamicResource TabItemStyle1}">
+                <Expander Header="Data" IsExpanded="True" Padding="10"  >
+                    <ScrollViewer>
+                        <StackPanel Margin="20,0,0,0">
+                            <Border>
+                                <StackPanel>
+
+                                    <WrapPanel HorizontalAlignment="Left">
+                                        <Image Width="100" Height="100" Margin="5" Source="{Binding  STTQRCode}">
+                                            <Image.ContextMenu>
+                                                <ContextMenu>
+                                                    <ContextMenu.Template>
+                                                        <ControlTemplate>
+                                                            <Image Width="250" Height="250" Margin="5" Source="{Binding  STTQRCode}"/>
+                                                        </ControlTemplate>
+                                                    </ContextMenu.Template>
+                                                </ContextMenu>
+                                            </Image.ContextMenu>
+                                        </Image>
+                                        <StackPanel>
+                                            <Label Width="Auto" Content="S T T/A W B " FontSize="20"/>
+                                            <TextBlock FontSize="18"  Text="{Binding  PenjualanItem.STT,StringFormat='D5'}"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Border>
+                            <Border>
+                                <WrapPanel>
+                                    <Label Content="Pcs"/>
+                                    <TextBlock Text="{Binding  PenjualanItem.Pcs}"/>
+                                </WrapPanel>
+                            </Border>
+                            <Border>
+                                <StackPanel>
+                                    <WrapPanel >
+                                        <Label Content="Shiper"/>
+                                        <TextBlock ToolTip="Click To View Customer Details" Text="{Binding PenjualanItem.Shiper.Name}" MouseUp="TextBlock_MouseUp" Foreground="#FFA2CEF3"/>
+                                    </WrapPanel>
+                                    <WrapPanel >
+                                        <Label Content=""/>
+                                        <TextBlock Width="150" Text="{Binding PenjualanItem.Shiper.Address}"/>
+                                    </WrapPanel>
+                                    <WrapPanel >
+                                        <Label Content=""/>
+                                        <TextBlock Width="150" Text="{Binding PenjualanItem.Shiper.City.Name}"/>
+                                    </WrapPanel>
+                                </StackPanel>
+
+                            </Border>
+
+                            <Border>
+                                <WrapPanel>
+                                    <Label Content="Reciver"/>
+                                    <TextBlock Name="txtReciver" Foreground="#FFA2CEF3" ToolTip="Click To View Customer Details" Text="{Binding PenjualanItem.Reciver.Name}" MouseUp="txtReciver_MouseUp">
+                                        <TextBlock.ContextMenu >
+                                            <ContextMenu x:Name="CtsMenuReciver" >
+                                                <MenuItem>
+                                                    <MenuItem.Template>
+                                                        <ControlTemplate>
+                                                            <StackPanel Style="{StaticResource OPanel}">
+                                                                <Label Content="Reciver"/>
+                                                            </StackPanel>
+                                                        </ControlTemplate>
+                                                    </MenuItem.Template>
+                                                </MenuItem>
+                                            </ContextMenu>
+                                        </TextBlock.ContextMenu>
+                                    </TextBlock>
+                                </WrapPanel>
+                            </Border>
+                            <Border>
+                                <WrapPanel>
+                                    <Label Content="Status"/>
+                                    <TextBlock  Text="{Binding PenjualanItem.PortType}"/>
+                                </WrapPanel>
+                            </Border>
+                            <Border>
+                                <WrapPanel>
+                                    <Label Content="Created"/>
+                                    <TextBlock  Text="{Binding PenjualanItem.ChangeDate}"/>
+                                </WrapPanel>
+                            </Border>
+                            <Border>
+                                <WrapPanel>
+                                    <Label Content="Status"/>
+                                    <TextBlock  Text="{Binding PenjualanItem.Actived}"/>
+                                </WrapPanel>
+                            </Border>
+                            <Border>
+                                <WrapPanel>
+                                    <Label Content="Created By"/>
+                                    <TextBlock  Text="{Binding PenjualanItem.Actived}"/>
+                                </WrapPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Expander>
+            </TabItem>
+            <TabItem Header="INVOICE" Style="{DynamicResource TabItemStyle1}">
+                <Expander Header="Payment" IsExpanded="True" Padding="10" >
+                    <ScrollViewer>
+                        <Grid Margin="20,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="157*"/>
+                                <RowDefinition Height="76*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" >
+                                <Border>
+                                    <WrapPanel>
+                                        <Label HorizontalAlignment="Left" Content="Pay Type"/>
+                                        <TextBlock HorizontalAlignment="Right" Text="{Binding PenjualanItem.PayType}"/>
+                                    </WrapPanel>
+                                </Border>
+                                <Border>
+                                    <WrapPanel>
+                                        <Label Content="Price"/>
+                                        <TextBlock HorizontalAlignment="Right" Text="{Binding PenjualanItem.Price,StringFormat='{}{0:N0}'}"/>
+                                    </WrapPanel>
+                                </Border>
+                                <Border>
+                                    <WrapPanel>
+                                        <Label Content="Packing Cost"/>
+                                        <TextBlock HorizontalAlignment="Right" Text="{Binding PenjualanItem.PackingCosts,StringFormat='{}{0:N0}'}"/>
+                                    </WrapPanel>
+                                </Border>
+                                <Border>
+                                    <WrapPanel>
+                                        <Label Content="Total"/>
+                                        <TextBlock HorizontalAlignment="Right" Text="{Binding PenjualanItem.Total,StringFormat='{}{0:N0}'}"/>
+                                    </WrapPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <Border>
+                                    <WrapPanel>
+                                        <Label Content="Who Is Pay"/>
+                                        <TextBlock  Text="{Binding PenjualanItem.CustomerIsPay}"/>
+                                    </WrapPanel>
+                                </Border>
+                                <Border>
+                                    <WrapPanel>
+                                        <Label Content="Etc"/>
+                                        <TextBlock HorizontalAlignment="Right" Text="{Binding PenjualanItem.Etc,StringFormat='{}{0:N0}'}"/>
+                                    </WrapPanel>
+                                </Border>
+                                <Border>
+                                    <WrapPanel>
+                                        <Label Content="Tax"/>
+                                        <TextBlock HorizontalAlignment="Right" Text="{Binding PenjualanItem.Tax}"/>
+                                    </WrapPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel  Grid.ColumnSpan="2" Grid.Row="1">
+                                <Label Content="Payment History" Margin="5,20,141,5" Width="Auto"/>
+
+                                <StackPanel Margin="14,5,5,5">
+                                    <Border>
+                                        <WrapPanel>
+                                            <Label Content="Invoice Number" Width="120"/>
+                                            <TextBlock  Text="{Binding InvoiceStatusView.NumberView,UpdateSourceTrigger=PropertyChanged}"/>
+                                        </WrapPanel>
+                                    </Border>
+                                    <Border>
+                                        <WrapPanel>
+                                            <Label Content="Invoice Delivery" Width="120"/>
+                                            <TextBlock  Text="{Binding InvoiceStatusView.IsDelivery }"/>
+                                        </WrapPanel>
+                                    </Border>
+                                    <Border>
+                                        <WrapPanel>
+                                            <Label Content="Invoice Status" Width="120"/>
+                                            <TextBlock  Text="{Binding InvoiceStatusView.InvoiceStatus }"/>
+                                        </WrapPanel>
+                                    </Border>
+                                    <Border>
+                                        <WrapPanel>
+                                            <Label Content="Invoice Created" Width="120"/>
+                                            <TextBlock  Text="{Binding InvoiceStatusView.CreateDate }"/>
+                                        </WrapPanel>
+                                    </Border>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </ScrollViewer>
+                </Expander>
+            </TabItem>
+            <TabItem Header="SHIPMENT" Style="{DynamicResource TabItemStyle1}">
+                <Expander Header="Delivery History" IsExpanded="True"  Padding="10" >
+                    <ScrollViewer>
+                        <ListView Focusable="False" ScrollViewer.VerticalScrollBarVisibility="Visible"  ItemsSource="{Binding ManifestView}"  SelectedItem="{Binding ManifestSelectedItem,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Expander  Focusable="False" Margin="20,0,0,0" Padding="10" IsExpanded="False" Header="{Binding ManifestCode}">
+                                        <StackPanel Margin="20,0,0,0">
+                                            <ContentPresenter>
+                                                <ContentPresenter.Resources>
+                                                    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                        <Setter Property="Margin" Value="5"/>
+                                                        <Setter Property="Width" Value="150"/>
+                                                        <Setter Property="FontWeight" Value="Heavy"/>
+                                                    </Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                        <Setter Property="Margin" Value="2"/>
+                                                        <Setter Property="Width" Value="Auto"/>
+                                                    </Style>
+                                                    <Style TargetType="{x:Type Expander}" BasedOn="{StaticResource {x:Type Expander}}">
+                                                        <Setter Property="BorderBrush">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource AccentColor}"/>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="Foreground">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="Margin" Value="5"/>
+
+
+                                                    </Style>
+                                                    <Style  TargetType="{x:Type Border}">
+                                                        <Setter Property="CornerRadius" Value="2"/>
+                                                        <Setter Property="BorderThickness" Value="1"/>
+                                                        <Setter Property="BorderBrush" >
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{DynamicResource AccentColor}"></SolidColorBrush>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="Margin" Value="10,2,10,2"/>
+
+                                                    </Style>
+                                                </ContentPresenter.Resources>
+                                                <ContentPresenter.ContentTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel>
+                                                            <Border>
+                                                                <Expander BorderThickness="0" IsExpanded="False" >
+                                                                    <Expander.Header>
+                                                                        <WrapPanel>
+                                                                            <Label Content="Agent Name"/>
+                                                                            <TextBlock VerticalAlignment="Center" Text="{Binding Agent.Name}"/>
+                                                                        </WrapPanel>
+                                                                    </Expander.Header>
+                                                                    <StackPanel Margin="20,0,0,0">
+                                                                        <StackPanel.Resources>
+                                                                            <Style  TargetType="{x:Type Border}">
+                                                                                <Setter Property="CornerRadius" Value="2"/>
+                                                                                <Setter Property="BorderThickness" Value="0,1,0,0"/>
+                                                                                <Setter Property="Opacity" Value="0.5"/>
+                                                                                <Setter Property="BorderBrush" >
+                                                                                    <Setter.Value>
+                                                                                        <SolidColorBrush Color="{DynamicResource AccentColor}"></SolidColorBrush>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                                <Setter Property="Margin" Value="10,2,10,2"/>
+
+                                                                            </Style>
+                                                                        </StackPanel.Resources>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="NPWP"/>
+                                                                                <TextBlock Text="{Binding  Agent.NPWP}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="ContactName"/>
+                                                                                <TextBlock Text="{Binding  Agent.ContactName}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="Phone"/>
+                                                                                <TextBlock Text="{Binding  Agent.Phone}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="Handphone"/>
+                                                                                <TextBlock Text="{Binding  Agent.Handphone}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="Email"/>
+                                                                                <TextBlock Text="{Binding  Agent.Email}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="Address"/>
+                                                                                <TextBlock Text="{Binding  Agent.Address}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="City"/>
+                                                                                <TextBlock Text="{Binding  Agent.City}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                    </StackPanel>
+                                                                </Expander>
+                                                            </Border>
+                                                            <Border>
+                                                                <WrapPanel>
+                                                                    <Label Content="Port Type"/>
+                                                                    <TextBlock Text="{Binding  PortType,UpdateSourceTrigger=PropertyChanged}"/>
+                                                                </WrapPanel>
+                                                            </Border>
+                                                            <Border>
+                                                                <WrapPanel>
+                                                                    <Label Content="Origin Port"/>
+                                                                    <TextBlock Text="{Binding  OriginPort.Name}"/>
+                                                                    <TextBlock Text="{Binding  OriginPort.Code}"/>
+                                                                </WrapPanel>
+                                                            </Border>
+                                                            <Border>
+                                                                <WrapPanel>
+                                                                    <Label Content="Destination Port"/>
+                                                                    <TextBlock Text="{Binding  DestinationPort.Name}"/>
+                                                                    <TextBlock Text="{Binding  DestinationPort.Code}"/>
+                                                                </WrapPanel>
+                                                            </Border>
+                                                            <Border>
+                                                                <Expander BorderThickness="0" IsExpanded="False" >
+                                                                    <Expander.Header>
+                                                                        <WrapPanel>
+                                                                            <Label Content="Armada Information"/>
+                                                                            <TextBlock VerticalAlignment="Center" Text="{Binding Information.ArmadaName}"/>
+                                                                        </WrapPanel>
+                                                                    </Expander.Header>
+                                                                    <StackPanel Margin="20,0,0,0">
+                                                                        <StackPanel.Resources>
+                                                                            <Style  TargetType="{x:Type Border}">
+                                                                                <Setter Property="CornerRadius" Value="2"/>
+                                                                                <Setter Property="BorderThickness" Value="0,1,0,0"/>
+                                                                                <Setter Property="Opacity" Value="0.5"/>
+                                                                                <Setter Property="BorderBrush" >
+                                                                                    <Setter.Value>
+                                                                                        <SolidColorBrush Color="{DynamicResource AccentColor}"></SolidColorBrush>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                                <Setter Property="Margin" Value="10,2,10,2"/>
+
+                                                                            </Style>
+                                                                        </StackPanel.Resources>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="Port Type"/>
+                                                                                <TextBlock Text="{Binding  Information.PortType}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="Crew Name"/>
+                                                                                <TextBlock Text="{Binding Information.CrewName}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="Phone"/>
+                                                                                <TextBlock Text="{Binding Information.Contact}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="Address/Position"/>
+                                                                                <TextBlock Text="{Binding  Information.Address}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="On Origin Port"/>
+                                                                                <TextBlock Text="{Binding Information.OnOriginPort}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="In Destination Port"/>
+                                                                                <TextBlock Text="{Binding  Information.InDestinationPort}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                        <Border>
+                                                                            <WrapPanel>
+                                                                                <Label Content="City"/>
+                                                                                <TextBlock Text="{Binding  Agent.City}"/>
+                                                                            </WrapPanel>
+                                                                        </Border>
+                                                                    </StackPanel>
+                                                                </Expander>
+                                                            </Border>
+                                                            <Border>
+                                                                <Expander Margin="5" BorderThickness="0" IsExpanded="False" >
+                                                                    <Expander.Header>
+                                                                        <WrapPanel>
+                                                                            <Label Content="Packing List"/>
+                                                                            <TextBlock VerticalAlignment="Center" Text="{Binding Agent.Name}"/>
+                                                                        </WrapPanel>
+                                                                    </Expander.Header>
+                                                                    <DockPanel Margin="20,0,0,5">
+                                                                        <DockPanel.Resources>
+                                                                            <Style  TargetType="{x:Type Border}">
+                                                                                <Setter Property="CornerRadius" Value="2"/>
+                                                                                <Setter Property="BorderThickness" Value="0,1,0,0"/>
+                                                                                <Setter Property="Opacity" Value="0.5"/>
+                                                                                <Setter Property="BorderBrush" >
+                                                                                    <Setter.Value>
+                                                                                        <SolidColorBrush Color="{DynamicResource AccentColor}"></SolidColorBrush>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                                <Setter Property="Margin" Value="10,2,10,2"/>
+
+                                                                            </Style>
+                                                                        </DockPanel.Resources>
+                                                                        <DataGrid ItemsSource="{Binding PackingList}" AutoGenerateColumns="False" 
+                                                                     MaxHeight="250" CanUserAddRows="False" CanUserDeleteRows="False">
+                                                                            <DataGrid.Columns>
+                                                                                <DataGridTextColumn Header="Pack Number" Binding="{Binding PackNumber}"/>
+                                                                                <DataGridTextColumn Header="STT" Binding="{Binding STT,StringFormat='D5'}"/>
+                                                                                <DataGridTextColumn Header="Colly Number" Binding="{Binding CollyNumber}"/>
+                                                                                <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
+                                                                            </DataGrid.Columns>
+                                                                        </DataGrid>
+                                                                    </DockPanel>
+                                                                </Expander>
+                                                            </Border>
+                                                        </StackPanel>
+
+                                                    </DataTemplate>
+
+                                                </ContentPresenter.ContentTemplate>
+
+                                            </ContentPresenter>
+
+                                        </StackPanel>
+
+                                    </Expander>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </ScrollViewer>
+                </Expander>
+            </TabItem>
+            <TabItem  Header="GALERIES" Style="{DynamicResource TabItemStyle1}">
+                <Expander Header="Photos" Padding="10" IsExpanded="True" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="80*"/>
+                            <RowDefinition Height="20*"/>
+                        </Grid.RowDefinitions>
+                        <Image Stretch="Fill" Source="{Binding SelectedPhoto.Picture}"  Margin="10" Grid.Row="0">
+                            <Image.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Print Preview" Command="{Binding PrintPicture}"/>
+                                    <MenuItem Header="Add New Picture" Command="{Binding AddNewPicture}"/>
+                                    <MenuItem Header="Delete Picture" Command="{Binding DeletePicture}"/>
+                                </ContextMenu>
+                            </Image.ContextMenu>
+                        </Image>
+                        <ListBox  ItemsSource="{Binding GaleriesView}" SelectedItem="{Binding SelectedPhoto}"  Grid.Row="1" Margin="10" Style="{DynamicResource ListBoxStyle1}" >
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel IsItemsHost="True" >
+
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <WrapPanel Margin="5">
+                                        <Image  Width="70" Stretch="Fill"  Source="{Binding Thumb}"></Image>
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Add New Picture" Command="{Binding AddNewPicture}"/>
+                                    <MenuItem Header="Delete Picture" Command="{Binding DeletePicture}"/>
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
+                    </Grid>
+                </Expander>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

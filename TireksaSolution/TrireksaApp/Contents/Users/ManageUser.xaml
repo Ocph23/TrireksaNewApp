@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="TrireksaApp.Contents.Users.ManageUser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             xmlns:m="clr-namespace:TrireksaApp.Common"
+             d:DesignHeight="300" d:DesignWidth="1000" >
+    <UserControl.Resources>
+        <m:VisibilityConverter x:Key="VisibilityConverter"/>
+        <Style  TargetType="UserControl">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger  Binding="{Binding IsShowData}" Value="true">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="217*"/>
+        </Grid.RowDefinitions>
+        <TextBlock  Text="BASIC PAGE" Style="{StaticResource Heading2}" />
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70*"/>
+                <ColumnDefinition Width="30*"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid Margin="20"
+                    Grid.Column="0" AutoGenerateColumns="False"
+                      SelectedItem="{Binding SelectedItem}"  CanUserAddRows="False" CanUserDeleteRows="False" 
+                      ItemsSource="{Binding MainVM.UserProfileCollections.SourceView}"
+            Visibility="{Binding IsShowData,Converter={StaticResource VisibilityConverter},ConverterParameter=0}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Nama" Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                    <DataGridTextColumn Header="Address" Binding="{Binding Address}"/>
+                    <DataGridTextColumn Header="Phone" Binding="{Binding PhoneNumber}"/>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+            <DataGrid Margin="20" CanUserAddRows="False" SelectedItem="{Binding RoleSelected}" CanUserDeleteRows="False"  Visibility="{Binding IsShowData,Converter={StaticResource VisibilityConverter},ConverterParameter=0}"
+                         Grid.Column="1" ItemsSource="{Binding RolesView}">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Remove" Command="{Binding RemoveRole}" CommandParameter="{Binding RoleSelected}"/>
+                        <MenuItem Header="Add Role">
+                            <MenuItem>
+                                <MenuItem.Template>
+                                    <ControlTemplate>
+                                        <ListBox   ItemsSource="{Binding Roles}"  SelectedItem="{Binding AddRoleSelected}">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Label Content="{Binding Name}"/>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </ControlTemplate>
+                                </MenuItem.Template>
+                            </MenuItem>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </Grid>
+
+       
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"  Grid.Row="1" Visibility="{Binding IsShowData,Converter={StaticResource VisibilityConverter},ConverterParameter=1}" >
+            <TextBlock FontSize="40"  Text="You Not Have Access" FontWeight="Bold" >
+                <TextBlock.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF955D5D" Offset="0"/>
+                        <GradientStop Color="#FF812D2D" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+            </TextBlock>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

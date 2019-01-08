@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="TrireksaApp.Contents.ManifestOutgoing.SeaReferance"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TrireksaApp.Contents.ManifestOutgoing"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <StackPanel Style="{StaticResource OPanel}">
+                    <Label Content="Ship Name"></Label>
+                    <ComboBox ItemsSource="{Binding ShipsCollection.SourceView}" DisplayMemberPath="Name" SelectedValuePath="Id"
+                              SelectedItem="{Binding ShipSelectedItem}"></ComboBox>
+                </StackPanel>
+                <StackPanel Style="{StaticResource OPanel}">
+                    <Label Content="Departure Date"></Label>
+                    <StackPanel  HorizontalAlignment="Left">
+                        <DatePicker VerticalContentAlignment="Center" Margin="0,0,0,8">
+                           
+                        </DatePicker>
+                    </StackPanel>
+                   
+                </StackPanel>
+                <StackPanel>
+                    <StackPanel >
+                        <StackPanel Style="{StaticResource OPanel}">
+                            <Label Content="Crew Name"></Label>
+                            <TextBox Text="{Binding CrewName}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource OPanel}">
+                            <Label Content="Contact"></Label>
+                            <TextBox Text="{Binding Contact}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource OPanel}" Height="74">
+                            <Label VerticalAlignment="Top" Content="Position"></Label>
+                            <TextBox Height="68" Text="{Binding Address}"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
