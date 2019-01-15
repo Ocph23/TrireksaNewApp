@@ -53,10 +53,16 @@
                         <Grid>
                             <Expander >
                                 <Expander.Header>
-                                    <WrapPanel>
-                                        <TextBlock Style="{StaticResource lbl}"  Text="{Binding NumberView}" Margin="5,0,30,0"></TextBlock>
-                                        <TextBlock Style="{StaticResource lbl}" Text="{Binding CustomerName}"></TextBlock>
-                                    </WrapPanel>
+                                    <Grid Width="950">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Style="{StaticResource lbl}" Text="{Binding NumberView}"></TextBlock>
+                                        <TextBlock Grid.Column="1"  Style="{StaticResource lbl}" Text="{Binding CustomerName}"  Margin="5,0,30,0"></TextBlock>
+                                        <TextBlock HorizontalAlignment="Right" Grid.Column="2" Text="{Binding Total,StringFormat=Rp. {0:N2}}" Style="{StaticResource lbl}"/>
+                                    </Grid>
                                 </Expander.Header>
                                 <StackPanel Margin="25,10">
                                     <WrapPanel Margin="5">

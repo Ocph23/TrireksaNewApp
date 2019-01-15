@@ -42,10 +42,11 @@ namespace TrireksaApp.Contents.Penjualan
 
         private void AddShiper(object sender, KeyEventArgs e)
         {
-        
-            if(e.Key== Key.Enter && viewmodel.ShiperSelected==null)
+            ComboBox cmb = (ComboBox)sender;
+                cmb.IsDropDownOpen = true;
+            if (e.Key== Key.Enter && viewmodel.ShiperSelected==null)
             {
-                ComboBox cmb = (ComboBox)sender;
+                
                 var form = new Contents.Customer.Create();
                 var vm = form.DataContext as Contents.Customer.CustomerCreateVM;
                 vm.Name = cmb.Text;
@@ -58,10 +59,11 @@ namespace TrireksaApp.Contents.Penjualan
 
         private void AddReciver(object sender, KeyEventArgs e)
         {
-     
+            ComboBox cmb = (ComboBox)sender;
+            cmb.IsDropDownOpen = true;
             if (e.Key == Key.Enter && viewmodel.ReciverSelected==null)
             {
-                ComboBox cmb = (ComboBox)sender;
+               
                 var form = new Contents.Customer.Create();
                 var vm = form.DataContext as Contents.Customer.CustomerCreateVM;
                 vm.Name = cmb.Text;
@@ -85,6 +87,12 @@ namespace TrireksaApp.Contents.Penjualan
                 
             }
                    
+        }
+
+        private void ComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            ComboBox cmb = (ComboBox)sender;
+            cmb.IsDropDownOpen = true;
         }
     }
 }

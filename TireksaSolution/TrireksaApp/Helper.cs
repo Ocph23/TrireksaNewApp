@@ -131,66 +131,6 @@ namespace TrireksaApp
             
         }
 
-        internal static void PrintNotaWithFormAction(penjualan obj)
-        {
-            var MainVM = Common.ResourcesBase.GetMainWindowViewModel();
-            var item = obj;
-
-            List<Reports.Models.NotaReportModel> list = new List<Reports.Models.NotaReportModel>();
-            var data = new Reports.Models.NotaReportModel
-            { 
-                ChangeDate=item.ChangeDate,
-                STT = string.Format("{0:D5}", item.STT),
-                Content = item.Content,
-                DoNumber = item.DoNumber,
-                Note = item.Note,
-                PayTypeName = item.PayType.ToString(),
-                Pcs = item.Details.Count,
-                PortTypeName = item.PortType.ToString(),
-                Price = item.Price,
-                Tax = item.Tax,
-                PackingCosts = item.PackingCosts,
-                Etc = item.Etc,  UserName=ResourcesBase.UserIsLogin.FirstName
-
-            };
-            var weight = item.Details.Sum(O => O.Weight);
-            data.Costs = weight * item.Price;
-            data.TaxValue = (item.Tax * data.Costs) / 100;
-            if (item.TypeOfWeight == TypeOfWeight.Volume)
-                data.Volume = weight;
-            else
-                data.Weight = weight;
-
-            data.GradTotal = data.Costs + data.PackingCosts + data.Etc + data.TaxValue;
-            data.Shiper = string.Concat(item.Shiper.Name, Environment.NewLine, item.Shiper.Address);
-            var ShiperCity = MainVM.CityCollection.Source.Where(O => O.Id == item.Shiper.CityID).FirstOrDefault();
-            data.OriginPortCode = ShiperCity.CityCode;
-            data.ShiperCity = ShiperCity.CityName;
-            var ReciverCity = MainVM.CityCollection.Source.Where(O => O.Id == item.Reciver.CityID).FirstOrDefault();
-            data.DestinationPortCode = ReciverCity.CityCode;
-            data.ReciverCity = ReciverCity.CityName;
-            data.Reciver = string.Concat(item.Reciver.Name, Environment.NewLine, item.Reciver.Address);
-            data.STTQRCode = Helper.GenerateQRCodeBitmap(item.STT.ToString(),20);
-
-
-            list.Add(data);
-
-
-
-            var content = new Reports.Contents.ReportContent(new Microsoft.Reporting.WinForms.ReportDataSource { Value = list },
-                "TrireksaApp.Reports.Layouts.Nota.rdlc", null);
-            var dlg = new ModernWindow
-            {
-                Content = content,
-                Title = "Nota",
-                Style = (Style)App.Current.Resources["BlankWindow"],
-                ResizeMode = System.Windows.ResizeMode.CanResizeWithGrip,
-                WindowState = WindowState.Maximized,
-            };
-
-            dlg.ShowDialog();
-        }
-
         public static void PrintNotaAction(penjualan obj)
         {
             var MainVM = Common.ResourcesBase.GetMainWindowViewModel();
@@ -231,6 +171,71 @@ namespace TrireksaApp
             data.DestinationPortCode = ReciverCity.CityCode;
             data.ReciverCity = ReciverCity.CityName;
             data.Reciver = string.Concat(item.Reciver.Name, Environment.NewLine, item.Reciver.Address,Environment.NewLine,recieverTlp);
+            data.STTQRCode = Helper.GenerateQRCodeBitmap(item.STT.ToString(), 20);
+
+
+            list.Add(data);
+                          
+
+            HelperPrint print = new HelperPrint();
+            print.PrintDocument(list, "TrireksaApp.Reports.Layouts.Nota.rdlc", null);
+
+            //var content = new Reports.Contents.ReportContent(new Microsoft.Reporting.WinForms.ReportDataSource { Value = list },
+            //    "TrireksaApp.Reports.Layouts.NotaOne.rdlc", null);
+            //var dlg = new ModernWindow
+            //{
+            //    Content = content,
+            //    Title = "Nota",
+            //    Style = (Style)App.Current.Resources["BlankWindow"],
+            //    ResizeMode = System.Windows.ResizeMode.CanResizeWithGrip,
+            //    WindowState = WindowState.Maximized,
+            //};
+
+            //dlg.ShowDialog();
+        }
+
+        public static void PrintPreviewNotaAction(penjualan obj)
+        {
+            var MainVM = Common.ResourcesBase.GetMainWindowViewModel();
+            var item = obj;
+            var userP = ResourcesBase.UserIsLogin.Email.Split('@');
+            List<Reports.Models.NotaReportModel> list = new List<Reports.Models.NotaReportModel>();
+            var data = new Reports.Models.NotaReportModel
+            {
+                STT = string.Format("{0:D5}", item.STT),
+                Content = item.Content,
+                DoNumber = item.DoNumber,
+                Note = item.Note,
+                PayTypeName = item.PayType.ToString(),
+                Pcs = item.Details.Count,
+                PortTypeName = item.PortType.ToString(),
+                Price = item.Price,
+                ChangeDate = item.ChangeDate,
+                UserName = userP[0].ToString(),
+                Tax = item.Tax,
+                PackingCosts = item.PackingCosts,
+                Etc = item.Etc,
+
+            };
+            var weight = item.Details.Sum(O => O.Weight);
+            data.Costs = weight * item.Price;
+            data.TaxValue = (item.Tax * data.Costs) / 100;
+            if (item.TypeOfWeight == TypeOfWeight.Volume)
+                data.Volume = weight;
+            else
+                data.Weight = weight;
+
+            data.GradTotal = data.Costs + data.PackingCosts + data.Etc + data.TaxValue;
+            var shiperTlp = string.Concat("Tlp/Hp. ", item.Shiper.Phone1, "/", item.Shiper.Phone2, "/", item.Shiper.Handphone);
+            var recieverTlp = string.Concat("Tlp/Hp. ", item.Reciver.Phone1, "/", item.Reciver.Phone2, "/", item.Reciver.Handphone);
+            data.Shiper = string.Concat(item.Shiper.Name, Environment.NewLine, item.Shiper.Address, Environment.NewLine, shiperTlp);
+            var ShiperCity = MainVM.CityCollection.Source.Where(O => O.Id == item.Shiper.CityID).FirstOrDefault();
+            data.OriginPortCode = ShiperCity.CityCode;
+            data.ShiperCity = ShiperCity.CityName;
+            var ReciverCity = MainVM.CityCollection.Source.Where(O => O.Id == item.Reciver.CityID).FirstOrDefault();
+            data.DestinationPortCode = ReciverCity.CityCode;
+            data.ReciverCity = ReciverCity.CityName;
+            data.Reciver = string.Concat(item.Reciver.Name, Environment.NewLine, item.Reciver.Address, Environment.NewLine, recieverTlp);
             data.STTQRCode = Helper.GenerateQRCodeBitmap(item.STT.ToString(), 20);
 
 

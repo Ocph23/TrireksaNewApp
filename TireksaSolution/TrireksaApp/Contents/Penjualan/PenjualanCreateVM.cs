@@ -118,9 +118,12 @@ namespace TrireksaApp.Contents.Penjualan
         private bool ShiperFilter(object x)
         {
             var scr = string.Empty;
-            var obj = (ModelsShared.Models.customer)x;
-            if (obj.CityID != AppConfig.EliminateCityId)
-                return false;
+            if(string.IsNullOrEmpty(ShiperSearch))
+            {
+                ShiperSelected = null;
+            }
+            var obj = (customer)x;
+            
 
             if (obj != null && !string.IsNullOrEmpty(ShiperSearch))
             {
@@ -133,8 +136,11 @@ namespace TrireksaApp.Contents.Penjualan
         private bool WillPayFilter(object x)
         {
             var scr = string.Empty;
-            var obj = (ModelsShared.Models.customer)x;
-
+            var obj = (customer)x;
+            if (string.IsNullOrEmpty(CustomerWillPaySearch))
+            {
+                WillPaySelected = null;
+            }
 
             if (obj != null && !string.IsNullOrEmpty(CustomerWillPaySearch))
             {
@@ -143,9 +149,15 @@ namespace TrireksaApp.Contents.Penjualan
             }
             return true;
         }
+
         private bool ReciverFilter(object x)
         {
             var scr = string.Empty;
+            if (string.IsNullOrEmpty(ReciverSearch))
+            {
+                ReciverSelected = null;
+            }
+
             var obj = (ModelsShared.Models.customer)x;
             if (obj.CityID == AppConfig.WitoutCityId)
                 return false;
@@ -164,7 +176,7 @@ namespace TrireksaApp.Contents.Penjualan
 
         private void PrintFormAction()
         {
-            Helper.PrintNotaWithFormAction(PrintSelected);
+            Helper.PrintPreviewNotaAction(PrintSelected);
         }
 
 
@@ -196,6 +208,8 @@ namespace TrireksaApp.Contents.Penjualan
             {
                 if (Save.CanExecute(null))
                     Save.Execute(true);
+
+               
             }
             catch (Exception ex)
             {
@@ -545,12 +559,6 @@ namespace TrireksaApp.Contents.Penjualan
                     this.CustomerIdIsPay = value.Id;
                     this.GetPrices(this.CustomerIsPay);
                 }
-                else
-                {
-
-                    ReciverToolTip = string.Empty;
-                }
-
                 OnPropertyChange("WillPaySelected");
             }
         }

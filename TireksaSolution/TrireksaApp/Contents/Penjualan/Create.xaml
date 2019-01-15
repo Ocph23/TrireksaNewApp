@@ -74,9 +74,13 @@
                         </StackPanel.Background>
                         <Grid>
                             <Label  Content="Sender" ></Label>
-                            <ComboBox   Text="{Binding ShiperSearch}" ToolTip="{Binding ShiperToolTip }" IsEditable="True" KeyDown="AddShiper" 
-                                        ItemsSource="{Binding Shipers}" SelectedItem="{Binding ShiperSelected}" DisplayMemberPath="Name" 
-                                        SelectedValuePath="Id" SelectedValue="{Binding ShiperID,Mode=TwoWay,ValidatesOnDataErrors=True}"  ></ComboBox>
+                            <ComboBox IsDropDownOpen="True"  Text="{Binding ShiperSearch}" ToolTip="{Binding ShiperToolTip }"
+                                      IsEditable="True" KeyDown="AddShiper" 
+                                      IsTextSearchEnabled="False"
+                                      ItemsSource="{Binding Shipers}" SelectedItem="{Binding ShiperSelected}" 
+                                      DisplayMemberPath="Name" 
+                                      SelectedValuePath="Id" SelectedValue="{Binding ShiperID,Mode=TwoWay,
+                                ValidatesOnDataErrors=True}"  ></ComboBox>
                         </Grid>
                         <Grid Height="70"  >
                             <TextBox Height="60" AcceptsReturn="True" IsEnabled="False"  Text="{Binding ShiperToolTip }" VerticalAlignment="Top"  ></TextBox>
@@ -88,7 +92,12 @@
                         </StackPanel.Background>
                         <Grid  >
                             <Label  Content="Reciver"></Label>
-                            <ComboBox Text="{Binding ReciverSearch}"  ToolTip="{Binding ReciverToolTip}" IsEditable="True" KeyDown="AddReciver" ItemsSource="{Binding Recivers}" SelectedItem="{Binding ReciverSelected}"  DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding ReciverID,Mode=TwoWay,ValidatesOnDataErrors=True}"></ComboBox>
+                            <ComboBox Text="{Binding ReciverSearch}"  ToolTip="{Binding ReciverToolTip}"
+                                      IsEditable="True" KeyDown="AddReciver" ItemsSource="{Binding Recivers}" 
+                                      SelectedItem="{Binding ReciverSelected}"  DisplayMemberPath="Name" 
+                                      SelectedValuePath="Id" 
+                                      IsTextSearchEnabled="False"
+                                      SelectedValue="{Binding ReciverID,Mode=TwoWay,ValidatesOnDataErrors=True}"></ComboBox>
                         </Grid>
                         <Grid>
                             <TextBox Height="60" AcceptsReturn="True" IsEnabled="False"  Text="{Binding ReciverToolTip}" VerticalAlignment="Top"></TextBox>
@@ -110,9 +119,15 @@
                             <RadioButton Height="30"     Content="Reciver" GroupName="HowWillPay" IsChecked="{Binding CustomerIsPay,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:CustomerIsPay.Reciver},ValidatesOnDataErrors=True}" Width="90"></RadioButton>
                             <RadioButton Height="30" Content="Other" GroupName="HowWillPay" IsChecked="{Binding CustomerIsPay,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:CustomerIsPay.Other},ValidatesOnDataErrors=True}" Width="90"></RadioButton>
                         </StackPanel>
-                        <Grid Visibility="{Binding OtherVisible}" >
-                            <Label  Width="118" Content=""></Label>
-                            <ComboBox Text="{Binding CustomerWillPaySearch}" IsEditable="True" ItemsSource="{Binding WillPays}" SelectedItem="{Binding WillPaySelected}"  DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding CustomerIdIsPay,Mode=TwoWay,ValidatesOnDataErrors=True}"></ComboBox>
+                        <Grid Visibility="{Binding OtherVisible}" Margin="0,2" >
+                            <Label  Width="118" Content="Customer"></Label>
+                            <ComboBox IsDropDownOpen="True" Text="{Binding CustomerWillPaySearch}" 
+                                      KeyDown="ComboBox_KeyDown"
+                                      IsEditable="True" ItemsSource="{Binding WillPays}" 
+                                      SelectedItem="{Binding WillPaySelected}"  DisplayMemberPath="Name" 
+                                      SelectedValuePath="Id" 
+                                      IsTextSearchEnabled="False"
+                                      SelectedValue="{Binding CustomerIdIsPay,Mode=TwoWay,ValidatesOnDataErrors=True}"></ComboBox>
                         </Grid>
                             <Grid>
                             <Label HorizontalAlignment="Left"   Content="Type Of Weight"></Label>
