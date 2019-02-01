@@ -32,16 +32,16 @@ namespace ModelsShared.Models
                 OnPropertyChange("CustomerId");
             }
         }
-        [DbColumn("ReciverId")]
-        public int ReciverId
-        {
-            get { return _relation; }
-            set
-            {
-                _relation = value;
-                OnPropertyChange("Relation");
-            }
-        }
+        //[DbColumn("ReciverId")]
+        //public int ReciverId
+        //{
+        //    get { return _relation; }
+        //    set
+        //    {
+        //        _relation = value;
+        //        OnPropertyChange("Relation");
+        //    }
+        //}
         private PortType _portType;
         [DbColumn("PortType")]
 

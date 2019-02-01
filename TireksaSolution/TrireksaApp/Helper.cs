@@ -178,7 +178,7 @@ namespace TrireksaApp
                           
 
             HelperPrint print = new HelperPrint();
-            print.PrintDocument(list, "TrireksaApp.Reports.Layouts.Nota.rdlc", null);
+            print.PrintDocument(list, "TrireksaApp.Reports.Layouts.NotaComplete.rdlc", null);
 
             //var content = new Reports.Contents.ReportContent(new Microsoft.Reporting.WinForms.ReportDataSource { Value = list },
             //    "TrireksaApp.Reports.Layouts.NotaOne.rdlc", null);
@@ -244,7 +244,7 @@ namespace TrireksaApp
 
 
             var content = new Reports.Contents.ReportContent(new Microsoft.Reporting.WinForms.ReportDataSource { Value = list },
-                "TrireksaApp.Reports.Layouts.NotaOne.rdlc", null);
+                "TrireksaApp.Reports.Layouts.NotaComplete.rdlc", null);
             var dlg = new ModernWindow
             {
                 Content = content,

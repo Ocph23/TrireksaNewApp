@@ -175,12 +175,12 @@ namespace ModelsShared.Models
             }
 
             set { _customerIdIsPay = value;
-                if (value != this.ShiperID && value!= this.ReciverID)
-                    CustomerIsPay = CustomerIsPay.Other;
-                if (value == this.ReciverID)
-                    CustomerIsPay = CustomerIsPay.Reciver;
-                if (value == this.ShiperID)
-                    CustomerIsPay = CustomerIsPay.Shiper;
+                //if (value != this.ShiperID && value!= this.ReciverID)
+                //    CustomerIsPay = CustomerIsPay.Other;
+                //if (value == this.ReciverID)
+                //    CustomerIsPay = CustomerIsPay.Reciver;
+                //if (value == this.ShiperID)
+                //    CustomerIsPay = CustomerIsPay.Shiper;
 
                 OnPropertyChange("CustomerIdIsPay");
             }

@@ -267,6 +267,7 @@
     <Compile Include="Contents\Penjualan\List.xaml.cs">
       <DependentUpon>List.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Contents\Penjualan\PenjualanCreateNewVM.cs" />
     <Compile Include="Contents\Penjualan\PenjualanCreateVM.cs" />
     <Compile Include="Contents\Penjualan\PenjualanInfo.xaml.cs">
       <DependentUpon>PenjualanInfo.xaml</DependentUpon>

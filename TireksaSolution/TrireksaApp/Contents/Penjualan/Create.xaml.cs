@@ -29,9 +29,14 @@ namespace TrireksaApp.Contents.Penjualan
             InitializeComponent();
             this.viewmodel=new  Contents.Penjualan.PenjualanCreateVM();
             this.DataContext = viewmodel;
+            this.Loaded += Create_Loaded;
            
         }
-        
+
+        private void Create_Loaded(object sender, RoutedEventArgs e)
+        {
+            //cmbshiper.Focus();
+        }
 
         private void TypeOfWeightCgange(object sender, SelectionChangedEventArgs e)
         {
@@ -71,13 +76,10 @@ namespace TrireksaApp.Contents.Penjualan
                 dlg.ShowDialog();
                 viewmodel.LoadReciver();
             }
-
-      
         }
 
         private void SearchPress(object sender, KeyEventArgs e)
         {
-
             if (e.Key == Key.Enter)
             {
                 TextBox tb = (TextBox)sender;
