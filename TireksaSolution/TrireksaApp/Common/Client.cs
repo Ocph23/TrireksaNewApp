@@ -192,7 +192,7 @@ namespace TrireksaApp.Common
                 //case HttpStatusCode.Forbidden:
                 //    break;
                 case HttpStatusCode.NotFound:
-                    ResourcesBase.ShowMessageError("Alamat Request Tidak Ditemukan");
+                    ResourcesBase.ShowMessageError("Data Request Tidak Ditemukan");
                     break;
                 //case HttpStatusCode.MethodNotAllowed:
                 //    break;

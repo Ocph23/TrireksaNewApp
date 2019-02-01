@@ -11,6 +11,8 @@
              mc:Ignorable="d"  >
     <UserControl.Resources>
         <m:RadioButtonCheckConverter x:Key="RadioButtonCheckConverter"/>
+        <m:VisibilityBoleanConverter x:Key="visibilityConverter"></m:VisibilityBoleanConverter>
+        <m:CustomerAddressConverter x:Key="customerAddressConverter"></m:CustomerAddressConverter>
         <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Height" Value="28"/>
@@ -54,7 +56,7 @@
                     <SolidColorBrush Color="{DynamicResource AccentColor}" Opacity="0.015"/>
                 </StackPanel.Background>
                 <Label Content="STT/AWB"></Label>
-                <TextBox KeyDown="SearchPress" Text="{Binding STTModel.STT,StringFormat='D6',Mode=TwoWay,ValidatesOnDataErrors=True}" Height="40" Width="200" FontWeight="Bold" FontSize="16"></TextBox>
+                <TextBox x:Name="keyboar" KeyDown="SearchPress" Text="{Binding STTModel.STT,StringFormat='D6',Mode=TwoWay,ValidatesOnDataErrors=True}" Height="40" Width="200" FontWeight="Bold" FontSize="16"></TextBox>
                 <Button Height="40" Padding="3" Width="40" Command="{Binding Search}" CommandParameter="{Binding STTModel.STT}" >
                     <mi:PackIcon Kind="FileFind" Width="30" Height="30" Margin="0" />
                 </Button>
@@ -75,15 +77,15 @@
                         <Grid>
                             <Label  Content="Sender" ></Label>
                             <ComboBox x:Name="cmbshiper"  IsDropDownOpen="True"  Text="{Binding ShiperSearch}" ToolTip="{Binding ShiperToolTip }"
-                                      IsEditable="True" KeyDown="AddShiper" 
+                                      IsEditable="True" KeyDown="AddShiper" KeyboardNavigation.TabIndex="0"
                                       IsTextSearchEnabled="False"
-                                      ItemsSource="{Binding Shipers}" SelectedItem="{Binding ShiperSelected}" 
+                                      ItemsSource="{Binding Shipers}" SelectedItem="{Binding STTModel.Shiper}" 
                                       DisplayMemberPath="Name" 
                                       SelectedValuePath="Id" SelectedValue="{Binding STTModel.ShiperID,Mode=TwoWay,
                                 ValidatesOnDataErrors=True}"  ></ComboBox>
                         </Grid>
                         <Grid Height="70"  >
-                            <TextBox Height="60" AcceptsReturn="True" IsEnabled="False"  Text="{Binding ShiperToolTip }" VerticalAlignment="Top"  ></TextBox>
+                            <TextBox Height="65" AcceptsReturn="True" IsEnabled="False"  Text="{Binding STTModel.Shiper,Converter={StaticResource customerAddressConverter} }" VerticalAlignment="Top"  ></TextBox>
                         </Grid>
                     </StackPanel>
                     <StackPanel Margin="5" >
@@ -94,13 +96,13 @@
                             <Label  Content="Reciver"></Label>
                             <ComboBox Text="{Binding ReciverSearch}"  ToolTip="{Binding ReciverToolTip}"
                                       IsEditable="True" KeyDown="AddReciver" ItemsSource="{Binding Recivers}" 
-                                      SelectedItem="{Binding ReciverSelected}"  DisplayMemberPath="Name" 
+                                      SelectedItem="{Binding  STTModel.Reciver}"  DisplayMemberPath="Name" 
                                       SelectedValuePath="Id" 
                                       IsTextSearchEnabled="False"
                                       SelectedValue="{Binding STTModel.ReciverID,Mode=TwoWay,ValidatesOnDataErrors=True}"></ComboBox>
                         </Grid>
-                        <Grid>
-                            <TextBox Height="60" AcceptsReturn="True" IsEnabled="False"  Text="{Binding ReciverToolTip}" VerticalAlignment="Top"></TextBox>
+                        <Grid  Height="70" >
+                            <TextBox Height="65" AcceptsReturn="True" IsEnabled="False"  Text="{Binding STTModel.Reciver,Converter={StaticResource customerAddressConverter} }" VerticalAlignment="Top"></TextBox>
                         </Grid>
                     </StackPanel>
                     <StackPanel Margin="3" Grid.Row="1" Grid.Column="0" >
@@ -117,12 +119,12 @@
                             <Label  Width="118" Content="Will Pay"></Label>
                             <RadioButton Height="30"  Content="Shiper" GroupName="HowWillPay" IsChecked="{Binding STTModel.CustomerIsPay,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:CustomerIsPay.Shiper},ValidatesOnDataErrors=True}" Width="90" ></RadioButton>
                             <RadioButton Height="30"     Content="Reciver" GroupName="HowWillPay" IsChecked="{Binding STTModel.CustomerIsPay,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:CustomerIsPay.Reciver},ValidatesOnDataErrors=True}" Width="90"></RadioButton>
-                            <RadioButton Height="30" Content="Other" GroupName="HowWillPay" IsChecked="{Binding STTModel.CustomerIsPay,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:CustomerIsPay.Other},ValidatesOnDataErrors=True}" Width="90"></RadioButton>
+                            <RadioButton x:Name="otherRadio" Height="30" Content="Other" GroupName="HowWillPay" IsChecked="{Binding STTModel.CustomerIsPay,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:CustomerIsPay.Other},ValidatesOnDataErrors=True}" Width="90"></RadioButton>
                         </StackPanel>
-                        <Grid Visibility="{Binding OtherVisible}" Margin="0,2" >
+                        <Grid Visibility="{Binding IsChecked, ElementName=otherRadio, Converter={StaticResource visibilityConverter},ConverterParameter=1}" Margin="0,2" >
                             <Label  Width="118" Content="Customer"></Label>
                             <ComboBox IsDropDownOpen="True" Text="{Binding CustomerWillPaySearch}" 
-                                      KeyDown="ComboBox_KeyDown"
+                                      KeyDown="ComboBox_KeyDown" KeyboardNavigation.TabIndex="7"
                                       IsEditable="True" ItemsSource="{Binding WillPays}" 
                                       SelectedItem="{Binding WillPaySelected}"  DisplayMemberPath="Name" 
                                       SelectedValuePath="Id" 
@@ -190,7 +192,7 @@
                                 <ColumnDefinition Width="71*"/>
                             </Grid.ColumnDefinitions>
                             <Label VerticalAlignment="Top"  Content="Note" Margin="5,1,0,0"></Label>
-                            <TextBox Height="55" ToolTip="{Binding Note}" AcceptsReturn="True" Text="{Binding STTModel.Note,ValidatesOnDataErrors=True}" Grid.ColumnSpan="2"  />
+                            <TextBox Height="65" ToolTip="{Binding Note}" AcceptsReturn="True" Text="{Binding STTModel.Note,ValidatesOnDataErrors=True}" Grid.ColumnSpan="2"  />
                         </Grid>
                     </StackPanel>
                     <StackPanel Margin="5">

@@ -14,11 +14,11 @@ namespace TrireksaAppContext
             {
                 using (var db = new OcphDbContext())
                 {
-                    var result = db.Priceses.Where(O => O.ShiperId == price.ShiperId && O.ReciverId == price.ReciverId &&
+                    var result = db.Priceses.Where(O => O.ShiperId == price.ShiperId &&
                     O.From == price.From && O.To == price.To && O.PortType == price.PortType && O.PayType == price.PayType).FirstOrDefault();
                     if (result == null)
                     {
-                        result = db.Priceses.Where(O => O.ShiperId == price.ShiperId && O.ReciverId == 0 &&
+                        result = db.Priceses.Where(O => O.ShiperId == price.ShiperId && 
                         O.From == price.From && O.To == price.To).FirstOrDefault();
                         if (result == null)
                             return Task.FromResult(default(Prices));
@@ -56,7 +56,7 @@ namespace TrireksaAppContext
                         {
                             if (ex.Message == "Data Sudah Ada")
                             {
-                               var updated= db.Priceses.Update(O => new { O.Price }, price, O => O.ShiperId == price.ShiperId && O.ReciverId == price.ReciverId &&
+                               var updated= db.Priceses.Update(O => new { O.Price }, price, O => O.ShiperId == price.ShiperId && 
                                  O.From == price.From && O.To == price.To && O.PortType == price.PortType && O.PayType == price.PayType);
                                 if (updated)
                                     return price;

@@ -73,14 +73,20 @@ namespace TrireksaApp.Contents.Penjualan
         }
 
 
-
         private async void CreateNewSTT()
         {
             var STTnumber = await MainVM.PenjualanCollection.NewSTT();
             STTModel = new STTCreateModel(STTnumber);
             STTModel.ChangeDate = DateTime.Now;
+            STTModel.OnChangePrice += STTModel_OnChangePrice;
         }
 
+        private void STTModel_OnChangePrice(bool isOld)
+        {
+            if(!isOld)
+                this.GetPrices(STTModel.CustomerIsPay);
+        }
+               
 
         #region Searchs
         public string ShiperSearch
@@ -134,7 +140,7 @@ namespace TrireksaApp.Contents.Penjualan
             var scr = string.Empty;
             if (string.IsNullOrEmpty(ShiperSearch))
             {
-                ShiperSelected = null;
+                //ShiperSelected = null;
             }
             var obj = (customer)x;
 
@@ -169,7 +175,7 @@ namespace TrireksaApp.Contents.Penjualan
             var scr = string.Empty;
             if (string.IsNullOrEmpty(ReciverSearch))
             {
-                ReciverSelected = null;
+                //ReciverSelected = null;
             }
 
             var obj = (ModelsShared.Models.customer)x;
@@ -210,10 +216,19 @@ namespace TrireksaApp.Contents.Penjualan
                 var stt = Convert.ToInt32(obj);
                 var result = await MainVM.PenjualanCollection.GetItemBySTT(stt);
                 if (result != null)
-                    STTModel = new STTCreateModel(result);
+                {
+                    var newmodel = new STTCreateModel(result);
+                    STTModel = newmodel;
+                    STTModel.OnChangePrice += STTModel_OnChangePrice;
+                }
+                   
                 else
+                {
+                    STTModel = new STTCreateModel(stt);
                     throw new SystemException("Data Tidak Ditemukan !");
-                await Task.Delay(2000);
+                }
+                  
+                await Task.Delay(1000);
             }
             catch (Exception ex)
             {
@@ -221,6 +236,8 @@ namespace TrireksaApp.Contents.Penjualan
             }
 
         }
+
+       
 
         private void SaveAndPrintAction()
         {
@@ -255,22 +272,7 @@ namespace TrireksaApp.Contents.Penjualan
                 ModernDialog.ShowMessage(ex.Message, "Error", MessageBoxButton.OK);
             }
         }
-
-        private customer GetPriceObject()
-        {
-            switch (STTModel.CustomerIsPay)
-            {
-                case CustomerIsPay.Shiper:
-                    return ShiperSelected;
-                case CustomerIsPay.Reciver:
-                    return ReciverSelected;
-                case CustomerIsPay.Other:
-                    return WillPaySelected;
-                default:
-                    return ShiperSelected;
-            }
-        }
-
+      
 
         private void PriceUpdateAction(object obj)
         {
@@ -278,8 +280,8 @@ namespace TrireksaApp.Contents.Penjualan
             try
             {
                 this.PriceIsSync = true;
-                var data = GetPriceObject();
-                var context = new PricesContext(data, ReciverSelected.CityID, STTModel.PortType, STTModel.PayType);
+               // var data = GetPriceObject();
+                var context = new PricesContext(STTModel);
                 context.UpdatePrice(STTModel.Price);
             }
             catch (Exception ex)
@@ -319,7 +321,7 @@ namespace TrireksaApp.Contents.Penjualan
 
         private bool PriceUpdateValidation(object obj)
         {
-            if (ShiperSelected != null && ReciverSelected != null && STTModel.Price > 0 && STTModel.PortType != PortType.None &&
+            if (STTModel!=null && STTModel.Shiper != null && STTModel.Reciver != null && STTModel.Price > 0 && STTModel.PortType != PortType.None &&
                  STTModel.CustomerIsPay != CustomerIsPay.None && STTModel.PayType != PayType.None)
             {
                 return true;
@@ -348,17 +350,12 @@ namespace TrireksaApp.Contents.Penjualan
         #endregion
 
         #region Fields
-        private customer _shiperSelected;
-        private customer _reciverSelected;
         private bool _detailsIsempty;
         private bool _priceIsSync;
-        private string _shiperToolTip;
-        private string reciverToolTip;
         private string _shiperSearch;
         private string _reciverSearch;
         private string _CustomerWillPaySearch;
         private customer _WillPaySelected;
-        private Visibility _otherVisible;
         #endregion
 
         #region Properties
@@ -368,30 +365,6 @@ namespace TrireksaApp.Contents.Penjualan
         public CommandHandler PrintWithForm { get; }
         public CommandHandler Cancel { get; set; }
         public CommandHandler Search { get; set; }
-        public string ShiperToolTip
-        {
-            get
-            {
-                return _shiperToolTip;
-            }
-            set
-            {
-                _shiperToolTip = value;
-                OnPropertyChange("ShiperToolTip");
-            }
-        }
-        public string ReciverToolTip
-        {
-            get
-            {
-                return reciverToolTip;
-            }
-            set
-            {
-                reciverToolTip = value;
-                OnPropertyChange("ReciverToolTip");
-            }
-        }
         public CollectionView OriginPorts { get; set; }
         public CollectionView DestinationPorts { get; set; }
         public CollectionView Recivers { get; private set; }
@@ -401,63 +374,7 @@ namespace TrireksaApp.Contents.Penjualan
         public CommandHandler PriceUpdate { get; private set; }
 
         public penjualan PrintSelected { get; private set; }
-        public Visibility OtherVisible
-        {
-            get {
-                if (STTModel != null && STTModel.CustomerIsPay == CustomerIsPay.Other)
-                    return Visibility.Visible;
-                return _otherVisible;
-            }
-            set
-            {
-                _otherVisible = value;
-                OnPropertyChange("OtherVisible");
-            }
-
-        }
-        public customer ShiperSelected
-        {
-            get { return _shiperSelected; }
-            set
-            {
-                _shiperSelected = value;
-                if (value != null)
-                {
-                    ShiperToolTip = string.Format("{0}\r{1}", value.Address, MainVM.CityCollection.Source.Where(O => O.Id == value.CityID).FirstOrDefault().CityName);
-                    this.GetPrices(STTModel.CustomerIsPay);
-                }
-                else
-                {
-                    ShiperToolTip = string.Empty;
-                }
-                OnPropertyChange("ShiperSelected");
-            }
-        }
-        public customer ReciverSelected
-        {
-            get { return _reciverSelected; }
-            set
-            {
-                _reciverSelected = value;
-                if (value != null)
-                {
-                    STTModel.CityID = value.CityID;
-                    ReciverToolTip = string.Format("{0}\r{1}", value.Address, MainVM.CityCollection.Source.Where(O => O.Id == value.CityID).FirstOrDefault().CityName);
-
-
-                    this.GetPrices(STTModel.CustomerIsPay);
-                }
-                else
-                {
-
-                    ReciverToolTip = string.Empty;
-                }
-
-                OnPropertyChange("ReciverSelected");
-            }
-        }
-
-
+       
         public customer WillPaySelected
         {
             get { return _WillPaySelected; }
@@ -467,40 +384,12 @@ namespace TrireksaApp.Contents.Penjualan
                 if (value != null)
                 {
                     STTModel.CustomerIdIsPay = value.Id;
-                    this.GetPrices(STTModel.CustomerIsPay);
                 }
                 OnPropertyChange("WillPaySelected");
             }
         }
 
-
-        //public override CustomerIsPay CustomerIsPay
-        //{
-        //    get
-        //    {
-        //        return base.CustomerIsPay;
-        //    }
-
-        //    set
-        //    {
-
-        //        base.CustomerIsPay = value;
-        //        if(value!= CustomerIsPay.None)
-        //        GetPrices(value);
-
-        //        if (value == CustomerIsPay.Other)
-        //        {
-        //            this.OtherVisible = Visibility.Visible;
-        //        }
-        //        else
-        //        {
-        //            this.OtherVisible = Visibility.Collapsed;
-        //            this.CustomerWillPaySearch = string.Empty;
-        //        }
-        //        OnPropertyChange("CustomerIsPay");
-
-        //    }
-        //}
+       
 
 
         #endregion
@@ -598,32 +487,27 @@ namespace TrireksaApp.Contents.Penjualan
 
 
 
-        private async void ClearForms()
+        private void ClearForms()
         {
-            CreateNewSTT();
             CustomerWillPaySearch = string.Empty;
             ShiperSearch = string.Empty;
             ReciverSearch = string.Empty;
-
             DetailsIsEmpty = false;
-            OtherVisible = Visibility.Collapsed;
         }
 
         private void GetPrices(CustomerIsPay value)
         {
-
-            var obj = GetPriceObject();
-            if(obj!=null && ReciverSelected!=null && STTModel != null)
+            if (STTModel != null)
             {
-                var pricesContext = new PricesContext(obj, ReciverSelected.CityID, STTModel.PortType, STTModel.PayType);
-                pricesContext.GetPrices().ContinueWith(GetPricesAsyncHandler); 
+                var pricesContext = new PricesContext(STTModel);
+                pricesContext.GetPrices().ContinueWith(GetPricesAsyncHandler);
             }
         }
 
         private async void GetPricesAsyncHandler(Task<double> obj)
         {
             var price = await obj;
-            if (price != 0 && price > 0)
+            if ( price > 0)
             {
                 STTModel.Price = price;
             }
@@ -633,104 +517,54 @@ namespace TrireksaApp.Contents.Penjualan
             }
 
         }
-
-
-        //public PayType PayTypeView
-        //{
-        //    get
-        //    {
-        //        if(STT!=null)
-        //            return STTModel.PayType;
-        //        return PayType.Credit;
-        //    }
-
-        //    set
-        //    {
-
-        //        STTModel.PayType = value;
-        //        OnPropertyChange("PayTypeView");
-        //        if (STTModel.PayType == PayType.COD)
-        //        {
-        //            STTModel.CustomerIsPay = CustomerIsPay.Reciver;
-        //        }
-        //        else
-        //        {
-        //            STTModel.CustomerIsPay = CustomerIsPay.Shiper;
-        //        }
-
-        //        this.GetPrices(STTModel.CustomerIsPay);
-
-        //    }
-        //}
-
-        //public PortType PortTypeView
-        //{
-        //    get
-        //    {
-        //        return STTModel.PortType;
-        //    }
-
-        //    set
-        //    {
-
-        //        STTModel.PortType = value;
-        //        OnPropertyChange("PortTypeView");
-        //        this.GetPrices(STTModel.CustomerIsPay);
-
-        //    }
-        //}
-
-
-        ////ToolTip
-
     }
 
 
-
+    public delegate void ChangePrice (bool isOld);
     public class STTCreateModel : penjualan, IDataErrorInfo
     {
-
+        public event ChangePrice OnChangePrice;
         public STTCreateModel(int sTTnumber)
         {
             STT = sTTnumber;
 
         }
+        private bool IsOld { get; set; }
 
         public STTCreateModel(penjualan result)
         {
-
+            IsOld = true;
             if (result != null)
             {
-                this.Actived = result.Actived;
-                STT = result.STT;
+                
+                Actived = result.Actived;
+                ChangeDate = result.ChangeDate;
+                CityID = result.CityID;
+                Content = result.Content;
+                CustomerIdIsPay = result.CustomerIdIsPay;
+                CustomerIsPay = result.CustomerIsPay;
+                DeliveryStatus = result.DeliveryStatus;
+                Details = result.Details;
+                DoNumber = result.DoNumber;
+                Etc = result.Etc;
+                Id = result.Id;
+                Note = result.Note;
+                PackingCosts = result.PackingCosts;
+                PayType = result.PayType;
+                Pcs = result.Pcs;
+                PortType = result.PortType;
+                Price = result.Price;
                 ShiperID = result.ShiperID;
                 ReciverID = result.ReciverID;
                 Shiper = result.Shiper;
+                Reciver = result.Reciver;
+                STT = result.STT;
                 TypeOfWeight = result.TypeOfWeight;
-                ChangeDate = result.ChangeDate;
-                CustomerIsPay = result.CustomerIsPay;
-                Details = result.Details;
-                Etc = result.Etc;
-                CityID = result.CityID;
-                PackingCosts = result.PackingCosts;
                 Tax = result.Tax;
-                CustomerIdIsPay = result.CustomerIdIsPay;
                 UpdateDate = result.UpdateDate;
                 UserID = result.UserID;
-                PayType = result.PayType;
-                PortType = result.PortType;
-      
-                DoNumber = result.DoNumber;
-                Content = result.Content;
-                Note = result.Note;
-                Id = result.Id;
-
-                DeliveryStatus = result.DeliveryStatus;
-                Price = result.Price;
             }
-
         }
-
 
         internal async Task Save(bool print = false)
         {
@@ -893,23 +727,59 @@ namespace TrireksaApp.Contents.Penjualan
 
             }
         }
+
+        public override CustomerIsPay CustomerIsPay {
+            get => base.CustomerIsPay;
+            set {
+                base.CustomerIsPay = value;
+                if (OnChangePrice != null)
+                    OnChangePrice(IsOld);
+                ChangeOldStatus();
+            } 
+        }
+
+        private async void ChangeOldStatus()
+        {
+            await Task.Delay(2000);
+            if (IsOld)
+                IsOld = false;
+        }
+
+        public override PayType PayType { get => base.PayType;
+            set { base.PayType = value;
+                if (OnChangePrice != null)
+                    OnChangePrice(IsOld);
+                ChangeOldStatus();
+            }
+        }
+
+        public override PortType PortType { get => base.PortType;
+            set
+            {
+                base.PortType= value;
+                if (OnChangePrice != null)
+                    OnChangePrice(IsOld);
+                ChangeOldStatus();
+            }
+        }
     }
 
 
     public class PricesContext
     {
-        public PricesContext(customer shiper, int DestinTionId, PortType portType, PayType payType)
+        private STTCreateModel sTTModel;
+
+        public PricesContext(STTCreateModel sTTModel)
         {
-            this.Shiper = shiper;
-            this.PortType = portType;
-            this.PayType = payType;
+            this.sTTModel = sTTModel;
         }
 
         public bool PricesParamaterValid
         {
             get
             {
-                if (Shiper != null && PayType != PayType.None && PortType != PortType.None)
+                if (sTTModel.Reciver!=null && sTTModel.CustomerIdIsPay>0 && 
+                    sTTModel.PayType != PayType.None && sTTModel.PortType != PortType.None && sTTModel.Reciver.CityID>0)
                     return true;
                 else
                     return false;
@@ -931,12 +801,8 @@ namespace TrireksaApp.Contents.Penjualan
 
         private Prices GetModel()
         {
-            var prices = new Prices();
-            prices.ShiperId = Shiper.Id;
-            prices.PortType = PortType;
-            prices.From = Shiper.CityID;
-            prices.To = DestinationId;
-            prices.PayType = PayType;
+            var prices = new Prices {  From= sTTModel.Shiper.CityID, PayType= sTTModel.PayType, PortType= sTTModel .PortType,
+             Price=sTTModel.Price, ShiperId= sTTModel.CustomerIdIsPay, To= sTTModel.ReciverID};
             return prices;
         }
 
@@ -950,10 +816,5 @@ namespace TrireksaApp.Contents.Penjualan
                 await context.SetPrices(prices);
             }
         }
-
-        public customer Shiper { get; }
-        public int DestinationId { get; }
-        public PayType PayType { get; }
-        public PortType PortType { get; }
     }
 }

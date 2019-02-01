@@ -49,7 +49,7 @@ namespace TrireksaApp.Contents.Penjualan
         {
             ComboBox cmb = (ComboBox)sender;
                 cmb.IsDropDownOpen = true;
-            if (e.Key== Key.Enter && viewmodel.ShiperSelected==null)
+            if (e.Key== Key.Enter && viewmodel.STTModel!=null && viewmodel.STTModel.Shiper==null)
             {
                 
                 var form = new Contents.Customer.Create();
@@ -66,7 +66,7 @@ namespace TrireksaApp.Contents.Penjualan
         {
             ComboBox cmb = (ComboBox)sender;
             cmb.IsDropDownOpen = true;
-            if (e.Key == Key.Enter && viewmodel.ReciverSelected==null)
+            if (e.Key == Key.Enter && viewmodel.STTModel != null && viewmodel.STTModel.Reciver == null)
             {
                
                 var form = new Contents.Customer.Create();

@@ -120,7 +120,7 @@ namespace ModelsShared.Models
 
         [JsonConverter(typeof(StringEnumConverter))]
         [DbColumn("PayType")]
-        public  PayType PayType
+        public virtual PayType PayType
         {
             get { return _paytype; }
             set
@@ -132,7 +132,7 @@ namespace ModelsShared.Models
 
         [JsonConverter(typeof(StringEnumConverter))]
         [DbColumn("PortType")]
-        public  PortType PortType
+        public virtual PortType PortType
         {
             get { return _portType; }
             set
@@ -175,13 +175,13 @@ namespace ModelsShared.Models
             }
 
             set { _customerIdIsPay = value;
-                //if (value != this.ShiperID && value!= this.ReciverID)
-                //    CustomerIsPay = CustomerIsPay.Other;
-                //if (value == this.ReciverID)
-                //    CustomerIsPay = CustomerIsPay.Reciver;
-                //if (value == this.ShiperID)
-                //    CustomerIsPay = CustomerIsPay.Shiper;
-
+              
+                if (value == this.ReciverID)
+                    CustomerIsPay = CustomerIsPay.Reciver;
+                if (value == this.ShiperID)
+                    CustomerIsPay = CustomerIsPay.Shiper;
+                if (value != this.ShiperID && value != this.ReciverID)
+                    CustomerIsPay = CustomerIsPay.Other;
                 OnPropertyChange("CustomerIdIsPay");
             }
         }
@@ -319,8 +319,14 @@ namespace ModelsShared.Models
         }
 
 
-        public customer Reciver { get; set; }
-        public customer Shiper { get; set; }
+        public customer Reciver {
+            get { return _reciever; }
+            set { _reciever = value;OnPropertyChange("Reciver"); }
+        }
+        public customer Shiper {
+            get { return _shiper; }
+            set { _shiper = value; OnPropertyChange("Shiper"); }
+        }
 
         public deliverystatus DeliveryStatus { get; set; }
 
@@ -382,6 +388,8 @@ namespace ModelsShared.Models
         private bool _isPaid;
         private int _customerIdIsPay;
         private int _id;
+        private customer _reciever;
+        private customer _shiper;
     }
 
 }
