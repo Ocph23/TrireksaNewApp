@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
        IsTitleVisible="True" WindowStyle="None"  
-        ContentSource="/Pages/Home.xaml" WindowState="Maximized">
+        ContentSource="/Pages/Home.xaml" WindowState="Maximized" Width="1366" Height="768">
    
 
 

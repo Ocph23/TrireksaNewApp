@@ -173,6 +173,11 @@
                             </MenuItem.Template>
                         </MenuItem>
                     </MenuItem>
+                    <MenuItem Header="Print Preview Report" Command="{Binding PreviewReport}">
+                        <MenuItem.Icon>
+                            <mi:PackIcon Kind="Printer"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </ContextMenu>
             </ListView.ContextMenu>
 

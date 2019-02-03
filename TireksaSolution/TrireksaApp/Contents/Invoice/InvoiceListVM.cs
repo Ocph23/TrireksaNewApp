@@ -7,12 +7,17 @@ using System.Windows;
 using TrireksaApp.Common;
 using ModelsShared;
 using System.Threading.Tasks;
+using System;
+using System.Text;
+using Microsoft.Reporting.WinForms;
+using TrireksaApp.Reports.Models;
 
 namespace TrireksaApp.Contents.Invoice
 {
     public class InvoiceListVM:Common.ViewModelBase
     {
         public CommandHandler PreviewManifest { get; private set; }
+        public CommandHandler PreviewReport { get; private set; }
         public CommandHandler UpdateDeliveryData { get; private set; }
         public List<InvoiceStatus> InvoiceStatusView { get; private set; }
         public CommandHandler UpdateInvoiceStatus { get; private set; }
@@ -26,8 +31,60 @@ namespace TrireksaApp.Contents.Invoice
             PreviewManifest = new CommandHandler { CanExecuteAction = x => PreviewManifestValidation(), ExecuteAction = x => PreviewManifestAction() };
             UpdateDeliveryData  = new CommandHandler { CanExecuteAction = x => UpdateDeliveryDataValidation(), ExecuteAction = x => UpdateDeliveryDataAction() };
             UpdateInvoiceStatus  = new CommandHandler { CanExecuteAction = x => UpdateInvoiceStatusValidation(), ExecuteAction = x => UpdateInvoiceStatusAction() };
+            PreviewReport = new CommandHandler { ExecuteAction = PrintpreviewReportAction };
             MainVM.InvoiceCollections.RefreshCompleted += InvoiceCollections_RefreshCompleted;
             RefreshAction(null);
+        }
+
+        private void PrintpreviewReportAction(object obj)
+        {
+            var data = MainVM.InvoiceCollections.SourceView.Cast<invoice>().ToList();
+            if (data != null && data.Count>0)
+            {
+                StringBuilder sb = new StringBuilder();
+                if (IsUnpaid)
+                    AddText("Belum Dibayar",sb);
+                if (IsPaid)
+                    AddText("Terbayar", sb);
+                if (IsPending)
+                    AddText("Pending", sb);
+                if (IsPaid)
+                    AddText("Batal", sb);
+
+                if (sb.Length <= 0)
+                    sb.Append("Laporan Invoice");
+                var p = new ReportParameter() { Name="Title" };
+                p.Values.Add(sb.ToString());
+                ReportParameter[] param = new ReportParameter[] { p };
+
+                var list = new List<InvoiceReport>();
+                foreach(var item in data)
+                {
+                    list.Add(new InvoiceReport(item));
+                }
+
+
+                var content = new Reports.Contents.ReportContent(new Microsoft.Reporting.WinForms.ReportDataSource { Value =list},
+               "TrireksaApp.Reports.Layouts.InvoiceReportLayout.rdlc", param);
+                var dlg = new FirstFloor.ModernUI.Windows.Controls.ModernWindow
+                {
+                    Content = content,
+                    Title = "Daftar Invoice",
+                    Style = (Style)App.Current.Resources["BlankWindow"],
+                    ResizeMode = System.Windows.ResizeMode.CanResizeWithGrip,
+                    WindowState = WindowState.Maximized,
+                };
+
+                dlg.ShowDialog();
+            }
+        }
+
+        private void AddText(string v, StringBuilder sb)
+        {
+            if (sb.Length > 0)
+                sb.Append(", " + v);
+            else
+                sb.Append(v);
         }
 
         private void InvoiceCollections_RefreshCompleted()

@@ -26,6 +26,7 @@ namespace TrireksaApp.Contents.Penjualan
         public ObservableCollection<customer> ShipersSource { get; set; }
         public ObservableCollection<customer> ReciversSource { get; set; }
         public ObservableCollection<customer> WillPaySource { get; set; }
+        public ObservableCollection<city> CitiesSource { get; private set; }
 
         public PenjualanCreateVM()
         {
@@ -38,17 +39,20 @@ namespace TrireksaApp.Contents.Penjualan
             ShipersSource = new ObservableCollection<customer>(MainVM.CustomerCollection.Source);
             ReciversSource = new ObservableCollection<customer>(MainVM.CustomerCollection.Source);
             WillPaySource = new ObservableCollection<customer>(MainVM.CustomerCollection.Source);
+            CitiesSource = new ObservableCollection<city>(MainVM.CityCollection.Source);
 
+            this.Origins = (CollectionView)CollectionViewSource.GetDefaultView(CitiesSource);
+            this.Destinations = (CollectionView)CollectionViewSource.GetDefaultView(CitiesSource);
             this.Shipers = (CollectionView)CollectionViewSource.GetDefaultView(ShipersSource);
             this.Recivers = (CollectionView)CollectionViewSource.GetDefaultView(ReciversSource);
             this.WillPays = (CollectionView)CollectionViewSource.GetDefaultView(WillPaySource);
+       
+
             Shipers.Filter = ShiperFilter;
             Recivers.Filter = ReciverFilter;
             WillPays.Filter = WillPayFilter;
-            Recivers.Refresh();
-            Shipers.Refresh();
-            WillPays.Refresh();
 
+         
             Save = new CommandHandler { CanExecuteAction = x => SaveValidation(), ExecuteAction = SaveAction };
             Print = new CommandHandler { CanExecuteAction = x => PrintSelected != null, ExecuteAction = x => PrintAction() };
             PrintWithForm = new CommandHandler { CanExecuteAction = x => PrintSelected != null, ExecuteAction = x => PrintFormAction() };
@@ -75,10 +79,33 @@ namespace TrireksaApp.Contents.Penjualan
 
         private async void CreateNewSTT()
         {
+            RefreshSource();
             var STTnumber = await MainVM.PenjualanCollection.NewSTT();
+            if (STTnumber <= 0)
+                STTnumber = 1;
             STTModel = new STTCreateModel(STTnumber);
             STTModel.ChangeDate = DateTime.Now;
             STTModel.OnChangePrice += STTModel_OnChangePrice;
+         
+        }
+
+        private void RefreshSource()
+        {
+            ShipersSource.Clear();
+            ReciversSource.Clear();
+            WillPaySource.Clear();
+            foreach (var item in MainVM.CustomerCollection.Source)
+            {
+           
+
+                ShipersSource.Add(item);
+                ReciversSource.Add(item);
+                WillPaySource.Add(item);
+            }
+
+            Recivers.Refresh();
+            Shipers.Refresh();
+            WillPays.Refresh();
         }
 
         private void STTModel_OnChangePrice(bool isOld)
@@ -200,19 +227,24 @@ namespace TrireksaApp.Contents.Penjualan
         }
 
 
-        private void CancalAction()
+        private async void CancalAction()
         {
             this.ClearForms();
-            this.CreateNewSTT();
+            await Task.Delay(1000);
+            CreateNewSTT();
+        }
 
-
+        private async void CancelCompleter(Task obj)
+        {
+            await obj;
+           
         }
 
         private async void SearchAction(object obj)
         {
             try
             {
-                //ClearForms();
+                RefreshSource();
                 var stt = Convert.ToInt32(obj);
                 var result = await MainVM.PenjualanCollection.GetItemBySTT(stt);
                 if (result != null)
@@ -244,7 +276,11 @@ namespace TrireksaApp.Contents.Penjualan
             try
             {
                 if (Save.CanExecute(null))
+                {
                     Save.Execute(true);
+                    Helper.PrintNotaAction(STTModel);
+                }
+                 
 
 
             }
@@ -365,8 +401,8 @@ namespace TrireksaApp.Contents.Penjualan
         public CommandHandler PrintWithForm { get; }
         public CommandHandler Cancel { get; set; }
         public CommandHandler Search { get; set; }
-        public CollectionView OriginPorts { get; set; }
-        public CollectionView DestinationPorts { get; set; }
+        public CollectionView Origins { get; set; }
+        public CollectionView Destinations { get; set; }
         public CollectionView Recivers { get; private set; }
         public CollectionView Shipers { get; private set; }
         public CollectionView WillPays { get; private set; }
@@ -487,11 +523,13 @@ namespace TrireksaApp.Contents.Penjualan
 
 
 
-        private void ClearForms()
+        private  void ClearForms()
         {
-            CustomerWillPaySearch = string.Empty;
-            ShiperSearch = string.Empty;
-            ReciverSearch = string.Empty;
+            STTModel.Shiper = null;
+            STTModel.Reciver = null;
+            CustomerWillPaySearch = "";
+            ShiperSearch = "";
+            ReciverSearch = "";
             DetailsIsEmpty = false;
         }
 
@@ -539,7 +577,8 @@ namespace TrireksaApp.Contents.Penjualan
                 
                 Actived = result.Actived;
                 ChangeDate = result.ChangeDate;
-                CityID = result.CityID;
+                From = result.From;
+                To = result.To;
                 Content = result.Content;
                 CustomerIdIsPay = result.CustomerIdIsPay;
                 CustomerIsPay = result.CustomerIsPay;
@@ -563,6 +602,7 @@ namespace TrireksaApp.Contents.Penjualan
                 Tax = result.Tax;
                 UpdateDate = result.UpdateDate;
                 UserID = result.UserID;
+                IsPaid = result.IsPaid;
             }
         }
 
@@ -667,8 +707,11 @@ namespace TrireksaApp.Contents.Penjualan
                     return (PortType == PortType.None) ? "Select Port Type" : null;
 
 
-                if (columnName == "CityID")
-                    return (CityID <= 0) ? "Select Origin Port" : null;
+                if (columnName == "From")
+                    return (From <= 0) ? "Select Origin City" : null;
+
+                if (columnName == "To")
+                    return (To <= 0) ? "Select Destination City" : null;
 
 
                 if (columnName == "CustomerIsPay")
@@ -677,10 +720,6 @@ namespace TrireksaApp.Contents.Penjualan
 
                 if (columnName == "Content")
                     return string.IsNullOrEmpty(Content) ? "Content Required ?" : null;
-
-
-
-
 
 
                 return null;
@@ -702,8 +741,9 @@ namespace TrireksaApp.Contents.Penjualan
                 if (this.CustomerIsPay == CustomerIsPay.Other && (CustomerIdIsPay == ShiperID || CustomerIdIsPay == ReciverID))
                     return false;
 
-                if (this.CityID == 0 && this.Price == 0)
+                if (this.From == 0 || this.Price == 0 || this.To==0)
                     return false;
+
                 if (this.Details == null || this.Details.Count == 0)
                     return false;
 
@@ -717,9 +757,7 @@ namespace TrireksaApp.Contents.Penjualan
                     return false;
                 if (string.IsNullOrEmpty(Content))
                     return false;
-                if (this.Price <= 0)
-                    return false;
-
+                
 
                 return true;
 
@@ -732,6 +770,10 @@ namespace TrireksaApp.Contents.Penjualan
             get => base.CustomerIsPay;
             set {
                 base.CustomerIsPay = value;
+                if (value == CustomerIsPay.Shiper)
+                    CustomerIdIsPay = ShiperID;
+                if (value == CustomerIsPay.Reciver)
+                    CustomerIdIsPay = ReciverID;
                 if (OnChangePrice != null)
                     OnChangePrice(IsOld);
                 ChangeOldStatus();
@@ -762,6 +804,9 @@ namespace TrireksaApp.Contents.Penjualan
                 ChangeOldStatus();
             }
         }
+
+
+
     }
 
 
@@ -802,7 +847,7 @@ namespace TrireksaApp.Contents.Penjualan
         private Prices GetModel()
         {
             var prices = new Prices {  From= sTTModel.Shiper.CityID, PayType= sTTModel.PayType, PortType= sTTModel .PortType,
-             Price=sTTModel.Price, ShiperId= sTTModel.CustomerIdIsPay, To= sTTModel.ReciverID};
+             Price=sTTModel.Price, ShiperId= sTTModel.CustomerIdIsPay, To= sTTModel.Reciver.CityID};
             return prices;
         }
 

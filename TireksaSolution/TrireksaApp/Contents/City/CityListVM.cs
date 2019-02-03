@@ -22,10 +22,17 @@ namespace TrireksaApp.Contents.City
             Edit = new CommandHandler { CanExecuteAction = x => EditValidation(), ExecuteAction = x => EditAction() };
 
             var mw = App.Current.Windows[0] as MainWindow;
-            this.Collection = ((MainWindowVM)mw.DataContext).CityCollection;
+            this.Collection = MainVM.CityCollection;
             Collection.SourceView.Filter = FilterItem;
            
         }
+
+        protected override void RefreshAction(object obj)
+        {
+            ProgressIsActive = true;
+            MainVM.CityCollection.Refresh();
+        }
+
 
         private async void EditAction()
         {

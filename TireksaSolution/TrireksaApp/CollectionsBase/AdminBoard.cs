@@ -1,4 +1,5 @@
 ﻿using ModelsShared.Models;
+using ModelsShared.ReportModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +19,14 @@ namespace TrireksaApp.CollectionsBase
             return client.GetAsync<double>(uri);
         }
 
-        internal Task<List<penjualan>> GetPenjualanNotPaid()
+        internal Task<List<PenjualanReportModel>> GetPenjualanNotPaid()
         {
-            return client.GetAsync<List<penjualan>>("GetPenjualanNotPaid");
+            return client.GetAsync<List<PenjualanReportModel>>("GetPenjualanNotPaid");
         }
 
-        internal Task<List<penjualan>> GetPenjualanNotStatus()
+        internal Task<List<PenjualanReportModel>> GetPenjualanNotStatus()
         {
-            return client.GetAsync<List<penjualan>>("GetPenjualanNotHaveStatus");
+            return client.GetAsync<List<PenjualanReportModel>>("GetPenjualanNotHaveStatus");
         }
 
         internal  Task<List<invoice>> GetInvoiceNotYetPaid()
@@ -47,9 +48,9 @@ namespace TrireksaApp.CollectionsBase
             return client.GetAsync<List<invoice>>("GetInvoiceJatuhTempo");
         }
 
-        internal Task<List<penjualan>> GetPenjualanNotYetSend()
+        internal Task<List<PenjualanReportModel>> GetPenjualanNotYetSend()
         {
-            return client.GetAsync<List<penjualan>>("GetPenjualanNotYetSend");
+            return client.GetAsync<List<PenjualanReportModel>>("GetPenjualanNotYetSend");
         }
     }
 }

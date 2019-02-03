@@ -1,5 +1,6 @@
 ﻿using ModelsShared;
 using ModelsShared.Models;
+using ModelsShared.ReportModels;
 using Ocph.DAL;
 using Ocph.DAL.Mapping;
 using Ocph.DAL.Mapping.MySql;
@@ -50,72 +51,70 @@ namespace TrireksaAppContext
             }
         }
 
-        public Task<List<penjualan>> GetPenjualanNotHaveStatus()
+
+        private Task<List<PenjualanReportModel>> GetPenjualan(string sp)
         {
             using (var db = new OcphDbContext())
             {
-
-                var sp = string.Format("PenjualanNotHaveDeliveryStatus");
-                var cmd = db.CreateCommand();
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = sp;
-                var dr = cmd.ExecuteReader();
-
-                var ent = new EntityInfo(typeof(ModelsShared.Models.penjualan));
-                var list = new MappingColumn(ent).MappingWithoutInclud<penjualan>(dr);
-                dr.Close();
-                foreach (var item in list)
+                try
                 {
-                    item.Shiper = db.Customers.Where(O => O.Id == item.ShiperID).FirstOrDefault();
-                    item.Reciver = db.Customers.Where(O => O.Id == item.ReciverID).FirstOrDefault();
+                    var cmd = db.CreateCommand();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandText = sp;
+                    var dr = cmd.ExecuteReader();
+                    var list = MappingProperties<PenjualanReportModel>.MappingTable(dr);
+                    dr.Close();
+
+                    return Task.FromResult(list);
                 }
-                return Task.FromResult(list);
+                catch (Exception ex)
+                {
+
+                    throw new SystemException(ex.Message);
+                }
+
             }
+        }
 
+        public Task<List<PenjualanReportModel>> GetPenjualanNotHaveStatus()
+        {
 
+            try
+            {
+                return GetPenjualan("PenjualanNotHaveDeliveryStatus");
+            }
+            catch (Exception ex)
+            {
+                throw new SystemException(ex.Message);
+            }
         }
 
 
-        public Task<List<penjualan>> GetPenjualanNotYetSend()
+        public Task<List<PenjualanReportModel>> GetPenjualanNotYetSend()
         {
-            using (var db = new OcphDbContext())
+            try
             {
-                var sp = string.Format("PenjualanNotYetSend");
-                var cmd = db.CreateCommand();
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = sp;
-                var dr = cmd.ExecuteReader();
-                var ent = new EntityInfo(typeof(ModelsShared.Models.penjualan));
-                var list = new MappingColumn(ent).MappingWithoutInclud<penjualan>(dr);
-
-                dr.Close();
-
-                foreach (var item in list)
-                {
-                    item.Shiper = db.Customers.Where(O => O.Id == item.ShiperID).FirstOrDefault();
-                    item.Reciver = db.Customers.Where(O => O.Id == item.ReciverID).FirstOrDefault();
-                }
-                return Task.FromResult(list);
+                return GetPenjualan("PenjualanNotYetSend");
             }
-
-
+            catch (Exception ex)
+            {
+                throw new SystemException(ex.Message);
+            }
+          
         }
 
 
-        public Task<List<penjualan>> GetPenjualanNotPaid()
+        public Task<List<PenjualanReportModel>> GetPenjualanNotPaid()
         {
-
-            using (var db = new OcphDbContext())
+            try
             {
-                var list = db.Penjualans.Where(O => O.PayType == PayType.Credit && O.IsPaid == false).ToList();
-
-                foreach (var item in list)
-                {
-                    item.Shiper = db.Customers.Where(O => O.Id == item.ShiperID).FirstOrDefault();
-                    item.Reciver = db.Customers.Where(O => O.Id == item.ReciverID).FirstOrDefault();
-                }
-                return Task.FromResult(list);
+                return GetPenjualan("PenjualanNotPaid");
             }
+            catch (Exception ex)
+            {
+                throw new SystemException(ex.Message);
+            }
+            
         }
 
         public Task<List<invoice>> GetInvoiceNotYetDelivery()

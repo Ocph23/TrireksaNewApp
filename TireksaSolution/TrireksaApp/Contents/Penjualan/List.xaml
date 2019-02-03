@@ -7,7 +7,9 @@
              xmlns:mi="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              xmlns:vm="clr-namespace:TrireksaApp.Contents.Penjualan"
+         
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:dp="http://schemas.xceed.com/wpf/xaml/toolkit"
              d:DesignHeight="300" d:DesignWidth="300">
   
     <Grid>
@@ -27,6 +29,7 @@
                 </WrapPanel>
             </Grid>
             <WrapPanel Grid.Row="1">
+               
                 <DatePicker SelectedDate="{Binding MainVM.PenjualanCollection.StartDate}"></DatePicker>
                 <Label Width="auto" Margin="10,0" VerticalAlignment="Center" Content="S/D"/>
                 <DatePicker SelectedDate="{Binding  MainVM.PenjualanCollection.EndDate}"></DatePicker>
@@ -96,7 +99,7 @@
                                         </StackPanel>
                                         <StackPanel Style="{StaticResource OPanel}">
                                             <Label Content="Date"/>
-                                            <DatePicker SelectedDate="{Binding SelectedItem.DeliveryStatus.ReciveDate}"/>
+                                            <dp:DateTimePicker Format="Custom" FormatString="dd-MMM-yy hh:mm:ss" Margin="5" Value="{Binding SelectedItem.DeliveryStatus.ReciveDate}" Background="{x:Null}" Foreground="White"/>
                                         </StackPanel>
                                         <StackPanel Style="{StaticResource OPanel}">
                                             <Label Content="Have Sign"/>

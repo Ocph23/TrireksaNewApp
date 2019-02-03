@@ -26,6 +26,8 @@ namespace ModelsShared.ReportModels
         public string PayStatus { get; set; }
         public bool SendStatus { get; set; }
         public double Price { get; set; }
+        public DateTime ChangeDate { get; set; }
+        public string DoNumber { get; set; }
         public virtual double Biaya{ get { return Price * Weight; } set { _biaya = value; } }
         public DateTime From { get; set; }
         public DateTime To { get; set; }

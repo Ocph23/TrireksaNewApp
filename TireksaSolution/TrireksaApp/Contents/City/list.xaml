@@ -38,7 +38,7 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Refresh" Command="{Binding Refresh}">
+                    <MenuItem Header="Refresh" Command="{Binding RefreshCommand}">
                         <MenuItem.Icon>
                             <mi:PackIcon Kind="Refresh"/>
                         </MenuItem.Icon>

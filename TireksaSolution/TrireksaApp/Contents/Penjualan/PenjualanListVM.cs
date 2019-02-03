@@ -86,7 +86,7 @@ namespace TrireksaApp.Contents.Penjualan
                 {
                     isDelivery = status.Value;
                 }
-                return isDelivery;
+                return !isDelivery;
             }
             else
                 return false;

@@ -183,7 +183,8 @@ namespace TrireksaApp.CollectionsBase
                 data.CustomerIsPay = item.CustomerIsPay;
                 data.Details = item.Details;
                 data.Etc = item.Etc;
-                data.CityID = item.CityID;
+                data.From = item.From;
+                data.To = item.To;
                 data.PackingCosts = item.PackingCosts;
                 data.PayType = item.PayType;
                 data.PortType = item.PortType;

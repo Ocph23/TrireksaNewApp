@@ -11,6 +11,7 @@ namespace TrireksaApp.CollectionsBase
 {
     public class CityCollection
     {
+        public event RefreshComplete RefreshCompleted;
         private Client client = new Client("city");
         private SignalRClient signalRClient;
 
@@ -23,12 +24,13 @@ namespace TrireksaApp.CollectionsBase
         {
             Source = new ObservableCollection<city>();
             SourceView = (CollectionView)CollectionViewSource.GetDefaultView(Source);
-            InitAsync();
+            Refresh();
 
         }
 
         private async void InitAsync()
         {
+            Source.Clear();
             var result = await client.GetAsync<List<city>>("Get");
             if (result != null)
             {
@@ -40,6 +42,13 @@ namespace TrireksaApp.CollectionsBase
             }
             signalRClient = ResourcesBase.GetSignalClient();
             signalRClient.OnAddCity += SignalRClient_OnAddCity;
+            RefreshCompleted?.Invoke();
+        }
+
+        public Task Refresh()
+        {
+            InitAsync();
+            return Task.FromResult(0);
         }
 
         private async void SignalRClient_OnAddCity(object sender)

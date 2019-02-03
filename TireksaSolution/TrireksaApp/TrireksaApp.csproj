@@ -122,6 +122,9 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.8.19076.18510, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.Toolkit.3.8.19076.18510\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="ZKWeb.System.Drawing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ZKWeb.System.Drawing.4.0.1\lib\net45\ZKWeb.System.Drawing.dll</HintPath>
     </Reference>
@@ -321,6 +324,7 @@
     <Compile Include="ErrorView.xaml.cs">
       <DependentUpon>ErrorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FocusAdvancement.cs" />
     <Compile Include="FormLogin.xaml.cs">
       <DependentUpon>FormLogin.xaml</DependentUpon>
     </Compile>
@@ -753,6 +757,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\ModelsShared.Models.invoice.datasource" />
     <None Include="Properties\DataSources\ModelsShared.Models.packinglist.datasource" />
     <None Include="Properties\DataSources\ModelsShared.Models.PackingListPrintModel.datasource" />
     <None Include="Properties\DataSources\ModelsShared.Models.penjualan.datasource" />
@@ -761,6 +766,7 @@
     <None Include="Properties\DataSources\ModelsShared.ReportModels.PenjualanReportModel.datasource" />
     <None Include="Properties\DataSources\TrireksaApp.Models.PenjualanManifestView.datasource" />
     <None Include="Properties\DataSources\TrireksaApp.Models.PenjualanView.datasource" />
+    <None Include="Properties\DataSources\TrireksaApp.Reports.Models.InvoiceReport.datasource" />
     <None Include="Properties\DataSources\TrireksaApp.Reports.Models.InvoiceReportModel.datasource" />
     <None Include="Properties\DataSources\TrireksaApp.Reports.Models.ManifestOutgoingReport.datasource" />
     <None Include="Properties\DataSources\TrireksaApp.Reports.Models.NotaReportModel.datasource" />
@@ -773,6 +779,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Layouts\AdminPenjualanLayout.rdlc" />
     <EmbeddedResource Include="Reports\Layouts\InvoiceLayout.rdlc" />
+    <EmbeddedResource Include="Reports\Layouts\InvoiceReportLayout.rdlc" />
     <EmbeddedResource Include="Reports\Layouts\ManifestOutgoingLayout.rdlc" />
     <EmbeddedResource Include="Reports\Layouts\NotaOne.rdlc">
       <SubType>Designer</SubType>

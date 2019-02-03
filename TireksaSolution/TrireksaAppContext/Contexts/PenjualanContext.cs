@@ -155,7 +155,7 @@ namespace TrireksaAppContext
                         var savedParent = db.Penjualans.Update(O => new
                         {
                             O.UpdateDate,
-                            O.CityID,
+                            O.From, O.To,
                             O.Content,
                             O.CustomerIdIsPay,
                             O.DoNumber,
@@ -231,7 +231,7 @@ namespace TrireksaAppContext
         {
             using (var db = new OcphDbContext())
             {
-                var ports = db.Ports.Where(O => O.CityID == value.CityID && O.PortType == value.PortType).FirstOrDefault();
+                var ports = db.Ports.Where(O => O.CityID == value.To && O.PortType == value.PortType).FirstOrDefault();
                 if (ports != null)
                     return true;
                 else
@@ -245,7 +245,7 @@ namespace TrireksaAppContext
             using (var db = new OcphDbContext())
             {
                 var cities = from c in db.CitiesAgentCanAccess.Where(O => O.AgentId == agentId)
-                             join p in db.Penjualans.Where(O => O.PortType == type) on c.CityId equals p.CityID
+                             join p in db.Penjualans.Where(O => O.PortType == type) on c.CityId equals p.To
                              select p;
 
                 foreach (var item in cities.ToList())
@@ -318,7 +318,8 @@ namespace TrireksaAppContext
         {
             using (var db = new OcphDbContext())
             {
-                var isUpdated = db.DeliveryStatusses.Update(O => new { O.Description, O.IsSignIn, O.Phone, O.ReciveDate, O.ReciveName, O.UserID }, obj, O => O.Id == obj.Id && O.PenjualanId==obj.PenjualanId);
+                var isUpdated = db.DeliveryStatusses.Update(O => new { O.Description, O.IsSignIn, O.Phone, O.ReciveDate, O.ReciveName, O.UserID },
+                    obj, O => O.Id == obj.Id && O.PenjualanId==obj.PenjualanId);
                 if (isUpdated)
                 {
                     return obj;
@@ -346,7 +347,7 @@ namespace TrireksaAppContext
 
 
 
-        public  List<PenjualanReportModel> GetPenjualanFromTo(DateTime start,DateTime ended)
+        public  List<PenjualanReportModel> GetPenjualanFromTo(DateTime startDate, DateTime ended)
         {
             using (var db = new OcphDbContext())
             {
@@ -356,7 +357,7 @@ namespace TrireksaAppContext
                     var cmd = db.CreateCommand();
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = sp;
-                    cmd.Parameters.Add(new MySql.Data.MySqlClient.MySqlParameter("start", start));
+                    cmd.Parameters.Add(new MySql.Data.MySqlClient.MySqlParameter("startDate", startDate));
                     cmd.Parameters.Add(new MySql.Data.MySqlClient.MySqlParameter("ended", ended));
                     var dr = cmd.ExecuteReader();
 
@@ -364,7 +365,7 @@ namespace TrireksaAppContext
                     dr.Close();
                     foreach(var item in list)
                     {
-                        item.From = start;
+                        item.From = startDate;
                         item.To = ended;
                     }
                     return list;

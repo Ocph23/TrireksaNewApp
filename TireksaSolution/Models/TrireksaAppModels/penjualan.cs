@@ -21,7 +21,6 @@ namespace ModelsShared.Models
             set
             {
                 _id = value;
-            
                 OnPropertyChange("Id");
             }
         }
@@ -46,6 +45,10 @@ namespace ModelsShared.Models
             set
             {
                 _shiperid = value;
+                if (CustomerIsPay == CustomerIsPay.Shiper)
+                    CustomerIdIsPay = value;
+                if (Shiper!=null && From <= 0)
+                    From = Shiper.CityID;
                 OnPropertyChange("ShiperID");
             }
         }
@@ -57,6 +60,11 @@ namespace ModelsShared.Models
             set
             {
                 _reciverid = value;
+                if (CustomerIsPay == CustomerIsPay.Reciver)
+                    CustomerIdIsPay = value;
+                CustomerIdIsPay = value;
+                if (Reciver != null && To <= 0)
+                    To = Reciver.CityID;
                 OnPropertyChange("ReciverID");
             }
         }
@@ -141,14 +149,25 @@ namespace ModelsShared.Models
                 OnPropertyChange("PortType");
             }
         }
-        [DbColumn("CityID")]
-        public int CityID
+        [DbColumn("FromCity")]
+        public int From
         {
-            get { return _cityid; }
+            get { return _fromCity; }
             set
             {
-                _cityid = value;
-                OnPropertyChange("CityID");
+                _fromCity = value;
+                OnPropertyChange("From");
+            }
+        }
+
+        [DbColumn("ToCity")]
+        public int To
+        {
+            get { return _toCity; }
+            set
+            {
+                _toCity = value;
+                OnPropertyChange("To");
             }
         }
 
@@ -163,8 +182,7 @@ namespace ModelsShared.Models
             }
         }
 
-
-
+     
 
         [DbColumn("CustomerIdIsPay")]
         public int CustomerIdIsPay
@@ -175,13 +193,15 @@ namespace ModelsShared.Models
             }
 
             set { _customerIdIsPay = value;
-              
-                if (value == this.ReciverID)
-                    CustomerIsPay = CustomerIsPay.Reciver;
-                if (value == this.ShiperID)
-                    CustomerIsPay = CustomerIsPay.Shiper;
-                if (value != this.ShiperID && value != this.ReciverID)
-                    CustomerIsPay = CustomerIsPay.Other;
+                if (value == ShiperID)
+                    _customerispay = CustomerIsPay.Shiper;
+              else  if (value == ReciverID)
+                    _customerispay = CustomerIsPay.Reciver;
+              else  if (value>0)
+                    _customerispay = CustomerIsPay.Other;
+                else
+                    _customerispay = CustomerIsPay.Shiper;
+
                 OnPropertyChange("CustomerIdIsPay");
             }
         }
@@ -384,12 +404,13 @@ namespace ModelsShared.Models
         private double _etc;
         private double _total;
         private PortType _portType;
-        private int _cityid;
+        private int _fromCity;
         private bool _isPaid;
         private int _customerIdIsPay;
         private int _id;
         private customer _reciever;
         private customer _shiper;
+        private int _toCity;
     }
 
 }
