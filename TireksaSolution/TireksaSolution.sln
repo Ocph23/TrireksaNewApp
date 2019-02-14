@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySql.AspNet.Identity", "My
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcphSMSLib", "OcphSMSLIBWithWCF\OcphSMSLib\OcphSMSLib.csproj", "{31FE0F53-5D32-454F-B40A-AD09E6F3EDB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{D42CD802-FBB4-431D-A71C-DC719589B162}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Models\Models.projitems*{080d1ae5-d476-41c5-af26-8483aaf30e1a}*SharedItemsImports = 13
@@ -56,6 +58,10 @@ Global
 		{31FE0F53-5D32-454F-B40A-AD09E6F3EDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31FE0F53-5D32-454F-B40A-AD09E6F3EDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31FE0F53-5D32-454F-B40A-AD09E6F3EDB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D42CD802-FBB4-431D-A71C-DC719589B162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D42CD802-FBB4-431D-A71C-DC719589B162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D42CD802-FBB4-431D-A71C-DC719589B162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D42CD802-FBB4-431D-A71C-DC719589B162}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

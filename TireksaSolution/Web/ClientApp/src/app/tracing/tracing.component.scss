@@ -1,0 +1,61 @@
+$spectral-fallback : #c1a082; 
+$spectral-0 :#00A8EC; 
+$spectral-1 : #EF9C00; 
+$spectral-2 : #686E68; 
+$spectral-3 : #A6AAA6; 
+$spectral-4 :#CBE562; 
+$spectral-5 : #292323; 
+$spectral-6 : #ffffff; 
+
+.main{
+    min-height: 720px;
+}
+#tracing-box{
+    padding: 10px;
+    background-color: $spectral-0;
+    border-radius: 4px;
+    color: $spectral-6;
+    text-align: center;
+    width: 30%;
+    margin: auto;
+    box-shadow: 2px 2px 5px 0px $spectral-5;
+button{
+  width: 80%;
+  color: $spectral-6;
+}
+
+input{
+    min-height: 30px;
+    border-radius: 3px;
+    width: 80%;
+    text-align: center;
+    color: $spectral-3;
+    font-size: 16px;
+  
+}
+}
+
+
+section{
+    margin: 0px;
+    .box-item-result{
+        display: flex;
+        background-color: $spectral-1;
+        border-radius: 2px;
+        padding: 20px;
+        color: $spectral-6;
+        margin-top: 5px;
+        box-shadow: 2px 2px 5px 0px $spectral-5;
+        .col{
+            padding: 5px;
+            flex: 30%;
+          .title{
+              font-size: 20px;
+          }  
+          .data{
+              font-size: 12px;
+          }
+        }
+       
+    }
+}

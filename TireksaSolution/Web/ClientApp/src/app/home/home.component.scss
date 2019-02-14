@@ -1,0 +1,89 @@
+$spectral-fallback : #c1a082; 
+$spectral-0 :#00A8EC; 
+$spectral-1 : #EF9C00; 
+$spectral-2 : #686E68; 
+$spectral-3 : #A6AAA6; 
+$spectral-4 :#CBE562; 
+$spectral-5 : #292323; 
+$spectral-6 : #ffffff; 
+.main{
+    min-height: 670px;
+}
+#service{
+    margin: auto;
+    width: 70%;
+    display: flex;
+   margin-top: 50px;
+    .card{
+        text-align: center;
+        background: $spectral-1;
+        margin: 20px;
+        height: 250px;
+        width: 30%;
+        position: relative;
+        color: $spectral-6; 
+        box-shadow: 1px 1px 5px 0px #ccc;
+        &:hover{
+           background-color: red;
+           box-shadow: 1px 1px 5px 5px #ccc;
+           height: 255px;
+        }
+        img{
+            width: 50px;
+            height: 50px;
+            margin-top: 40px;
+        }
+
+        h1{
+           margin-top: 50px;
+         
+        }
+        a{
+            color: $spectral-6;
+            text-decoration: none;
+        }
+    }
+}
+
+.imageService{
+    clip-path: ellipse(31% 40% at 50% 50%);
+    background-color: $spectral-4;
+    width: 120px;
+    height: 130px;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: 1px 1px 2px 2px $spectral-5;
+}
+
+#visimisi{
+    color: $spectral-1;
+    width: 70%;
+
+    margin: auto;
+    margin-top: 20px;
+    p{
+        color: $spectral-2;
+        margin: auto;
+        width: 75%;
+        text-align: left;
+        font-size: 18px;
+
+
+    }
+}
+
+#galery{
+    width: 70%;
+    margin: auto;
+    margin-top: 40px;
+    text-align: center;
+     img{
+        border: 1px $spectral-2;
+    }
+}
+
+.section-title{
+    margin: 20px;
+    font-size: 30px;
+    text-align: left;
+}

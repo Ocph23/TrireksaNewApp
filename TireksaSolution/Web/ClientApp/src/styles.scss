@@ -1,0 +1,127 @@
+$spectral-fallback : #c1a082; 
+$spectral-0 :#00A8EC; 
+$spectral-1 : #EF9C00; 
+$spectral-2 : #686E68; 
+$spectral-3 : #A6AAA6; 
+$spectral-4 :#CBE562; 
+$spectral-5 : #292323; 
+$spectral-6 : #ffffff; 
+
+
+@function getColor($colorName){
+    @return map-get($colors,$colorName);
+};
+
+body, html{
+    background-color: $spectral-6;
+    color: $spectral-1;
+    padding: 0%;
+    margin: 0px;
+}
+
+#logo{
+    width: 150px;
+    margin: 10px;
+}
+
+button{
+    background-color: $spectral-4;
+    min-height: 40px;
+    margin: 5px;
+}
+
+input{
+    min-height: 30px;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+footer {
+    text-align: left;
+    width: 100%;
+    background-color: $spectral-0;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: 2px 2px 5px 0px $spectral-5;
+    .address{
+        color: $spectral-6;
+        text-align: left;
+        .address-title{
+          margin-top: 10px;
+            font-size: 20px;
+            font-stretch: semi-condensed;
+        }
+        .address-description{
+            font-size: 15px;
+        }
+    }
+    
+.compyright{
+    color: $spectral-6;
+    margin: 20px,10px, 20px,10px;
+}
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .grid{
+    display: flex;
+    border-radius: 2px;
+    padding: 5px;
+    color: $spectral-6;
+    margin: 1px;
+    $padding:5px;
+    .col-1{
+        padding:  $padding;
+        flex: 10%;
+      }  
+      .col-2{
+        padding:  $padding;
+        flex: 20%;
+      }  
+      .col-3{
+        padding:  $padding;
+        flex: 30%;
+      }  
+      .col-4{
+        padding:  $padding;
+        flex: 40%;
+      }  
+      .col-5{
+        padding:  $padding;
+        flex: 50%;
+      }  
+      .col-6{
+        padding:  $padding;
+        flex: 60%;
+      }  
+      .col-7{
+        padding:  $padding;
+        flex: 70%;
+      }  
+      .col-8{
+        padding:  $padding;
+        flex: 80%;
+      }  
+      .col-9{
+        padding:  $padding;
+        flex: 90%;
+      }  
+      .col-10{
+        padding:  $padding;
+        flex: 100%;
+      }  
+     
+    }
+
+   
