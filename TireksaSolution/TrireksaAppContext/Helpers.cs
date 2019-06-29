@@ -41,7 +41,17 @@ namespace TrireksaAppContext
 
             }
         }
-        
+
+        public static string Address
+        {
+            get
+            {
+                var conf = new MyConfig();
+               var address = conf.GetStringValue("Address");
+                return address;
+            }
+        }
+
 
     }
 }

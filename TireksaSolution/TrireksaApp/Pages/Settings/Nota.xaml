@@ -7,11 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="199*"/>
-            <ColumnDefinition Width="201*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Label Width="auto" HorizontalAlignment="Left" Margin="20" FontWeight="Bold" FontSize="25" Content="Application Setting"></Label>
+        </StackPanel>
+        <StackPanel Margin="20" Grid.Row="1" Width="500" HorizontalAlignment="Left">
             <StackPanel Style="{StaticResource OPanel}">
                 <Label  Content="Shiper Only City"  Width="178"></Label>
                 <ComboBox ItemsSource="{Binding ShiperCities}" DisplayMemberPath="CityName" SelectedValuePath="Id" SelectedValue="{Binding Config.EliminateCityId}"></ComboBox>
@@ -19,6 +22,10 @@
             <StackPanel Style="{StaticResource OPanel}">
                 <Label  Content="Reciver Witout City"  Width="178"></Label>
                 <ComboBox ItemsSource="{Binding ReciverCities}" DisplayMemberPath="CityName" SelectedValuePath="Id" SelectedValue="{Binding Config.WitoutCityId}"></ComboBox>
+            </StackPanel>
+            <StackPanel Style="{StaticResource OPanel}" Height="65">
+                <Label VerticalAlignment="Top"  Content="Address"  Width="178"></Label>
+                <TextBox VerticalContentAlignment="Top" Height="60" AcceptsReturn="True" Text="{Binding Config.Address}" ></TextBox>
             </StackPanel>
         </StackPanel>
 

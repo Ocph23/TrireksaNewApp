@@ -11,7 +11,7 @@
         <mui:ModernTab SelectedSource="/Pages/Settings/Appearance.xaml" Layout="List" >
             <mui:ModernTab.Links>
                 <mui:Link DisplayName="appearance" Source="/Pages/Settings/Appearance.xaml" />
-                <mui:Link DisplayName="city sort" Source="/Pages/Settings/Nota.xaml" />
+                <mui:Link DisplayName="app  setting" Source="/Pages/Settings/Nota.xaml" />
                 <mui:Link DisplayName="about" Source="/Pages/Settings/About.xaml" />
             </mui:ModernTab.Links>
         </mui:ModernTab>

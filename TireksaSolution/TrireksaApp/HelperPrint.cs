@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TrireksaApp.Reports;
 
 namespace TrireksaApp
 {
@@ -110,6 +111,24 @@ namespace TrireksaApp
                 report.SetParameters(parameters);
             report.DataSources.Add(
                new ReportDataSource("DataSet1", data));
+            Export(report);
+            Print();
+        }
+
+
+        internal void PrintNota<T>(List<T> source, string layout, ReportParameter[] parameters)
+        {
+            LocalReport report = new LocalReport();
+            report.ReportEmbeddedResource = layout;
+            var data = ToDataTable<T>(source);
+            List<MySetting> listSetting = new List<MySetting> { new MySetting() };
+
+            if (parameters != null)
+                report.SetParameters(parameters);
+            report.DataSources.Add(
+               new ReportDataSource("DataSet1", data));
+            report.DataSources.Add(
+              new ReportDataSource("DataSet2", listSetting));
             Export(report);
             Print();
         }

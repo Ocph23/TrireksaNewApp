@@ -372,6 +372,7 @@
     <Compile Include="Reports\Models\InvoiceReportModel.cs" />
     <Compile Include="Reports\Models\ManifestOutgoingReport.cs" />
     <Compile Include="Reports\Models\NotaReportModel.cs" />
+    <Compile Include="Reports\MySetting.cs" />
     <Compile Include="Repository\IEntity.cs" />
     <Compile Include="Common\ResourcesBase.cs" />
     <Compile Include="SignalRClient.cs" />
@@ -771,6 +772,7 @@
     <None Include="Properties\DataSources\TrireksaApp.Reports.Models.ManifestOutgoingReport.datasource" />
     <None Include="Properties\DataSources\TrireksaApp.Reports.Models.NotaReportModel.datasource" />
     <None Include="Properties\DataSources\TrireksaApp.Reports.Models.PenjualanReportModel.datasource" />
+    <None Include="Properties\DataSources\TrireksaApp.Reports.MySetting.datasource" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

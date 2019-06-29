@@ -2,15 +2,78 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
+      <Textbox Name="ShiperCity9">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Label>ShiperCity</Label>
+                <Value>KEMBALI KE JAYAPURA </Value>
+                <Style>
+                  <FontSize>12pt</FontSize>
+                  <Color>LightBlue</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>ShiperCity</rd:DefaultName>
+        <Top>5.65617in</Top>
+        <Left>5.49034in</Left>
+        <Height>0.25438in</Height>
+        <Width>2.12697in</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <TopBorder>
+            <Color>Gray</Color>
+            <Style>Solid</Style>
+            <Width>0.25pt</Width>
+          </TopBorder>
+          <VerticalAlign>Middle</VerticalAlign>
+        </Style>
+      </Textbox>
+      <Line Name="Line4">
+        <Top>3.56022in</Top>
+        <Left>0.02305in</Left>
+        <Height>0in</Height>
+        <Width>7.71284in</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Color>Gray</Color>
+            <Style>Dotted</Style>
+            <Width>0.25pt</Width>
+          </Border>
+          <TopBorder>
+            <Style>Dotted</Style>
+          </TopBorder>
+          <BottomBorder>
+            <Style>Dotted</Style>
+          </BottomBorder>
+          <LeftBorder>
+            <Style>Dotted</Style>
+          </LeftBorder>
+          <RightBorder>
+            <Style>Dotted</Style>
+          </RightBorder>
+        </Style>
+      </Line>
       <Image Name="Image1">
         <Source>Database</Source>
         <Value>=First(Fields!STTQRCode.Value, "DataSet1")</Value>
         <MIMEType>image/bmp</MIMEType>
         <Sizing>Fit</Sizing>
-        <Top>0.00903in</Top>
-        <Left>6.56087in</Left>
+        <Left>6.57351in</Left>
         <Height>1.0299in</Height>
         <Width>1.14109in</Width>
+        <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Color>Silver</Color>
@@ -40,7 +103,7 @@
                 </Style>
               </TextRun>
               <TextRun>
-                <Value>=Fields!STT.Value</Value>
+                <Value>=First(Fields!STT.Value, "DataSet1")</Value>
                 <Style>
                   <FontSize>16pt</FontSize>
                   <FontWeight>Bold</FontWeight>
@@ -53,11 +116,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>STT</rd:DefaultName>
-        <Top>0.01599in</Top>
-        <Left>2.73388in</Left>
+        <Top>0.00696in</Top>
+        <Left>2.74652in</Left>
         <Height>0.30902in</Height>
         <Width>3.79922in</Width>
-        <ZIndex>1</ZIndex>
+        <ZIndex>3</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -415,7 +478,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!Price.Value</Value>
+                                    <Value>=First(Fields!Price.Value, "DataSet1")</Value>
                                     <Style>
                                       <FontFamily>TAhoma</FontFamily>
                                       <FontSize>7pt</FontSize>
@@ -430,7 +493,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!Costs.Value</Value>
+                                    <Value>=First(Fields!Costs.Value, "DataSet1")</Value>
                                     <Style>
                                       <FontFamily>TAhoma</FontFamily>
                                       <FontSize>7pt</FontSize>
@@ -533,11 +596,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>1.46968in</Top>
-        <Left>2.39609in</Left>
+        <Top>1.46065in</Top>
+        <Left>2.40873in</Left>
         <Height>0.74568in</Height>
         <Width>5.31675in</Width>
-        <ZIndex>2</ZIndex>
+        <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1063,11 +1126,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>2.24314in</Top>
-        <Left>2.38552in</Left>
+        <Top>2.23411in</Top>
+        <Left>2.39816in</Left>
         <Height>0.98311in</Height>
         <Width>5.31722in</Width>
-        <ZIndex>3</ZIndex>
+        <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1233,7 +1296,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox24">
+                    <Textbox Name="Pcs">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -1251,7 +1314,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox24</rd:DefaultName>
+                      <rd:DefaultName>Pcs</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1265,14 +1328,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox26">
+                    <Textbox Name="Content">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=First(Fields!Content.Value, "DataSet1")</Value>
+                              <Value>=Fields!Content.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -1283,7 +1346,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox26</rd:DefaultName>
+                      <rd:DefaultName>Content</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1298,7 +1361,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox28">
+                    <Textbox Name="Weight">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -1316,7 +1379,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox28</rd:DefaultName>
+                      <rd:DefaultName>Weight</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1330,7 +1393,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox30">
+                    <Textbox Name="Volume">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -1348,7 +1411,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox30</rd:DefaultName>
+                      <rd:DefaultName>Volume</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1382,11 +1445,12 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <Top>1.0667in</Top>
-        <Left>2.3822in</Left>
+        <DataSetName>DataSet1</DataSetName>
+        <Top>1.05767in</Top>
+        <Left>2.39484in</Left>
         <Height>0.38909in</Height>
         <Width>5.32052in</Width>
-        <ZIndex>4</ZIndex>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1597,7 +1661,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox32">
+                    <Textbox Name="donumber">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -1615,7 +1679,6 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox21</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>Silver</Color>
@@ -1648,10 +1711,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>2.73871in</Top>
+        <Top>2.72968in</Top>
+        <Left>0.01264in</Left>
         <Height>0.49572in</Height>
         <Width>2.349in</Width>
-        <ZIndex>5</ZIndex>
+        <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1662,10 +1726,10 @@
         <Source>Embedded</Source>
         <Value>LOGO3rp1</Value>
         <Sizing>Fit</Sizing>
-        <Top>0.00903in</Top>
-        <Height>0.33485in</Height>
-        <Width>1.59908in</Width>
-        <ZIndex>6</ZIndex>
+        <Left>0.01264in</Left>
+        <Height>0.31598in</Height>
+        <Width>1.5252in</Width>
+        <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1693,22 +1757,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Jln. Abepura Entrop Kompleks Menara Jaya</Value>
-                <Style>
-                  <FontSize>6pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <Color>MidnightBlue</Color>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Tlp. 081344232219/081370693235</Value>
+                <Value>=First(Fields!Address.Value, "DataSet2")</Value>
                 <Style>
                   <FontSize>6pt</FontSize>
                   <FontWeight>Normal</FontWeight>
@@ -1722,10 +1771,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox85</rd:DefaultName>
-        <Top>0.28202in</Top>
+        <Top>0.27299in</Top>
+        <Left>0.01264in</Left>
         <Height>0.43864in</Height>
         <Width>2.30949in</Width>
-        <ZIndex>7</ZIndex>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1927,10 +1977,11 @@
           </Line>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>0.75866in</Top>
+        <Top>0.74963in</Top>
+        <Left>0.01264in</Left>
         <Height>2.00573in</Height>
         <Width>2.3505in</Width>
-        <ZIndex>8</ZIndex>
+        <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Color>Silver</Color>
@@ -1980,11 +2031,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>STT</rd:DefaultName>
-        <Top>0.35418in</Top>
-        <Left>4.33064in</Left>
+        <Top>0.34515in</Top>
+        <Left>4.34328in</Left>
         <Height>0.28125in</Height>
         <Width>2.20245in</Width>
-        <ZIndex>9</ZIndex>
+        <ZIndex>11</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2016,10 +2067,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ShiperCity</rd:DefaultName>
-        <Top>3.25403in</Top>
+        <Top>3.245in</Top>
+        <Left>0.01264in</Left>
         <Height>0.18056in</Height>
         <Width>7.7053in</Width>
-        <ZIndex>10</ZIndex>
+        <ZIndex>12</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2169,42 +2221,18 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <Top>0.75866in</Top>
-        <Left>2.38191in</Left>
+        <DataSetName>DataSet1</DataSetName>
+        <Top>0.74963in</Top>
+        <Left>2.39455in</Left>
         <Height>0.28027in</Height>
         <Width>4.15426in</Width>
-        <ZIndex>11</ZIndex>
+        <ZIndex>13</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Tablix>
-      <Line Name="Line3">
-        <Top>3.52765in</Top>
-        <Height>0in</Height>
-        <Width>7.7053in</Width>
-        <ZIndex>12</ZIndex>
-        <Style>
-          <Border>
-            <Color>Gray</Color>
-            <Style>Dotted</Style>
-            <Width>0.25pt</Width>
-          </Border>
-          <TopBorder>
-            <Style>Dotted</Style>
-          </TopBorder>
-          <BottomBorder>
-            <Style>Dotted</Style>
-          </BottomBorder>
-          <LeftBorder>
-            <Style>Dotted</Style>
-          </LeftBorder>
-          <RightBorder>
-            <Style>Dotted</Style>
-          </RightBorder>
-        </Style>
-      </Line>
       <Textbox Name="ShiperCity2">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -2227,11 +2255,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ShiperCity</rd:DefaultName>
-        <Top>0.75866in</Top>
-        <Left>0.04294in</Left>
+        <Top>0.74963in</Top>
+        <Left>0.05558in</Left>
         <Height>0.1433in</Height>
         <Width>2.26645in</Width>
-        <ZIndex>13</ZIndex>
+        <ZIndex>14</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2240,11 +2268,11 @@
         </Style>
       </Textbox>
       <Line Name="Line12">
-        <Top>0.73922in</Top>
-        <Left>0.00844in</Left>
+        <Top>0.73019in</Top>
+        <Left>0.00112in</Left>
         <Height>0in</Height>
         <Width>6.52237in</Width>
-        <ZIndex>14</ZIndex>
+        <ZIndex>15</ZIndex>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -2253,16 +2281,42 @@
           </Border>
         </Style>
       </Line>
+      <Line Name="Line5">
+        <Top>7.31002in</Top>
+        <Left>0.02615in</Left>
+        <Height>0in</Height>
+        <Width>7.71284in</Width>
+        <ZIndex>16</ZIndex>
+        <Style>
+          <Border>
+            <Color>Gray</Color>
+            <Style>Dotted</Style>
+            <Width>0.25pt</Width>
+          </Border>
+          <TopBorder>
+            <Style>Dotted</Style>
+          </TopBorder>
+          <BottomBorder>
+            <Style>Dotted</Style>
+          </BottomBorder>
+          <LeftBorder>
+            <Style>Dotted</Style>
+          </LeftBorder>
+          <RightBorder>
+            <Style>Dotted</Style>
+          </RightBorder>
+        </Style>
+      </Line>
       <Image Name="Image3">
         <Source>Database</Source>
         <Value>=First(Fields!STTQRCode.Value, "DataSet1")</Value>
         <MIMEType>image/bmp</MIMEType>
         <Sizing>Fit</Sizing>
-        <Top>3.71866in</Top>
-        <Left>6.56087in</Left>
+        <Top>3.7498in</Top>
+        <Left>6.57661in</Left>
         <Height>1.0299in</Height>
         <Width>1.14109in</Width>
-        <ZIndex>15</ZIndex>
+        <ZIndex>17</ZIndex>
         <Style>
           <Border>
             <Color>Silver</Color>
@@ -2292,7 +2346,7 @@
                 </Style>
               </TextRun>
               <TextRun>
-                <Value>=Fields!STT.Value</Value>
+                <Value>=First(Fields!STT.Value, "DataSet1")</Value>
                 <Style>
                   <FontSize>16pt</FontSize>
                   <FontWeight>Bold</FontWeight>
@@ -2305,11 +2359,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>STT</rd:DefaultName>
-        <Top>3.72562in</Top>
-        <Left>2.73388in</Left>
+        <Top>3.75676in</Top>
+        <Left>2.74962in</Left>
         <Height>0.30902in</Height>
         <Width>3.79922in</Width>
-        <ZIndex>16</ZIndex>
+        <ZIndex>18</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2660,7 +2714,7 @@
                       <TablixHeader>
                         <Size>1.03306in</Size>
                         <CellContents>
-                          <Textbox Name="Textbox178">
+                          <Textbox Name="Textbox66">
                             <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
@@ -2671,6 +2725,7 @@
                                     <Style>
                                       <FontFamily>TAhoma</FontFamily>
                                       <FontSize>7pt</FontSize>
+                                      <Format>#,0.00;(#,0.00)</Format>
                                     </Style>
                                   </TextRun>
                                 </TextRuns>
@@ -2679,7 +2734,7 @@
                                 </Style>
                               </Paragraph>
                             </Paragraphs>
-                            <rd:DefaultName>Textbox178</rd:DefaultName>
+                            <rd:DefaultName>Textbox65</rd:DefaultName>
                             <Style>
                               <Border>
                                 <Color>Silver</Color>
@@ -2709,11 +2764,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>5.17931in</Top>
-        <Left>2.39609in</Left>
+        <Top>5.21045in</Top>
+        <Left>2.41183in</Left>
         <Height>0.74568in</Height>
         <Width>5.31675in</Width>
-        <ZIndex>17</ZIndex>
+        <ZIndex>19</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2842,6 +2897,7 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
+                          <SpaceBefore>5pt</SpaceBefore>
                           <SpaceAfter>0pt</SpaceAfter>
                           <Style />
                         </Paragraph>
@@ -3019,6 +3075,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
+                        <SpaceBefore>5pt</SpaceBefore>
                         <SpaceAfter>0pt</SpaceAfter>
                         <Style />
                       </Paragraph>
@@ -3178,6 +3235,7 @@
                                 </Style>
                               </TextRun>
                             </TextRuns>
+                            <SpaceBefore>5pt</SpaceBefore>
                             <SpaceAfter>0pt</SpaceAfter>
                             <Style />
                           </Paragraph>
@@ -3236,11 +3294,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>5.95277in</Top>
-        <Left>2.38552in</Left>
+        <Top>5.98392in</Top>
+        <Left>2.40126in</Left>
         <Height>0.98311in</Height>
         <Width>5.31722in</Width>
-        <ZIndex>18</ZIndex>
+        <ZIndex>20</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3269,7 +3327,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox33">
+                    <Textbox Name="Textbox24">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -3302,7 +3360,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox34">
+                    <Textbox Name="Textbox26">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -3335,7 +3393,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox35">
+                    <Textbox Name="Textbox28">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -3368,7 +3426,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox36">
+                    <Textbox Name="Textbox30">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -3406,7 +3464,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox37">
+                    <Textbox Name="Pcs2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -3424,7 +3482,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox24</rd:DefaultName>
+                      <rd:DefaultName>Pcs</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -3438,14 +3496,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox38">
+                    <Textbox Name="Content2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=First(Fields!Content.Value, "DataSet1")</Value>
+                              <Value>=Fields!Content.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -3456,7 +3514,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox26</rd:DefaultName>
+                      <rd:DefaultName>Content</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -3471,7 +3529,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox41">
+                    <Textbox Name="Weight2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -3489,7 +3547,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox28</rd:DefaultName>
+                      <rd:DefaultName>Weight</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -3503,7 +3561,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox42">
+                    <Textbox Name="Volume2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -3521,7 +3579,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox30</rd:DefaultName>
+                      <rd:DefaultName>Volume</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -3555,11 +3613,12 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <Top>4.77633in</Top>
-        <Left>2.3822in</Left>
+        <DataSetName>DataSet1</DataSetName>
+        <Top>4.80748in</Top>
+        <Left>2.39794in</Left>
         <Height>0.38909in</Height>
         <Width>5.32052in</Width>
-        <ZIndex>19</ZIndex>
+        <ZIndex>21</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3734,7 +3793,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox45">
+                    <Textbox Name="Textbox32">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -3770,7 +3829,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox46">
+                    <Textbox Name="donumber2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -3788,7 +3847,6 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox21</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>Silver</Color>
@@ -3821,10 +3879,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>6.44834in</Top>
+        <Top>6.47948in</Top>
+        <Left>0.01574in</Left>
         <Height>0.49572in</Height>
         <Width>2.349in</Width>
-        <ZIndex>20</ZIndex>
+        <ZIndex>22</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3835,10 +3894,11 @@
         <Source>Embedded</Source>
         <Value>LOGO3rp1</Value>
         <Sizing>Fit</Sizing>
-        <Top>3.71866in</Top>
-        <Height>0.33485in</Height>
-        <Width>1.59908in</Width>
-        <ZIndex>21</ZIndex>
+        <Top>3.7498in</Top>
+        <Left>0.01574in</Left>
+        <Height>0.31598in</Height>
+        <Width>1.5252in</Width>
+        <ZIndex>23</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3866,22 +3926,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Jln. Abepura Entrop Kompleks Menara Jaya</Value>
-                <Style>
-                  <FontSize>6pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <Color>MidnightBlue</Color>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Tlp. 081344232219/081370693235</Value>
+                <Value>=First(Fields!Address.Value, "DataSet2")</Value>
                 <Style>
                   <FontSize>6pt</FontSize>
                   <FontWeight>Normal</FontWeight>
@@ -3895,10 +3940,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox85</rd:DefaultName>
-        <Top>3.99165in</Top>
+        <Top>4.02279in</Top>
+        <Left>0.01574in</Left>
         <Height>0.43864in</Height>
         <Width>2.30949in</Width>
-        <ZIndex>22</ZIndex>
+        <ZIndex>24</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -4100,10 +4146,11 @@
           </Line>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>4.46829in</Top>
+        <Top>4.49944in</Top>
+        <Left>0.01574in</Left>
         <Height>2.00573in</Height>
         <Width>2.3505in</Width>
-        <ZIndex>23</ZIndex>
+        <ZIndex>25</ZIndex>
         <Style>
           <Border>
             <Color>Silver</Color>
@@ -4153,11 +4200,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>STT</rd:DefaultName>
-        <Top>4.06381in</Top>
-        <Left>4.33064in</Left>
+        <Top>4.09495in</Top>
+        <Left>4.34638in</Left>
         <Height>0.28125in</Height>
         <Width>2.20245in</Width>
-        <ZIndex>24</ZIndex>
+        <ZIndex>26</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -4189,10 +4236,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ShiperCity</rd:DefaultName>
-        <Top>6.96366in</Top>
+        <Top>6.9948in</Top>
+        <Left>0.01574in</Left>
         <Height>0.18056in</Height>
         <Width>7.7053in</Width>
-        <ZIndex>25</ZIndex>
+        <ZIndex>27</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -4221,7 +4269,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox47">
+                    <Textbox Name="Textbox41">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -4274,7 +4322,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox48">
+                    <Textbox Name="Textbox42">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -4342,42 +4390,18 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <Top>4.46829in</Top>
-        <Left>2.38191in</Left>
+        <DataSetName>DataSet1</DataSetName>
+        <Top>4.49944in</Top>
+        <Left>2.39765in</Left>
         <Height>0.28027in</Height>
         <Width>4.15426in</Width>
-        <ZIndex>26</ZIndex>
+        <ZIndex>28</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Tablix>
-      <Line Name="Line4">
-        <Top>7.23728in</Top>
-        <Height>0in</Height>
-        <Width>7.71284in</Width>
-        <ZIndex>27</ZIndex>
-        <Style>
-          <Border>
-            <Color>Gray</Color>
-            <Style>Dotted</Style>
-            <Width>0.25pt</Width>
-          </Border>
-          <TopBorder>
-            <Style>Dotted</Style>
-          </TopBorder>
-          <BottomBorder>
-            <Style>Dotted</Style>
-          </BottomBorder>
-          <LeftBorder>
-            <Style>Dotted</Style>
-          </LeftBorder>
-          <RightBorder>
-            <Style>Dotted</Style>
-          </RightBorder>
-        </Style>
-      </Line>
       <Textbox Name="ShiperCity8">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -4400,11 +4424,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ShiperCity</rd:DefaultName>
-        <Top>4.46829in</Top>
-        <Left>0.04294in</Left>
+        <Top>4.49944in</Top>
+        <Left>0.05868in</Left>
         <Height>0.1433in</Height>
         <Width>2.26645in</Width>
-        <ZIndex>28</ZIndex>
+        <ZIndex>29</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -4413,11 +4437,11 @@
         </Style>
       </Textbox>
       <Line Name="Line13">
-        <Top>4.44885in</Top>
-        <Left>0.00844in</Left>
+        <Top>4.48in</Top>
+        <Left>0.00422in</Left>
         <Height>0in</Height>
         <Width>6.52237in</Width>
-        <ZIndex>29</ZIndex>
+        <ZIndex>30</ZIndex>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -4426,16 +4450,80 @@
           </Border>
         </Style>
       </Line>
+      <Textbox Name="ShiperCity10">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Label>ShiperCity</Label>
+                <Value>ARSIP PENERIMA </Value>
+                <Style>
+                  <FontSize>12pt</FontSize>
+                  <Color>LightBlue</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>ShiperCity</rd:DefaultName>
+        <Top>9.44751in</Top>
+        <Left>5.49034in</Left>
+        <Height>0.25438in</Height>
+        <Width>2.12697in</Width>
+        <ZIndex>31</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <TopBorder>
+            <Color>Gray</Color>
+            <Style>Solid</Style>
+            <Width>0.25pt</Width>
+          </TopBorder>
+          <VerticalAlign>Middle</VerticalAlign>
+        </Style>
+      </Textbox>
+      <Line Name="Line6">
+        <Top>11.10136in</Top>
+        <Left>0.02615in</Left>
+        <Height>0in</Height>
+        <Width>7.71284in</Width>
+        <ZIndex>32</ZIndex>
+        <Style>
+          <Border>
+            <Color>Gray</Color>
+            <Style>Dotted</Style>
+            <Width>0.25pt</Width>
+          </Border>
+          <TopBorder>
+            <Style>Dotted</Style>
+          </TopBorder>
+          <BottomBorder>
+            <Style>Dotted</Style>
+          </BottomBorder>
+          <LeftBorder>
+            <Style>Dotted</Style>
+          </LeftBorder>
+          <RightBorder>
+            <Style>Dotted</Style>
+          </RightBorder>
+        </Style>
+      </Line>
       <Image Name="Image5">
         <Source>Database</Source>
         <Value>=First(Fields!STTQRCode.Value, "DataSet1")</Value>
         <MIMEType>image/bmp</MIMEType>
         <Sizing>Fit</Sizing>
-        <Top>7.46866in</Top>
-        <Left>6.56087in</Left>
+        <Top>7.54114in</Top>
+        <Left>6.57661in</Left>
         <Height>1.0299in</Height>
         <Width>1.14109in</Width>
-        <ZIndex>30</ZIndex>
+        <ZIndex>33</ZIndex>
         <Style>
           <Border>
             <Color>Silver</Color>
@@ -4465,7 +4553,7 @@
                 </Style>
               </TextRun>
               <TextRun>
-                <Value>=Fields!STT.Value</Value>
+                <Value>=First(Fields!STT.Value, "DataSet1")</Value>
                 <Style>
                   <FontSize>16pt</FontSize>
                   <FontWeight>Bold</FontWeight>
@@ -4478,11 +4566,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>STT</rd:DefaultName>
-        <Top>7.47562in</Top>
-        <Left>2.73388in</Left>
+        <Top>7.5481in</Top>
+        <Left>2.74962in</Left>
         <Height>0.30902in</Height>
         <Width>3.79922in</Width>
-        <ZIndex>31</ZIndex>
+        <ZIndex>34</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -4497,7 +4585,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.77193in</Width>
+              <Width>2.76439in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -4711,7 +4799,7 @@
                   <TablixHeader>
                     <Size>0.23063in</Size>
                     <CellContents>
-                      <Textbox Name="Textbox49">
+                      <Textbox Name="Textbox45">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -4833,7 +4921,7 @@
                       <TablixHeader>
                         <Size>1.03306in</Size>
                         <CellContents>
-                          <Textbox Name="Textbox177">
+                          <Textbox Name="Textbox67">
                             <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
@@ -4844,6 +4932,7 @@
                                     <Style>
                                       <FontFamily>TAhoma</FontFamily>
                                       <FontSize>7pt</FontSize>
+                                      <Format>#,0.00;(#,0.00)</Format>
                                     </Style>
                                   </TextRun>
                                 </TextRuns>
@@ -4852,7 +4941,7 @@
                                 </Style>
                               </Paragraph>
                             </Paragraphs>
-                            <rd:DefaultName>Textbox177</rd:DefaultName>
+                            <rd:DefaultName>Textbox65</rd:DefaultName>
                             <Style>
                               <Border>
                                 <Color>Silver</Color>
@@ -4882,11 +4971,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>8.92931in</Top>
-        <Left>2.39609in</Left>
+        <Top>9.00179in</Top>
+        <Left>2.41183in</Left>
         <Height>0.74568in</Height>
-        <Width>5.31675in</Width>
-        <ZIndex>32</ZIndex>
+        <Width>5.30921in</Width>
+        <ZIndex>35</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -5015,6 +5104,7 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
+                          <SpaceBefore>5pt</SpaceBefore>
                           <SpaceAfter>0pt</SpaceAfter>
                           <Style />
                         </Paragraph>
@@ -5192,6 +5282,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
+                        <SpaceBefore>5pt</SpaceBefore>
                         <SpaceAfter>0pt</SpaceAfter>
                         <Style />
                       </Paragraph>
@@ -5351,6 +5442,7 @@
                                 </Style>
                               </TextRun>
                             </TextRuns>
+                            <SpaceBefore>5pt</SpaceBefore>
                             <SpaceAfter>0pt</SpaceAfter>
                             <Style />
                           </Paragraph>
@@ -5409,11 +5501,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>9.70277in</Top>
-        <Left>2.38552in</Left>
+        <Top>9.77526in</Top>
+        <Left>2.40126in</Left>
         <Height>0.98311in</Height>
         <Width>5.31722in</Width>
-        <ZIndex>33</ZIndex>
+        <ZIndex>36</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -5442,7 +5534,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox50">
+                    <Textbox Name="Textbox33">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -5475,7 +5567,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox51">
+                    <Textbox Name="Textbox34">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -5508,7 +5600,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox52">
+                    <Textbox Name="Textbox35">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -5541,7 +5633,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox53">
+                    <Textbox Name="Textbox36">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -5579,7 +5671,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox54">
+                    <Textbox Name="Pcs3">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -5597,7 +5689,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox24</rd:DefaultName>
+                      <rd:DefaultName>Pcs</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -5611,14 +5703,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox55">
+                    <Textbox Name="Content3">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=First(Fields!Content.Value, "DataSet1")</Value>
+                              <Value>=Fields!Content.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -5629,7 +5721,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox26</rd:DefaultName>
+                      <rd:DefaultName>Content</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -5644,7 +5736,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox56">
+                    <Textbox Name="Weight3">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -5662,7 +5754,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox28</rd:DefaultName>
+                      <rd:DefaultName>Weight</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -5676,7 +5768,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox57">
+                    <Textbox Name="Volume3">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -5694,7 +5786,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox30</rd:DefaultName>
+                      <rd:DefaultName>Volume</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -5728,11 +5820,12 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <Top>8.52633in</Top>
-        <Left>2.3822in</Left>
+        <DataSetName>DataSet1</DataSetName>
+        <Top>8.59882in</Top>
+        <Left>2.39794in</Left>
         <Height>0.38909in</Height>
         <Width>5.32052in</Width>
-        <ZIndex>34</ZIndex>
+        <ZIndex>37</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -5907,7 +6000,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox58">
+                    <Textbox Name="Textbox37">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -5943,7 +6036,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox59">
+                    <Textbox Name="donumber3">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -5961,7 +6054,6 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox21</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>Silver</Color>
@@ -5994,10 +6086,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>10.19834in</Top>
+        <Top>10.27082in</Top>
+        <Left>0.01574in</Left>
         <Height>0.49572in</Height>
         <Width>2.349in</Width>
-        <ZIndex>35</ZIndex>
+        <ZIndex>38</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -6008,10 +6101,11 @@
         <Source>Embedded</Source>
         <Value>LOGO3rp1</Value>
         <Sizing>Fit</Sizing>
-        <Top>7.46866in</Top>
-        <Height>0.33485in</Height>
-        <Width>1.59908in</Width>
-        <ZIndex>36</ZIndex>
+        <Top>7.54114in</Top>
+        <Left>0.01574in</Left>
+        <Height>0.31598in</Height>
+        <Width>1.5252in</Width>
+        <ZIndex>39</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -6039,22 +6133,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Jln. Abepura Entrop Kompleks Menara Jaya</Value>
-                <Style>
-                  <FontSize>6pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <Color>MidnightBlue</Color>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Tlp. 081344232219/081370693235</Value>
+                <Value>=First(Fields!Address.Value, "DataSet2")</Value>
                 <Style>
                   <FontSize>6pt</FontSize>
                   <FontWeight>Normal</FontWeight>
@@ -6068,10 +6147,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox85</rd:DefaultName>
-        <Top>7.74165in</Top>
+        <Top>7.81413in</Top>
+        <Left>0.01574in</Left>
         <Height>0.43864in</Height>
         <Width>2.30949in</Width>
-        <ZIndex>37</ZIndex>
+        <ZIndex>40</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -6174,7 +6254,7 @@
               <VerticalAlign>Top</VerticalAlign>
             </Style>
           </Textbox>
-          <Textbox Name="ShiperCity9">
+          <Textbox Name="ShiperCity11">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
@@ -6207,7 +6287,7 @@
               <VerticalAlign>Top</VerticalAlign>
             </Style>
           </Textbox>
-          <Textbox Name="ShiperCity10">
+          <Textbox Name="ShiperCity12">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
@@ -6241,7 +6321,7 @@
               <VerticalAlign>Top</VerticalAlign>
             </Style>
           </Textbox>
-          <Line Name="Line5">
+          <Line Name="Line3">
             <Top>0.997in</Top>
             <Left>0.00123in</Left>
             <Height>0in</Height>
@@ -6273,10 +6353,11 @@
           </Line>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>8.21829in</Top>
+        <Top>8.29078in</Top>
+        <Left>0.01574in</Left>
         <Height>2.00573in</Height>
         <Width>2.3505in</Width>
-        <ZIndex>38</ZIndex>
+        <ZIndex>41</ZIndex>
         <Style>
           <Border>
             <Color>Silver</Color>
@@ -6326,11 +6407,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>STT</rd:DefaultName>
-        <Top>7.81381in</Top>
-        <Left>4.33064in</Left>
+        <Top>7.88629in</Top>
+        <Left>4.34638in</Left>
         <Height>0.28125in</Height>
         <Width>2.20245in</Width>
-        <ZIndex>39</ZIndex>
+        <ZIndex>42</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -6341,7 +6422,7 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="ShiperCity11">
+      <Textbox Name="ShiperCity13">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
@@ -6362,10 +6443,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ShiperCity</rd:DefaultName>
-        <Top>10.71366in</Top>
+        <Top>10.78614in</Top>
+        <Left>0.01574in</Left>
         <Height>0.18056in</Height>
         <Width>7.7053in</Width>
-        <ZIndex>40</ZIndex>
+        <ZIndex>43</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -6394,7 +6476,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox60">
+                    <Textbox Name="Textbox46">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -6447,7 +6529,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox61">
+                    <Textbox Name="Textbox47">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -6515,18 +6597,19 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <Top>8.21829in</Top>
-        <Left>2.38191in</Left>
+        <DataSetName>DataSet1</DataSetName>
+        <Top>8.29078in</Top>
+        <Left>2.39765in</Left>
         <Height>0.28027in</Height>
         <Width>4.15426in</Width>
-        <ZIndex>41</ZIndex>
+        <ZIndex>44</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Tablix>
-      <Textbox Name="ShiperCity12">
+      <Textbox Name="ShiperCity14">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
@@ -6548,11 +6631,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ShiperCity</rd:DefaultName>
-        <Top>8.21829in</Top>
-        <Left>0.04294in</Left>
+        <Top>8.29078in</Top>
+        <Left>0.05868in</Left>
         <Height>0.1433in</Height>
         <Width>2.26645in</Width>
-        <ZIndex>42</ZIndex>
+        <ZIndex>45</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -6561,11 +6644,11 @@
         </Style>
       </Textbox>
       <Line Name="Line14">
-        <Top>8.19885in</Top>
-        <Left>0.00844in</Left>
+        <Top>8.27134in</Top>
+        <Left>0.00422in</Left>
         <Height>0in</Height>
         <Width>6.52237in</Width>
-        <ZIndex>43</ZIndex>
+        <ZIndex>46</ZIndex>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -6574,112 +6657,15 @@
           </Border>
         </Style>
       </Line>
-      <Textbox Name="STT7">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Kembali Ke Jayapura</Value>
-                <Style>
-                  <FontSize>12pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>#e7e9f5</Color>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>STT</rd:DefaultName>
-        <Top>5.6402in</Top>
-        <Left>5.45072in</Left>
-        <Height>0.28125in</Height>
-        <Width>2.20245in</Width>
-        <ZIndex>44</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="STT8">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Untuk Penerima</Value>
-                <Style>
-                  <FontSize>12pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>#e7e9f5</Color>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>STT</rd:DefaultName>
-        <Top>9.38148in</Top>
-        <Left>5.47722in</Left>
-        <Height>0.28125in</Height>
-        <Width>2.20245in</Width>
-        <ZIndex>45</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Line Name="Line6">
-        <Top>11.02616in</Top>
-        <Height>0in</Height>
-        <Width>7.71284in</Width>
-        <ZIndex>46</ZIndex>
-        <Style>
-          <Border>
-            <Color>Gray</Color>
-            <Style>Dotted</Style>
-            <Width>0.25pt</Width>
-          </Border>
-          <TopBorder>
-            <Style>Dotted</Style>
-          </TopBorder>
-          <BottomBorder>
-            <Style>Dotted</Style>
-          </BottomBorder>
-          <LeftBorder>
-            <Style>Dotted</Style>
-          </LeftBorder>
-          <RightBorder>
-            <Style>Dotted</Style>
-          </RightBorder>
-        </Style>
-      </Line>
     </ReportItems>
-    <Height>11.04818in</Height>
+    <Height>11.10136in</Height>
     <Style>
       <Border>
         <Style>None</Style>
       </Border>
     </Style>
   </Body>
-  <Width>7.73588in</Width>
+  <Width>7.74321in</Width>
   <Page>
     <PageHeight>11.69in</PageHeight>
     <PageWidth>8.27in</PageWidth>
@@ -6696,6 +6682,13 @@
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
       <rd:DataSourceID>ebfea7af-af1b-4f8d-b6ff-43914795f430</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="TrireksaAppReports">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>d05b74e2-1412-4523-a18e-bb6910286fca</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -6814,6 +6807,23 @@
         <rd:DataSetName>TrireksaApp.Reports.Models</rd:DataSetName>
         <rd:TableName>NotaReportModel</rd:TableName>
         <rd:ObjectDataSourceType>TrireksaApp.Reports.Models.NotaReportModel, TrireksaApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DataSet2">
+      <Query>
+        <DataSourceName>TrireksaAppReports</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>TrireksaApp.Reports</rd:DataSetName>
+        <rd:TableName>MySetting</rd:TableName>
+        <rd:ObjectDataSourceType>TrireksaApp.Reports.MySetting, TrireksaApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

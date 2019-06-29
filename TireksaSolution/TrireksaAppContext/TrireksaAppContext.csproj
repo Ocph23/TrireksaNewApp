@@ -103,6 +103,7 @@
     <Compile Include="IncommingContext\AgentContext.cs" />
     <Compile Include="IncommingContext\InccomingDbContext.cs" />
     <Compile Include="IncommingContext\ManifestContext.cs" />
+    <Compile Include="MyConfig.cs" />
     <Compile Include="MySQLDatabase.cs" />
     <Compile Include="OcphDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

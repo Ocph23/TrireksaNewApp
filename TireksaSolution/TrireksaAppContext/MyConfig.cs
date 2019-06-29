@@ -1,73 +1,16 @@
-﻿using ModelsShared;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Configuration;
 using System.Xml;
 
-namespace TrireksaApp.Common
+namespace TrireksaAppContext
 {
-   public class AppConfiguration :BaseNotifyProperty
+    public class MyConfig
     {
-        private int _EliminateCityId;
-
-        public int EliminateCityId
-        {
-            get
-            {
-                if(_EliminateCityId<=0)
-                    _EliminateCityId =GetIntValue("EliminateCityId");
-                return _EliminateCityId;
-            }
-            set
-            {
-                 UpdateKey("EliminateCityId", value.ToString());
-                _EliminateCityId = value;
-                OnPropertyChange("EliminateCityId");
-            }
-        }
-
-
-        private int _WitoutCityId;
-
-        public int WitoutCityId
-        {
-            get
-            {
-                if(_WitoutCityId<=0)
-                     _WitoutCityId = GetIntValue("WitoutCityId");
-                return _WitoutCityId;
-            }
-            set
-            {
-               UpdateKey("WitoutCityId", value.ToString());
-                _WitoutCityId = value;
-                OnPropertyChange("WitoutCityId");
-            }
-        }
-
-
-        private string address;
-
-        public string Address
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(address))
-                    address = GetStringValue("Address");
-                return address;
-            }
-            set
-            {
-                UpdateKey("Address", value.ToString());
-                address = value;
-                OnPropertyChange("WitoutCityId");
-            }
-        }
-
-
+      
 
 
         internal string GetUserName()
@@ -85,6 +28,7 @@ namespace TrireksaApp.Common
 
 
         private Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        private static string address;
 
 
 
@@ -102,7 +46,7 @@ namespace TrireksaApp.Common
             return vResult;
         }
 
-        private string GetStringValue(string KeyName)
+        public string GetStringValue(string KeyName)
         {
             string vResult = string.Empty;
             if (this.KeyExists(KeyName))
