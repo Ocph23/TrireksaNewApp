@@ -29,11 +29,17 @@ namespace TrireksaApp.Contents.Penjualan
             MainVM.PenjualanCollection.SourceView.Filter = FilterItem;
             PrintNota= new Common.CommandHandler { CanExecuteAction = PrintNotaValidation, ExecuteAction =  PrintNotaAction };
             AllDetails = new Common.CommandHandler { CanExecuteAction = x => AllDetailValidation(), ExecuteAction = x => AllDetailAction() };
+            PrintPreviewNota = new Common.CommandHandler { CanExecuteAction = PrintNotaValidation, ExecuteAction = PrintPreviewNotaAction };
             this.SMSCommand.SendToShiper = new CommandHandler { CanExecuteAction = SendToShiperValidate, ExecuteAction = x => SentMessage() };
             this.SMSCommand.SendToReciver = new CommandHandler { CanExecuteAction=SendToReciverValidate, ExecuteAction = x => SentMessageReciver()  };
             UpdateDeliveryStatusCommand = new CommandHandler { CanExecuteAction=x=>UpdateDeliveryStatusValidation(), ExecuteAction = UpdateDeliveryStatusAction };
             MainVM.PenjualanCollection.RefreshCompleted += PenjualanCollection_RefreshCompleted;
             RefreshAction(null);
+        }
+
+        private void PrintPreviewNotaAction(object obj)
+        {
+            Helper.PrintPreviewNotaAction(SelectedItem);
         }
 
         private void PenjualanCollection_RefreshCompleted()
@@ -241,6 +247,7 @@ namespace TrireksaApp.Contents.Penjualan
         public CommandHandler ManifestPreview { get; private set; }
         public manifestoutgoing ManifestSelected { get; set; }
         public CommandHandler AllDetails { get; private set; }
+        public CommandHandler PrintPreviewNota { get; }
         public CommandHandler PrintNota { get; private set; }
         public SMSCommandHandler SMSCommand { get; private set; }
         public CommandHandler UpdateDeliveryStatusCommand { get; set; }

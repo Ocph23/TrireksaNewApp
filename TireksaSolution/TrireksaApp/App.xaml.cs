@@ -1,4 +1,5 @@
-﻿using NLog;
+﻿using FirstFloor.ModernUI.Presentation;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -6,6 +7,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+using TrireksaApp.Common;
 
 namespace TrireksaApp
 {
@@ -19,7 +22,17 @@ namespace TrireksaApp
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
+            var config = new AppConfiguration();
+            string theme = "papua";
+            if (config != null && !string.IsNullOrEmpty(config.Theme))
+            {
+                theme = config.Theme;
+            }
+            AppearanceManager.Current.ThemeSource = Helper.Themes.Where(x => x.DisplayName == theme).FirstOrDefault().Source;
+            if(!string.IsNullOrEmpty(config.ApparanceColor))
+            {
+                AppearanceManager.Current.AccentColor = (Color)ColorConverter.ConvertFromString(config.ApparanceColor);
+            }
             SetupExceptionHandling();
         }
 

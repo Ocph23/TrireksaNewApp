@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TrireksaApp.Common;
+using FirstFloor.ModernUI.Presentation;
 
 namespace TrireksaApp
 {
@@ -131,70 +132,8 @@ namespace TrireksaApp
             
         }
 
-        public static void PrintNotaAction(penjualan obj)
-        {
-            var MainVM = Common.ResourcesBase.GetMainWindowViewModel();
-            var item = obj;
-            var userP = ResourcesBase.UserIsLogin.Email.Split('@');
-            List<Reports.Models.NotaReportModel> list = new List<Reports.Models.NotaReportModel>();
-            var data = new Reports.Models.NotaReportModel
-            {
-                STT = string.Format("{0:D5}", item.STT),
-                Content = item.Content,
-                DoNumber = item.DoNumber,
-                Note = item.Note,
-                PayTypeName = item.PayType.ToString(),
-                Pcs = item.Details.Count,
-                PortTypeName = item.PortType.ToString(),
-                Price = item.Price, ChangeDate=item.ChangeDate, UserName= userP[0].ToString(),
-                Tax = item.Tax,
-                PackingCosts = item.PackingCosts,
-                Etc = item.Etc,
 
-            };
-            var weight = item.Details.Sum(O => O.Weight);
-            data.Costs = weight * item.Price;
-            data.TaxValue = (item.Tax * data.Costs) / 100;
-            if (item.TypeOfWeight == TypeOfWeight.Volume)
-                data.Volume = weight;
-            else
-                data.Weight = weight;
-
-            data.GradTotal = data.Costs + data.PackingCosts + data.Etc + data.TaxValue;
-            var shiperTlp = string.Concat("Tlp/Hp. ",item.Shiper.Phone1, "/", item.Shiper.Phone2,  "/", item.Shiper.Handphone);
-            var recieverTlp = string.Concat("Tlp/Hp. ", item.Reciver.Phone1, "/", item.Reciver.Phone2,"/", item.Reciver.Handphone);
-            data.Shiper = string.Concat(item.Shiper.Name, Environment.NewLine, item.Shiper.Address,Environment.NewLine, shiperTlp);
-            var ShiperCity = MainVM.CityCollection.Source.Where(O => O.Id == item.Shiper.CityID).FirstOrDefault();
-            data.OriginPortCode = ShiperCity.CityCode;
-            data.ShiperCity = ShiperCity.CityName;
-            var ReciverCity = MainVM.CityCollection.Source.Where(O => O.Id == item.Reciver.CityID).FirstOrDefault();
-            data.DestinationPortCode = ReciverCity.CityCode;
-            data.ReciverCity = ReciverCity.CityName;
-            data.Reciver = string.Concat(item.Reciver.Name, Environment.NewLine, item.Reciver.Address,Environment.NewLine,recieverTlp);
-            data.STTQRCode = Helper.GenerateQRCodeBitmap(item.STT.ToString(), 20);
-
-
-            list.Add(data);
-                          
-
-            HelperPrint print = new HelperPrint();
-            print.PrintNota(list, "TrireksaApp.Reports.Layouts.NotaComplete.rdlc", null);
-
-            //var content = new Reports.Contents.ReportContent(new Microsoft.Reporting.WinForms.ReportDataSource { Value = list },
-            //    "TrireksaApp.Reports.Layouts.NotaOne.rdlc", null);
-            //var dlg = new ModernWindow
-            //{
-            //    Content = content,
-            //    Title = "Nota",
-            //    Style = (Style)App.Current.Resources["BlankWindow"],
-            //    ResizeMode = System.Windows.ResizeMode.CanResizeWithGrip,
-            //    WindowState = WindowState.Maximized,
-            //};
-
-            //dlg.ShowDialog();
-        }
-
-        public static void PrintPreviewNotaAction(penjualan obj)
+        private static List<Reports.Models.NotaReportModel> CreateReportModel(penjualan obj)
         {
             var MainVM = Common.ResourcesBase.GetMainWindowViewModel();
             var item = obj;
@@ -237,13 +176,22 @@ namespace TrireksaApp
             data.ReciverCity = ReciverCity.CityName;
             data.Reciver = string.Concat(item.Reciver.Name, Environment.NewLine, item.Reciver.Address, Environment.NewLine, recieverTlp);
             data.STTQRCode = Helper.GenerateQRCodeBitmap(item.STT.ToString(), 20);
-
-
             list.Add(data);
+            return list;
+        }
 
+        public static void PrintNotaAction(penjualan obj)
+        {
+            var list = CreateReportModel(obj);        
+            HelperPrint print = new HelperPrint();
+            print.PrintNota(list, "TrireksaApp.Reports.Layouts.NotaComplete.rdlc", null);
+        }
 
-
-            var content = new Reports.Contents.ReportContent(new Microsoft.Reporting.WinForms.ReportDataSource { Value = list },
+        public static void PrintPreviewNotaAction(penjualan obj)
+        {
+            var list = CreateReportModel(obj);
+            var helperPrint = new HelperPrint();
+            var content = new Reports.Contents.ReportContent(helperPrint.CreateNotaDataSource(list),
                 "TrireksaApp.Reports.Layouts.NotaComplete.rdlc", null);
             var dlg = new ModernWindow
             {
@@ -255,6 +203,24 @@ namespace TrireksaApp
             };
 
             dlg.ShowDialog();
+        }
+
+
+        public static LinkCollection Themes
+        {
+            get
+            {
+                return new LinkCollection() {
+                    new Link { DisplayName = "dark", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.MyDark.xaml", UriKind.Relative) },
+                     new Link { DisplayName = "light", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.MyLight.xaml", UriKind.Relative) },
+                     new Link { DisplayName = "bing image", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.BingImage.xaml", UriKind.Relative) },
+                     new Link { DisplayName = "hello kitty", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.HelloKitty.xaml", UriKind.Relative) },
+                     new Link { DisplayName = "love", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.Love.xaml", UriKind.Relative) },
+                     new Link { DisplayName = "snowflakes", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.Snowflakes.xaml", UriKind.Relative) },
+                     new Link { DisplayName = "papua", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.Papua.xaml", UriKind.Relative) },
+                };
+
+            }
         }
 
     }

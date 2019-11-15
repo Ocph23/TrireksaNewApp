@@ -96,5 +96,7 @@ namespace TrireksaApp.Contents.Penjualan
             ComboBox cmb = (ComboBox)sender;
             cmb.IsDropDownOpen = true;
         }
+
+        
     }
 }

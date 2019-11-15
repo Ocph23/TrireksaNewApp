@@ -125,12 +125,25 @@ namespace TrireksaApp
 
             if (parameters != null)
                 report.SetParameters(parameters);
-            report.DataSources.Add(
-               new ReportDataSource("DataSet1", data));
-            report.DataSources.Add(
-              new ReportDataSource("DataSet2", listSetting));
+           foreach(var dsource in CreateNotaDataSource(source))
+            {
+                report.DataSources.Add(dsource);
+            }
             Export(report);
             Print();
+        }
+
+        internal List<ReportDataSource> CreateNotaDataSource<T>(List<T> source)
+        {
+            var data = ToDataTable<T>(source);
+            List<MySetting> listSetting = new List<MySetting> { new MySetting() };
+            List<ReportDataSource> list = new List<ReportDataSource>();
+            list.Add(
+               new ReportDataSource("DataSet1", data));
+            list.Add(
+              new ReportDataSource("DataSet2", listSetting));
+
+            return list;
         }
 
         public  DataTable ToDataTable<T>(List<T> data)

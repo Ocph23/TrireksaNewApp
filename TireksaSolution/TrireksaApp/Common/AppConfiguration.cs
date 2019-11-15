@@ -68,6 +68,38 @@ namespace TrireksaApp.Common
         }
 
 
+        private string theme;
+
+        public string Theme
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(theme))
+                    theme = GetStringValue("Theme");
+                return theme; }
+            set { theme = value;
+                UpdateKey("Theme", value.ToString());
+                OnPropertyChange("Theme"); }
+        }
+
+
+        private string apparanceColor;
+
+        public string ApparanceColor
+        {
+            get {
+                if (string.IsNullOrEmpty(apparanceColor))
+                    apparanceColor = GetStringValue("ApparanceColor");
+                return apparanceColor; }
+            set { 
+                
+                apparanceColor = value;
+                UpdateKey("ApparanceColor", value.ToString());
+                OnPropertyChange("ApparanceColor"); }
+        }
+
+
+
 
 
         internal string GetUserName()

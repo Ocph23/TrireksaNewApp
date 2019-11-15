@@ -11,8 +11,8 @@
             <Image Source="Assets/Trireksa.png" Stretch="Fill" Height="68" Width="150" Margin="10" HorizontalAlignment="Center" ></Image>
             <TextBlock Margin="10,0" FontSize="20" Text="LOGIN" FontWeight="Bold"></TextBlock>
             <TextBlock Margin="10,10,0,0" Name="tbmessage" Foreground="#FFFD4242" Text="{Binding Message,Mode=TwoWay}" />
-            <TextBox Name="txtuser" Text="{Binding UserName,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Margin="10" Height="43" ></TextBox>
-            <PasswordBox Margin="10" Height="43" PasswordChanged="PasswordBox_PasswordChanged"></PasswordBox>
+            <TextBox VerticalContentAlignment="Center" Name="txtuser" Text="{Binding UserName,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Margin="10" Height="43" ></TextBox>
+            <PasswordBox Margin="10" Height="43" VerticalContentAlignment="Center" PasswordChanged="PasswordBox_PasswordChanged"></PasswordBox>
             <WrapPanel HorizontalAlignment="Right" Margin="10" >
                 <Button Command="{Binding Login}" Margin="5" Height="50" Width="100">Login</Button>
                 <Button Command="{Binding Close}" Margin="5" Width="100">Close</Button>

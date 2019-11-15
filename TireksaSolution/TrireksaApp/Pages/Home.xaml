@@ -23,7 +23,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Image Margin="3" Width="165" Grid.Row="0" Height="60" VerticalAlignment="Bottom" HorizontalAlignment="Left" Source="../Assets/Trireksa.png" Stretch="Fill"></Image>
+        <Image Margin="5" Width="100" Grid.Row="0" Height="40" VerticalAlignment="Bottom" 
+               HorizontalAlignment="Left" Source="../Assets/Trireksa.png" Stretch="Fill"></Image>
 
         <Grid Style="{StaticResource ContentRoot}" Margin="5" Grid.Row="0">
             <mui:ModernTab  SelectedSource="/Contents/Main/Admin.xaml" Layout="List" Background="#FF44BBB1" >

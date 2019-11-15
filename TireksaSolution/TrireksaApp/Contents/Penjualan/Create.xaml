@@ -8,7 +8,7 @@
              xmlns:pay="clr-namespace:ModelsShared.Models"
              xmlns:mi="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:m="clr-namespace:TrireksaApp.Common"
-             mc:Ignorable="d" >
+             mc:Ignorable="d"  d:DesignHeight="700" d:DesignWidth="820" >
     <UserControl.Resources>
         <m:RadioButtonCheckConverter x:Key="RadioButtonCheckConverter"/>
         <m:VisibilityBoleanConverter x:Key="visibilityConverter"></m:VisibilityBoleanConverter>
@@ -22,13 +22,13 @@
         </Style>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="130,1,10,0"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0,1,10,0"/>
+            <Setter Property="MinHeight" Value="30"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
         <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="130,1,10,0"/>
+            <Setter Property="Margin" Value="0,1,10,0"/>
             <Setter Property="Height" Value="28"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
@@ -43,7 +43,7 @@
         <StackPanel  Grid.ColumnSpan="3">
             <StackPanel Margin="2" HorizontalAlignment="Right" Height="30" Style="{StaticResource OPanel}">
                 <StackPanel.Background>
-                    <SolidColorBrush Color="{DynamicResource AccentColor}" Opacity="0.015"/>
+                    <SolidColorBrush Color="{StaticResource AccentColor}" Opacity="0.015"/>
                 </StackPanel.Background>
                 <Label Content="STT/AWB"></Label>
                 <TextBox x:Name="keyboar" KeyDown="SearchPress" Text="{Binding STTModel.STT,StringFormat='D6',Mode=TwoWay,ValidatesOnDataErrors=True}" Height="40" Width="200" FontWeight="Bold" FontSize="16"></TextBox>
@@ -51,40 +51,60 @@
                     <mi:PackIcon Kind="FileFind"/>
                 </Button>
             </StackPanel>
-
         </StackPanel>
-        <StackPanel Grid.Row="1" >
-            <Grid Margin="1" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Margin="5" Grid.Column="0" >
-                    <GroupBox Padding="10" Header="Customer Information" BorderThickness="0.2,0.2,0.1,0.2" BorderBrush="White" Foreground="White">
-                        <StackPanel>
-                            <StackPanel Margin="1">
-                                <StackPanel.Background>
-                                    <SolidColorBrush Color="#FF898484" Opacity="0.1"/>
-                                </StackPanel.Background>
-                                <Grid>
+        <Grid  Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid Margin="5" Grid.Column="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <GroupBox Grid.Row="0" Padding="5" Header="Customer Information" BorderThickness="0.2,0.2,0.1,0.2" BorderBrush="White" Foreground="White">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="2" >
+                            <Grid.Background>
+                                <SolidColorBrush Color="#FF898484" Opacity="0.1"/>
+                            </Grid.Background>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Margin="5">
+                                <DockPanel>
                                     <Label  Content="Sender" ></Label>
-                                    <ComboBox x:Name="cmbshiper"  IsDropDownOpen="True"  Text="{Binding ShiperSearch}" ToolTip="{Binding ShiperToolTip }"
+                                    <ComboBox  x:Name="cmbshiper"  IsDropDownOpen="True"  Text="{Binding ShiperSearch}" ToolTip="{Binding ShiperToolTip }"
                                       IsEditable="True" KeyDown="AddShiper" KeyboardNavigation.TabIndex="0"
                                       IsTextSearchEnabled="False"
                                       ItemsSource="{Binding Shipers}" SelectedItem="{Binding STTModel.Shiper}" 
                                       DisplayMemberPath="Name" 
                                       SelectedValuePath="Id" SelectedValue="{Binding STTModel.ShiperID,Mode=TwoWay,
                                 ValidatesOnDataErrors=True}"  ></ComboBox>
-                                </Grid>
-                                <Grid Height="70"  >
-                                    <TextBox Height="65" AcceptsReturn="True" IsEnabled="False"  Text="{Binding STTModel.Shiper,Converter={StaticResource customerAddressConverter} }" VerticalAlignment="Top"  ></TextBox>
-                                </Grid>
+                                </DockPanel>
+                                <DockPanel Grid.Row="1" VerticalAlignment="Stretch" >
+                                    <Label/>
+                                    <TextBox  AcceptsReturn="True" IsEnabled="False" Height="auto" MinHeight="80" Text="{Binding STTModel.Shiper,Converter={StaticResource customerAddressConverter} }"
+                                           VerticalContentAlignment="Top" 
+                                        VerticalAlignment="Stretch"  />
+                                </DockPanel>
                             </StackPanel>
-                            <StackPanel Margin="1" >
-                                <StackPanel.Background>
-                                    <SolidColorBrush Color="#FF898484" Opacity="0.1"/>
-                                </StackPanel.Background>
-                                <Grid>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="2" >
+                            <Grid.Background>
+                                <SolidColorBrush Color="#FF898484" Opacity="0.1"/>
+                            </Grid.Background>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Margin="5">
+                                <DockPanel>
                                     <Label  Content="Reciver"></Label>
                                     <ComboBox Text="{Binding ReciverSearch}"  ToolTip="{Binding ReciverToolTip}"
                                       IsEditable="True" KeyDown="AddReciver" ItemsSource="{Binding Recivers}" 
@@ -92,113 +112,118 @@
                                                KeyboardNavigation.TabIndex="1"
                                       SelectedValuePath="Id" 
                                       IsTextSearchEnabled="False" 
-                                      SelectedValue="{Binding STTModel.ReciverID,Mode=TwoWay,ValidatesOnDataErrors=True}"></ComboBox>
-                                </Grid>
-                                <Grid  Height="70" >
-                                    <TextBox Height="65" AcceptsReturn="True" IsEnabled="False"  Text="{Binding STTModel.Reciver,Converter={StaticResource customerAddressConverter} }" VerticalAlignment="Top"></TextBox>
-                                </Grid>
+                                      SelectedValue="{Binding STTModel.ReciverID,Mode=TwoWay,ValidatesOnDataErrors=True}" 
+                                          ></ComboBox>
+                                </DockPanel>
+                                <DockPanel Grid.Row="1">
+                                    <Label/>
+                                    <TextBox VerticalContentAlignment="Top" MinHeight="80" AcceptsReturn="True" IsEnabled="False" Text="{Binding STTModel.Reciver,Converter={StaticResource customerAddressConverter} }"
+                                         VerticalAlignment="Stretch" 
+                                             ></TextBox>
+                                </DockPanel>
                             </StackPanel>
-                        </StackPanel>
-                    </GroupBox>
-                    <GroupBox Header="Shipment Information"  BorderThickness="0.2,0.2,0.1,0.2" 
-                             Padding="10" BorderBrush="White" Foreground="White">
-                        <StackPanel >
-                            <StackPanel.Background>
-                                <SolidColorBrush Color="#FF898484" Opacity="0.1"/>
-                            </StackPanel.Background>
-                            <Grid>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Padding="5" Grid.Row="1" Header="Shipment Information"  BorderThickness="0.2,0.2,0.1,0.2" 
+                             BorderBrush="White" Foreground="White" >
+                    <StackPanel Margin="1"   >
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="#FF898484" Opacity="0.1"/>
+                        </StackPanel.Background>
+                        <StackPanel Margin="10">
+                            <DockPanel>
                                 <Label   Content="Via"></Label>
                                 <ComboBox  KeyboardNavigation.TabIndex="2" ItemsSource="{Binding PortTypes}" SelectedItem="{Binding STTModel.PortType,Mode=TwoWay,ValidatesOnDataErrors=True}" ></ComboBox>
-                            </Grid>
-                            <Grid>
+                            </DockPanel>
+                            <DockPanel>
                                 <Label   Content="From"></Label>
-                                <ComboBox ItemsSource="{Binding Origins}" IsSynchronizedWithCurrentItem="False" SelectedValuePath="Id" DisplayMemberPath="CityName" SelectedValue="{Binding STTModel.From,Mode=TwoWay,ValidatesOnDataErrors=True}" ></ComboBox>
-                            </Grid>
-                            <Grid>
+                                <ComboBox ItemsSource="{Binding Origins}" IsSynchronizedWithCurrentItem="False" SelectedValuePath="Id" 
+                                      DisplayMemberPath="CityName" SelectedValue="{Binding STTModel.From,Mode=TwoWay,ValidatesOnDataErrors=True}" ></ComboBox>
+                            </DockPanel>
+                            <DockPanel>
                                 <Label   Content="To"></Label>
                                 <ComboBox ItemsSource="{Binding Origins}" IsSynchronizedWithCurrentItem="False" SelectedValuePath="Id" DisplayMemberPath="CityName" SelectedValue="{Binding STTModel.To,Mode=TwoWay,ValidatesOnDataErrors=True}" ></ComboBox>
-                            </Grid>
+                            </DockPanel>
 
-                            <WrapPanel>
+                            <DockPanel>
                                 <Label Content="Create Date"></Label>
-                                <DatePicker Margin="20,2,0,1" SelectedDate="{Binding STTModel.ChangeDate,Mode=TwoWay,ValidatesOnDataErrors=True}" ></DatePicker>
-                            </WrapPanel>
+                                <DatePicker Margin="0,2,10,0" SelectedDate="{Binding STTModel.ChangeDate,Mode=TwoWay,ValidatesOnDataErrors=True}" ></DatePicker>
+                            </DockPanel>
                         </StackPanel>
-                    </GroupBox>
-                   
-                    
-                </StackPanel>
-                <StackPanel Margin="5" Grid.Column="1">
-                    <GroupBox Padding="10" Header="Content Information"  BorderThickness="0.2,0.2,0.1,0.2"  BorderBrush="White" Foreground="White">
-                        <StackPanel>
-                            <StackPanel.Background>
-                                <SolidColorBrush Color="#FF898484" Opacity="0.1"/>
-                            </StackPanel.Background>
-                            <Grid>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+            <Grid Margin="5" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <GroupBox Padding="5" Header="Content Information"  BorderThickness="0.2,0.2,0.1,0.2"  BorderBrush="White" Foreground="White">
+                    <StackPanel>
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="#FF898484" Opacity="0.1"/>
+                        </StackPanel.Background>
+                        <StackPanel Margin="10">
+                            <DockPanel>
                                 <Label HorizontalAlignment="Left"   Content="Type Of Weight"></Label>
-                                <ComboBox  KeyboardNavigation.TabIndex="3"  x:Name="cmbtype" Margin="130,0,30,0" ItemsSource="{Binding TypeOfWeights}" SelectedItem="{Binding STTModel.TypeOfWeight,Mode=TwoWay,ValidatesOnDataErrors=True}">
+                                <WrapPanel>
+                                    <ComboBox Width="200" Margin="0"  KeyboardNavigation.TabIndex="3"  x:Name="cmbtype" ItemsSource="{Binding TypeOfWeights}" SelectedItem="{Binding STTModel.TypeOfWeight,Mode=TwoWay,ValidatesOnDataErrors=True}">
 
-                                </ComboBox>
-                                <Button KeyboardNavigation.TabIndex="4"  HorizontalAlignment="Right" Padding="0" Name="btnChange" Command="{Binding ChangeWeight}"  Margin="0,1,10,1">
-                                    <mi:PackIcon x:Name="changeIcon" Kind="Weight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                                </Button>
-                            </Grid>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid  Grid.Column="0">
-                                    <Label  Content="Colly"   ></Label>
-                                    <TextBox AcceptsReturn="True" IsEnabled="False" 
+                                    </ComboBox>
+                                    <Button KeyboardNavigation.TabIndex="4"  Padding="0" Name="btnChange" Command="{Binding ChangeWeight}" >
+                                        <mi:PackIcon x:Name="changeIcon" Kind="Weight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                    </Button>
+                                </WrapPanel>
+                            </DockPanel>
+                            <DockPanel>
+                                <Label  Content="Colly"   ></Label>
+                                <TextBox AcceptsReturn="True" IsEnabled="False" 
                                              Text="{Binding STTModel.Pcs}" VerticalAlignment="Top" Grid.Column="1" ></TextBox>
-                                </Grid>
-                                <Grid Grid.Column="1" >
-                                    <Label Content="Weight" HorizontalContentAlignment="Right" ></Label>
-                                    <TextBox   AcceptsReturn="True" 
+                            </DockPanel>
+                            <DockPanel Grid.Column="1" >
+                                <Label Content="Weight" ></Label>
+                                <TextBox   AcceptsReturn="True" 
                                              IsEnabled="False"
                                                Text="{Binding STTModel.Weight}"
                                              VerticalAlignment="Top"></TextBox>
-                                </Grid>
-                               </Grid>
-                            <Grid >
+                            </DockPanel>
+                            <DockPanel >
                                 <Label   Content="Content"></Label>
                                 <TextBox KeyboardNavigation.TabIndex="5"  Height="30"  VerticalContentAlignment="Top"  Text="{Binding STTModel.Content,ValidatesOnDataErrors=True}"   />
-                            </Grid>
-                            <Grid>
+                            </DockPanel>
+                            <DockPanel>
                                 <Label   Content="DO"/>
                                 <TextBox KeyboardNavigation.TabIndex="6"  Height="30" VerticalContentAlignment="Top"  Text="{Binding STTModel.DoNumber,ValidatesOnDataErrors=True}" VerticalAlignment="Stretch" />
-                            </Grid>
+                            </DockPanel>
 
-                            <Grid >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="233*"/>
-                                    <ColumnDefinition Width="71*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label VerticalAlignment="Top"  Content="Note" Margin="5,1,0,0"></Label>
-                                <TextBox KeyboardNavigation.TabIndex="7"  Height="50" ToolTip="{Binding Note}" AcceptsReturn="True" Text="{Binding STTModel.Note,ValidatesOnDataErrors=True}" Grid.ColumnSpan="2"  />
-                            </Grid>
+                            <DockPanel >
+                                <Label VerticalAlignment="Top"  Content="Note"></Label>
+                                <TextBox Height="150" KeyboardNavigation.TabIndex="7"  ToolTip="{Binding Note}" AcceptsReturn="True" Text="{Binding STTModel.Note,ValidatesOnDataErrors=True}" Grid.ColumnSpan="2"  />
+                            </DockPanel>
                         </StackPanel>
-                    </GroupBox>
+                    </StackPanel>
+                </GroupBox>
 
-                    <GroupBox Padding="10" Header="Payment"  BorderThickness="0.2,0.2,0.1,0.2"  BorderBrush="White" Foreground="White">
-                        <StackPanel>
-                            <StackPanel.Background>
-                                <SolidColorBrush Color="#FF898484" Opacity="0.1"/>
-                            </StackPanel.Background>
+                <GroupBox Grid.Row="1"  Padding="5" Header="Payment"  BorderThickness="0.2,0.2,0.1,0.2"  BorderBrush="White" Foreground="White">
+                    <StackPanel >
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="#FF898484" Opacity="0.1"/>
+                        </StackPanel.Background>
+                        <StackPanel Margin="10">
                             <StackPanel Style="{StaticResource OPanel}" Height="28">
-                                <Label  Width="118" Content="Payment Status"></Label>
+                                <Label  Width="100" Content="Pay Status"></Label>
                                 <RadioButton KeyboardNavigation.TabIndex="8"  Width="50" Content="CR" GroupName="PayType" IsChecked="{Binding STTModel.PayType,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:PayType.Credit},ValidatesOnDataErrors=True}" ></RadioButton>
                                 <RadioButton Width="50" Margin="10,0"  Content="COD" GroupName="PayType" IsChecked="{Binding STTModel.PayType,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:PayType.COD},ValidatesOnDataErrors=True}" ></RadioButton>
                                 <RadioButton   Content="CASH" GroupName="PayType" IsChecked="{Binding STTModel.PayType,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:PayType.Chash},ValidatesOnDataErrors=True}" ></RadioButton>
                             </StackPanel>
                             <StackPanel Style="{StaticResource OPanel}" Height="28">
-                                <Label  Width="118" Content="Will Pay"></Label>
+                                <Label  Width="100" Content="Will Pay"></Label>
                                 <RadioButton KeyboardNavigation.TabIndex="9"  Height="30"  Content="Shiper" GroupName="HowWillPay" IsChecked="{Binding STTModel.CustomerIsPay,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:CustomerIsPay.Shiper},ValidatesOnDataErrors=True}" Width="90" ></RadioButton>
                                 <RadioButton Height="30"     Content="Reciver" GroupName="HowWillPay" IsChecked="{Binding STTModel.CustomerIsPay,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:CustomerIsPay.Reciver},ValidatesOnDataErrors=True}" Width="90"></RadioButton>
                                 <RadioButton x:Name="otherRadio" Height="30" Content="Other" GroupName="HowWillPay" IsChecked="{Binding STTModel.CustomerIsPay,Converter={StaticResource RadioButtonCheckConverter},ConverterParameter={x:Static pay:CustomerIsPay.Other},ValidatesOnDataErrors=True}" Width="90"></RadioButton>
                             </StackPanel>
-                            <Grid Visibility="{Binding IsChecked, ElementName=otherRadio, Converter={StaticResource visibilityConverter},ConverterParameter=1}" Margin="0,2" >
+                            <DockPanel Visibility="{Binding IsChecked, ElementName=otherRadio, Converter={StaticResource visibilityConverter},ConverterParameter=1}"  >
                                 <Label  Width="118" Content="Customer"></Label>
                                 <ComboBox IsDropDownOpen="True" Text="{Binding CustomerWillPaySearch}" 
                                       KeyDown="ComboBox_KeyDown" KeyboardNavigation.TabIndex="10"
@@ -207,11 +232,11 @@
                                       SelectedValuePath="Id" 
                                       IsTextSearchEnabled="False"
                                       SelectedValue="{Binding STTModel.CustomerIdIsPay,Mode=TwoWay,ValidatesOnDataErrors=True}"></ComboBox>
-                            </Grid>
+                            </DockPanel>
 
                             <Grid>
                                 <Label  Content="Price"></Label>
-                                <TextBox KeyboardNavigation.TabIndex="11"  Margin="130,1,30,1"  Text="{Binding STTModel.Price,StringFormat='{}{0:N0}',Mode=TwoWay,ValidatesOnDataErrors=True}" ></TextBox>
+                                <TextBox KeyboardNavigation.TabIndex="11"  Margin="110,1,30,1"  Text="{Binding STTModel.Price,StringFormat='{}{0:N0}',Mode=TwoWay,ValidatesOnDataErrors=True}" ></TextBox>
                                 <Button  HorizontalAlignment="Right" Margin="2,1,10,1" Width="18" ToolTip="Sync Price" Padding="0" VerticalContentAlignment="Center"  Command="{Binding PriceUpdate}" >
                                     <Grid Height="28" >
                                         <mi:PackIcon x:Name="priceIcon" Kind="Rotate3d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
@@ -229,33 +254,33 @@
                                     </Grid>
                                 </Button>
                             </Grid>
-                            <Grid>
+                            <DockPanel>
                                 <Label Content="Packing Costs"></Label>
                                 <TextBox Text="{Binding STTModel.PackingCosts,StringFormat='{}{0:N0}',Mode=TwoWay,ValidatesOnDataErrors=True}"></TextBox>
-                            </Grid>
+                            </DockPanel>
 
-                            <Grid>
+                            <DockPanel>
                                 <Label  Content="Etc"></Label>
                                 <TextBox Text="{Binding STTModel.Etc,StringFormat='{}{0:N0}',Mode=TwoWay,ValidatesOnDataErrors=True}"></TextBox>
-                            </Grid>
-                            <Grid>
+                            </DockPanel>
+                            <DockPanel>
                                 <Label Content="Tax"></Label>
-                                <WrapPanel>
-                                    <TextBox Margin="130,1,0,1"  Text="{Binding STTModel.Tax,Mode=TwoWay,ValidatesOnDataErrors=True}" Width="30"></TextBox>
+                                <WrapPanel HorizontalAlignment="Left">
+                                    <TextBox  HorizontalAlignment="Left"  Text="{Binding STTModel.Tax,Mode=TwoWay,ValidatesOnDataErrors=True}" Width="50"></TextBox>
                                     <Label HorizontalAlignment="Left" Content="%" Width="auto"></Label>
                                 </WrapPanel>
-                            </Grid>
-                            <Grid>
+                            </DockPanel>
+                            <DockPanel>
                                 <Label FontSize="14" Content="Total"></Label>
                                 <TextBox FontSize="14" IsReadOnly="True" Text="{Binding STTModel.Total,StringFormat='{}{0:N0}',UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
-                            </Grid>
+                            </DockPanel>
                         </StackPanel>
-                    </GroupBox>
-                </StackPanel>
-
+                    </StackPanel>
+                </GroupBox>
             </Grid>
 
-        </StackPanel>
+        </Grid>
+
 
         <Border Grid.Row="2" Grid.ColumnSpan="3">
             <StackPanel Style="{StaticResource OPanel}"  HorizontalAlignment="Right"  >

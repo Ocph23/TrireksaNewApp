@@ -10,10 +10,5 @@
     <Color x:Key="AccentColor">#e51400</Color>
 
     <!-- background image taken from http://good-wallpapers.com/ -->
-    <Rectangle x:Key="WindowBackgroundContent" x:Shared="false">
-        <Rectangle.Fill>
-            <ImageBrush Opacity=".1" ImageSource="/Assets/background.love.jpg" Stretch="UniformToFill" />
-        </Rectangle.Fill>
-    </Rectangle>
 
 </ResourceDictionary>

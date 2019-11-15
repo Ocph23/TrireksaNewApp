@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using TrireksaApp.Common;
 
 namespace TrireksaApp.Pages.Settings
 {
@@ -56,31 +57,24 @@ namespace TrireksaApp.Pages.Settings
         };
 
         private Color selectedAccentColor;
-        private LinkCollection themes = new LinkCollection();
         private Link selectedTheme;
         private string selectedFontSize;
-
+        private AppConfiguration config = Common.ResourcesBase.GetMainWindowViewModel().SystemConfiguration;
         public AppearanceViewModel()
         {
             // add the default themes
-            this.themes.Add(new Link { DisplayName = "dark", Source = AppearanceManager.DarkThemeSource });
-            this.themes.Add(new Link { DisplayName = "light", Source = AppearanceManager.LightThemeSource });
-            this.themes.Add(new Link { DisplayName = "bing image", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.BingImage.xaml", UriKind.Relative) });
-            this.themes.Add(new Link { DisplayName = "hello kitty", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.HelloKitty.xaml", UriKind.Relative) });
-            this.themes.Add(new Link { DisplayName = "love", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.Love.xaml", UriKind.Relative) });
-            this.themes.Add(new Link { DisplayName = "snowflakes", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.Snowflakes.xaml", UriKind.Relative) });
-            this.themes.Add(new Link { DisplayName = "papua", Source = new Uri("/TrireksaApp;component/Assets/ModernUI.Papua.xaml", UriKind.Relative) });
-
             this.SelectedFontSize = AppearanceManager.Current.FontSize == FontSize.Large ? FontLarge : FontSmall;
             SyncThemeAndColor();
-
             AppearanceManager.Current.PropertyChanged += OnAppearanceManagerPropertyChanged;
         }
 
         private void SyncThemeAndColor()
         {
             // synchronizes the selected viewmodel theme with the actual theme used by the appearance manager.
-            this.SelectedTheme = this.themes.FirstOrDefault(l => l.Source.Equals(AppearanceManager.Current.ThemeSource));
+            
+            var theme=this.Themes.FirstOrDefault(l => l.Source.Equals(AppearanceManager.Current.ThemeSource));
+            if(theme!=null && this.SelectedTheme!=null && theme.DisplayName!=this.SelectedTheme.DisplayName)
+                this.SelectedTheme = this.Themes.FirstOrDefault(l => l.Source.Equals(AppearanceManager.Current.ThemeSource));
 
             // and make sure accent color is up-to-date
             this.SelectedAccentColor = AppearanceManager.Current.AccentColor;
@@ -96,7 +90,7 @@ namespace TrireksaApp.Pages.Settings
 
         public LinkCollection Themes
         {
-            get { return this.themes; }
+            get { return Helper.Themes; }
         }
 
         public string[] FontSizes
@@ -118,7 +112,7 @@ namespace TrireksaApp.Pages.Settings
                 {
                     this.selectedTheme = value;
                     OnPropertyChanged("SelectedTheme");
-
+                    config.Theme = value.DisplayName;
                     // and update the actual theme
                     AppearanceManager.Current.ThemeSource = value.Source;
                 }
@@ -149,7 +143,7 @@ namespace TrireksaApp.Pages.Settings
                 {
                     this.selectedAccentColor = value;
                     OnPropertyChanged("SelectedAccentColor");
-
+                    config.ApparanceColor = value.ToString();
                     AppearanceManager.Current.AccentColor = value;
                 }
             }

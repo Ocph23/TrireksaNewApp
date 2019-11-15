@@ -10,10 +10,5 @@
 
     <Color x:Key="AccentColor">#f472d0</Color>
 
-    <Rectangle x:Key="WindowBackgroundContent" x:Shared="false" Margin="32">
-        <Rectangle.Fill>
-            <ImageBrush Opacity=".1" ImageSource="/Assets/background.kitty.png" Stretch="UniformToFill" />
-        </Rectangle.Fill>
-    </Rectangle>
 
 </ResourceDictionary>

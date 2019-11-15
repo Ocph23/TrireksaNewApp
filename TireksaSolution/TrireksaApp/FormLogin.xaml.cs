@@ -1,4 +1,5 @@
-﻿using FirstFloor.ModernUI.Windows.Controls;
+﻿using FirstFloor.ModernUI.Presentation;
+using FirstFloor.ModernUI.Windows.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TrireksaApp.Common;
 
 namespace TrireksaApp
 {
@@ -26,6 +28,7 @@ namespace TrireksaApp
         public FormLogin()
         {
             InitializeComponent();
+            
             Style = (Style)App.Current.Resources["BlankWindow"];
            this.viewmodel = new FormLoginVM() { CloseWindow = Close };
             this.DataContext = viewmodel;

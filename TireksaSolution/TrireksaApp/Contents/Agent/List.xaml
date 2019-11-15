@@ -13,8 +13,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="10">
-            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="DAFTAR CUSTOMER" Style="{StaticResource Heading2}" />
-            <WrapPanel HorizontalAlignment="Right" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="117*"/>
+                <ColumnDefinition Width="163*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="DAFTAR AGENT/PERWAKILAN" Style="{StaticResource Heading2}" Grid.ColumnSpan="2" />
+            <WrapPanel HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="0,0,0,16" >
                 <TextBox Width="150" Text="{Binding Search,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <mi:PackIcon Kind="Yeast"/>
             </WrapPanel>

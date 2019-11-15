@@ -5,6 +5,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml" />
+        <ResourceDictionary Source="/TrireksaApp;component/Assets/ModernUI.Ocph.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <Rectangle x:Key="WindowBackgroundContent" x:Shared="false" >

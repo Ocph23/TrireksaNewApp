@@ -21,6 +21,8 @@ namespace TrireksaApp.Reports.Contents
     /// </summary>
     public partial class ReportContent : UserControl
     {
+        private LocalReport report;
+
         public ReportContent(ReportDataSource reportDataSource, string layout, ReportParameter[] parameters )
         {
             InitializeComponent();
@@ -34,5 +36,22 @@ namespace TrireksaApp.Reports.Contents
               reportViewer.LocalReport.SetParameters(parameters);
             reportViewer.RefreshReport();
         }
+
+        public ReportContent(List<ReportDataSource> reportDataSources, string layout, ReportParameter[] parameters)
+        {
+            InitializeComponent();
+            reportViewer.LocalReport.ReportEmbeddedResource = layout;
+            reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            reportViewer.ZoomMode = ZoomMode.Percent;
+            reportViewer.ZoomPercent = 120;
+            foreach (var item in reportDataSources)
+            {
+                reportViewer.LocalReport.DataSources.Add(item);
+            }
+            if (parameters != null)
+                reportViewer.LocalReport.SetParameters(parameters);
+            reportViewer.RefreshReport();
+        }
+
     }
 }

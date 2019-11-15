@@ -65,6 +65,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="Print Nota" Command="{Binding  PrintNota}"/>
+                    <MenuItem Header="Preview Nota" Command="{Binding  PrintPreviewNota}"/>
                     <MenuItem Header="Sort By">
                         <MenuItem.Icon>
                             <mi:PackIcon Kind="Sort"/>

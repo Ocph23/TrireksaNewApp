@@ -7,7 +7,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />
                 <ResourceDictionary Source="/TrireksaApp;component/Assets/ModernUI.Papua.xaml"/>
-                <ResourceDictionary Source="/TrireksaApp;component/Assets/ModernUI.Ocph.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
